@@ -14,6 +14,18 @@ readonly class CacheService
     ) {
     }
 
+    public function serialize(object $data, string $serializationGroup = null, array $ignoredAttributes = []): string
+    {
+        $context = [];
+        if ($serializationGroup) {
+            $context['groups'] = $serializationGroup;
+        }
+        if (!empty($ignoredAttributes)) {
+            $context['ignored_attributes'] = $ignoredAttributes;
+        }
+        return $this->serializer->serialize($data, 'json', $context);
+    }
+
     public function getCachedData(
         string $idCache,
         string $tag,

@@ -53,22 +53,11 @@ readonly class GetLatestAction
                 continue;
             }
 
-            $idCache = "getLatestAction-" . $category;
             $latestItem = $repository->findLatest();
 
             if ($latestItem) {
                 $serializationGroup = 'get' . ucfirst($category);
-                $cacheType = $category . 'Cache';
-
-                $jsonItem = $this->cacheService->getCachedData(
-                    $idCache,
-                    $cacheType,
-                    function() use ($latestItem) {
-                        return $latestItem;
-                    },
-                    $serializationGroup,
-                    [$category]
-                );
+                $jsonItem = $this->cacheService->serialize($latestItem, $serializationGroup, [$category]);
 
                 $itemArray = json_decode($jsonItem, true);
                 $itemArray['_categoryName'] = $category;
