@@ -50,6 +50,9 @@ class ReviewCrudController extends AbstractCrudController
             TextField::new('slug')
                ->onlyOnForms(),
 
+            TextEditorField::new('summary')
+                ->onlyOnForms(),
+
             TextEditorField::new('content')
                 ->onlyOnForms(),
 
