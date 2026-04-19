@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\News;
 use App\Enum\StatusEnum;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
@@ -21,6 +22,17 @@ class NewsCrudController extends AbstractCrudController
         return News::class;
     }
 
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance->getCover() === null) {
+            $originalData = $entityManager->getUnitOfWork()->getOriginalEntityData($entityInstance);
+            if (!empty($originalData['cover'])) {
+                $entityInstance->setCover($originalData['cover']);
+            }
+        }
+        parent::updateEntity($entityManager, $entityInstance);
+    }
+
     public function configureFields(string $pageName): iterable
     {
        return [
@@ -36,10 +48,9 @@ class NewsCrudController extends AbstractCrudController
            ImageField::new('cover', 'Cover Image')
                ->setUploadDir('public/uploads/images/news')
                ->setBasePath('uploads/images/news')
+               ->setUploadedFileNamePattern('[randomhash].[extension]')
                ->setRequired(false)
-               ->onlyOnForms()
-               ->setHelp('Upload a cover image for the news article. If not, leave it blank.')
-               ->formatValue(fn($value) => $value ? $value : null),
+               ->onlyOnForms(),
 
             ChoiceField::new('status', 'Status')
                 ->setFormType(EnumType::class)

@@ -80,9 +80,8 @@ class GameCrudController extends AbstractCrudController
             ImageField::new('cover', 'Cover Image')
                 ->setUploadDir('public/uploads/images/game')
                 ->setBasePath('uploads/images/game')
-                ->setUploadedFileNamePattern('{id}-[randomhash].[extension]')
                 ->setRequired(false)
-                ->setUploadedFileNamePattern('{id}-cover.[extension]')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->onlyOnForms(),
 
             ArrayField::new('language', 'Languages')

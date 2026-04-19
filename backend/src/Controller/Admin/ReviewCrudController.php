@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Review;
 use App\Enum\StatusEnum;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -21,6 +22,17 @@ class ReviewCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Review::class;
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance->getCover() === null) {
+            $originalData = $entityManager->getUnitOfWork()->getOriginalEntityData($entityInstance);
+            if (!empty($originalData['cover'])) {
+                $entityInstance->setCover($originalData['cover']);
+            }
+        }
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function configureCrud(Crud $crud): Crud
@@ -44,6 +56,7 @@ class ReviewCrudController extends AbstractCrudController
             ImageField::new('cover', 'Cover Image')
                 ->setUploadDir('public/uploads/images/review')
                 ->setBasePath('uploads/images/review')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false)
                 ->onlyOnForms(),
 

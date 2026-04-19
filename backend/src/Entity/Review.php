@@ -229,7 +229,7 @@ class Review
         return $this->cover;
     }
 
-    public function setCover(string $cover): static
+    public function setCover(?string $cover): static
     {
         $this->cover = $cover;
 
@@ -246,7 +246,7 @@ class Review
     {
         if (!$this->cover) return null;
         if (str_starts_with($this->cover, 'http')) return $this->cover;
-        return '/uploads/images/review/' . $this->getId() . '/' . $this->cover;
+        return '/uploads/images/review/' . $this->cover;
     }
 
     public function getGameRating(): ?int

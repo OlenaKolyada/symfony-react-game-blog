@@ -158,7 +158,7 @@ class News
         return $this->cover;
     }
 
-    public function setCover(string $cover): static
+    public function setCover(?string $cover): static
     {
         $this->cover = $cover;
 
@@ -170,7 +170,7 @@ class News
     {
         if (!$this->cover) return null;
         if (str_starts_with($this->cover, 'http')) return $this->cover;
-        return '/uploads/images/news/' . $this->getId() . '/' . $this->cover;
+        return '/uploads/images/news/' . $this->cover;
     }
 
     public function getStatus(): ?StatusEnum
