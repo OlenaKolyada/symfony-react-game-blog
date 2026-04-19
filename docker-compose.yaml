@@ -11,7 +11,6 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      NEXT_PUBLIC_API_URL: https://gremgaming.com/api
     networks:
       - grem
 
@@ -38,9 +37,8 @@ services:
     environment:
       APP_ENV: prod
       DATABASE_URL: "mysql://${MYSQL_USER}:${MYSQL_PASSWORD}@db:3306/grem?serverVersion=8.0"
-      BACKEND_URL: "https://gremgaming.com"
-      FRONTEND_URL: "https://gremgaming.com"
-      CORS_ALLOW_ORIGIN: "^https://www.gremgaming.com$"
+      BACKEND_URL: "http://ec2-15-236-109-182.eu-west-3.compute.amazonaws.com:8001"
+      FRONTEND_URL: "http://ec2-15-236-109-182.eu-west-3.compute.amazonaws.com"
     depends_on:
       - db
     ports:
@@ -61,40 +59,12 @@ services:
       context: .
       dockerfile: docker/frontend/Dockerfile
     container_name: frontend
-    networks:
-      - grem
-    depends_on:
-      - backend
-
-  nginx:
-    image: nginx:stable
-    container_name: nginx
-    restart: always
     ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./docker/nginx/certbot/www:/var/www/certbot
-      - ./docker/nginx/ssl:/etc/letsencrypt
-    depends_on:
-      - frontend
-      - backend
+      - "80:3001"
     networks:
       - grem
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./docker/nginx/certbot/www:/var/www/certbot
-      - ./docker/nginx/ssl:/etc/letsencrypt
-    command: >
-      certonly --webroot
-      --webroot-path=/var/www/certbot
-      -d gremgaming.com -d www.gremgaming.com
-      --agree-tos
-      --email nucleartwinter@gmail.com
-      --non-interactive
+    depends_on:
+      - backend
 
 networks:
   grem:

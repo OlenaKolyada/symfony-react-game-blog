@@ -27,7 +27,7 @@ class DashboardController extends AbstractDashboardController
     {
     }
 
-    #[Route('/api/admin', name: 'admin')]
+    #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
@@ -97,7 +97,7 @@ class DashboardController extends AbstractDashboardController
                 [
                     'title' => 'Stats',
                     'icon' => 'fa-solid fa-chart-column',
-                    'url' => $this->backendUrl . '/api/stats',
+                    'url' => $this->backendUrl . '/stats',
                 ],
             ],
         ]);
@@ -124,6 +124,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Publishers', 'fa-solid fa-robot', Publisher::class);
         yield MenuItem::linkToCrud('Platforms', 'fa-solid fa-desktop', Platform::class);
         yield MenuItem::linkToUrl('Documentation', 'fa-solid fa-file', $this->backendUrl . '/api/doc');
-        yield MenuItem::linkToUrl('Stats', 'fa-solid fa-chart-column', $this->backendUrl . '/api/stats');
+        yield MenuItem::linkToUrl('Stats', 'fa-solid fa-chart-column', $this->backendUrl . '/stats');
     }
 }
