@@ -1,20 +1,30 @@
 countries:
   - name: Afghanistan
     code: AF
+  - name: Åland Islands
+    code: AX
   - name: Albania
     code: AL
   - name: Algeria
     code: DZ
+  - name: American Samoa
+    code: AS
   - name: Andorra
     code: AD
   - name: Angola
     code: AO
+  - name: Anguilla
+    code: AI
+  - name: Antarctica
+    code: AQ
   - name: Antigua and Barbuda
     code: AG
   - name: Argentina
     code: AR
   - name: Armenia
     code: AM
+  - name: Aruba
+    code: AW
   - name: Australia
     code: AU
   - name: Austria
@@ -37,16 +47,24 @@ countries:
     code: BZ
   - name: Benin
     code: BJ
+  - name: Bermuda
+    code: BM
   - name: Bhutan
     code: BT
   - name: Bolivia
     code: BO
+  - name: Bonaire, Sint Eustatius and Saba
+    code: BQ
   - name: Bosnia and Herzegovina
     code: BA
   - name: Botswana
     code: BW
+  - name: Bouvet Island
+    code: BV
   - name: Brazil
     code: BR
+  - name: British Indian Ocean Territory
+    code: IO
   - name: Brunei
     code: BN
   - name: Bulgaria
@@ -63,6 +81,8 @@ countries:
     code: CA
   - name: Cape Verde
     code: CV
+  - name: Cayman Islands
+    code: KY
   - name: Central African Republic
     code: CF
   - name: Chad
@@ -71,18 +91,30 @@ countries:
     code: CL
   - name: China
     code: CN
+  - name: Christmas Island
+    code: CX
+  - name: Cocos (Keeling) Islands
+    code: CC
   - name: Colombia
     code: CO
   - name: Comoros
     code: KM
   - name: Congo
     code: CG
+  - name: Congo, Democratic Republic of the
+    code: CD
+  - name: Cook Islands
+    code: CK
   - name: Costa Rica
     code: CR
+  - name: Côte d'Ivoire
+    code: CI
   - name: Croatia
     code: HR
   - name: Cuba
     code: CU
+  - name: Curaçao
+    code: CW
   - name: Cyprus
     code: CY
   - name: Czech Republic
@@ -111,12 +143,22 @@ countries:
     code: SZ
   - name: Ethiopia
     code: ET
+  - name: Falkland Islands
+    code: FK
+  - name: Faroe Islands
+    code: FO
   - name: Fiji
     code: FJ
   - name: Finland
     code: FI
   - name: France
     code: FR
+  - name: French Guiana
+    code: GF
+  - name: French Polynesia
+    code: PF
+  - name: French Southern Territories
+    code: TF
   - name: Gabon
     code: GA
   - name: Gambia
@@ -127,12 +169,22 @@ countries:
     code: DE
   - name: Ghana
     code: GH
+  - name: Gibraltar
+    code: GI
   - name: Greece
     code: GR
+  - name: Greenland
+    code: GL
   - name: Grenada
     code: GD
+  - name: Guadeloupe
+    code: GP
+  - name: Guam
+    code: GU
   - name: Guatemala
     code: GT
+  - name: Guernsey
+    code: GG
   - name: Guinea
     code: GN
   - name: Guinea-Bissau
@@ -141,8 +193,12 @@ countries:
     code: GY
   - name: Haiti
     code: HT
+  - name: Heard Island and McDonald Islands
+    code: HM
   - name: Honduras
     code: HN
+  - name: Hong Kong
+    code: HK
   - name: Hungary
     code: HU
   - name: Iceland
@@ -157,6 +213,8 @@ countries:
     code: IQ
   - name: Ireland
     code: IE
+  - name: Isle of Man
+    code: IM
   - name: Israel
     code: IL
   - name: Italy
@@ -165,6 +223,8 @@ countries:
     code: JM
   - name: Japan
     code: JP
+  - name: Jersey
+    code: JE
   - name: Jordan
     code: JO
   - name: Kazakhstan
@@ -195,6 +255,8 @@ countries:
     code: LT
   - name: Luxembourg
     code: LU
+  - name: Macao
+    code: MO
   - name: Madagascar
     code: MG
   - name: Malawi
@@ -209,10 +271,14 @@ countries:
     code: MT
   - name: Marshall Islands
     code: MH
+  - name: Martinique
+    code: MQ
   - name: Mauritania
     code: MR
   - name: Mauritius
     code: MU
+  - name: Mayotte
+    code: YT
   - name: Mexico
     code: MX
   - name: Micronesia
@@ -225,6 +291,8 @@ countries:
     code: MN
   - name: Montenegro
     code: ME
+  - name: Montserrat
+    code: MS
   - name: Morocco
     code: MA
   - name: Mozambique
@@ -239,6 +307,8 @@ countries:
     code: NP
   - name: Netherlands
     code: NL
+  - name: New Caledonia
+    code: NC
   - name: New Zealand
     code: NZ
   - name: Nicaragua
@@ -247,10 +317,16 @@ countries:
     code: NE
   - name: Nigeria
     code: NG
+  - name: Niue
+    code: NU
+  - name: Norfolk Island
+    code: NF
   - name: North Korea
     code: KP
   - name: North Macedonia
     code: MK
+  - name: Northern Mariana Islands
+    code: MP
   - name: Norway
     code: NO
   - name: Oman
@@ -259,6 +335,8 @@ countries:
     code: PK
   - name: Palau
     code: PW
+  - name: Palestine
+    code: PS
   - name: Panama
     code: PA
   - name: Papua New Guinea
@@ -269,22 +347,36 @@ countries:
     code: PE
   - name: Philippines
     code: PH
+  - name: Pitcairn
+    code: PN
   - name: Poland
     code: PL
   - name: Portugal
     code: PT
+  - name: Puerto Rico
+    code: PR
   - name: Qatar
     code: QA
+  - name: Réunion
+    code: RE
   - name: Romania
     code: RO
   - name: Russia
     code: RU
   - name: Rwanda
     code: RW
+  - name: Saint Barthélemy
+    code: BL
+  - name: Saint Helena, Ascension and Tristan da Cunha
+    code: SH
   - name: Saint Kitts and Nevis
     code: KN
   - name: Saint Lucia
     code: LC
+  - name: Saint Martin
+    code: MF
+  - name: Saint Pierre and Miquelon
+    code: PM
   - name: Saint Vincent and the Grenadines
     code: VC
   - name: Samoa
@@ -305,6 +397,8 @@ countries:
     code: SL
   - name: Singapore
     code: SG
+  - name: Sint Maarten
+    code: SX
   - name: Slovakia
     code: SK
   - name: Slovenia
@@ -315,6 +409,8 @@ countries:
     code: SO
   - name: South Africa
     code: ZA
+  - name: South Georgia and the South Sandwich Islands
+    code: GS
   - name: South Korea
     code: KR
   - name: South Sudan
@@ -327,6 +423,8 @@ countries:
     code: SD
   - name: Suriname
     code: SR
+  - name: Svalbard and Jan Mayen
+    code: SJ
   - name: Sweden
     code: SE
   - name: Switzerland
@@ -345,6 +443,8 @@ countries:
     code: TL
   - name: Togo
     code: TG
+  - name: Tokelau
+    code: TK
   - name: Tonga
     code: TO
   - name: Trinidad and Tobago
@@ -355,6 +455,8 @@ countries:
     code: TR
   - name: Turkmenistan
     code: TM
+  - name: Turks and Caicos Islands
+    code: TC
   - name: Tuvalu
     code: TV
   - name: Uganda
@@ -367,6 +469,8 @@ countries:
     code: GB
   - name: United States
     code: US
+  - name: United States Minor Outlying Islands
+    code: UM
   - name: Uruguay
     code: UY
   - name: Uzbekistan
@@ -379,6 +483,14 @@ countries:
     code: VE
   - name: Vietnam
     code: VN
+  - name: Virgin Islands, British
+    code: VG
+  - name: Virgin Islands, U.S.
+    code: VI
+  - name: Wallis and Futuna
+    code: WF
+  - name: Western Sahara
+    code: EH
   - name: Yemen
     code: YE
   - name: Zambia
