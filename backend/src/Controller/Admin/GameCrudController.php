@@ -82,6 +82,9 @@ class GameCrudController extends AbstractCrudController
             TextField::new('trailer', 'Trailer')
                 ->onlyOnForms(),
 
+            TextField::new('website', 'Website URL')
+                ->onlyOnForms(),
+
             ChoiceField::new('status', 'Status')
                 ->setFormType(EnumType::class)
                 ->setFormTypeOptions(['class' => StatusEnum::class,])

@@ -148,7 +148,6 @@ class Game
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Groups([self::GROUP_GET_GAME])]
-    #[Assert\NotBlank(message: 'Website URL cannot be blank.')]
     #[Assert\Url(message: 'Website must be a valid URL.')]
     private ?string $website = null;
 
