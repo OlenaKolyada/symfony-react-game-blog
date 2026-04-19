@@ -66,6 +66,13 @@ export function CoreEntityUi({
                         </div>
 
                         <div className="flex flex-col w-3/6">
+                            {entityItem.content && (
+                                <div
+                                    className="text-gray-700 mb-4 prose max-w-none"
+                                    dangerouslySetInnerHTML={{ __html: entityItem.content }}
+                                />
+                            )}
+
                             <EntityFields
                                 entityItem={entityItem}
                                 entityFields={entityFields}
@@ -82,13 +89,6 @@ export function CoreEntityUi({
                         </div>
                     </div>
                 </div>
-
-                {entityItem.content && (
-                    <div
-                        className="ml-9 mb-9 text-gray-700 prose max-w-none"
-                        dangerouslySetInnerHTML={{ __html: entityItem.content }}
-                    />
-                )}
 
                 <div className="ml-9 mb-9">
                     <DetailedListContainer

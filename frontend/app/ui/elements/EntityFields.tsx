@@ -44,17 +44,11 @@ export function EntityFields<T extends object>({
                                                    entityItem,
                                                    entityFields,
                                                    className = "mb-2",
-                                                   contentClassName = "mb-4"
                                                }: EntityFieldsProps<T>) {
-    const content = (entityItem as Record<string, unknown>)["content"];
     const website = (entityItem as Record<string, unknown>)["website"];
 
     return (
         <>
-            {typeof content === 'string' && (
-                <p className={contentClassName}>{content}</p>
-            )}
-
             {entityFields.map(({ label, value, formatter }) => {
                 const rawValue = entityItem[value];
 
