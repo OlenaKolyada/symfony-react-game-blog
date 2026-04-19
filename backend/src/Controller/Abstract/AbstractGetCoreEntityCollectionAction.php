@@ -27,7 +27,7 @@ abstract class AbstractGetCoreEntityCollectionAction
         $pagination = $this->preparePaginationCriteria($request);
         $status = $pagination['criteria']['status'] ?? 'Published';
 
-        $sortParam = $request->query->get('sort', 'updatedAt:desc');
+        $sortParam = $request->query->get('sort', 'createdAt:desc');
         [$sortField, $sortDirection] = explode(':', $sortParam);
 
         $sortField = $sortField ?? 'updatedAt';

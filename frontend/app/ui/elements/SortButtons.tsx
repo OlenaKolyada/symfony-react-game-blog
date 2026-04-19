@@ -7,7 +7,7 @@ export function SortButtons() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    const currentSort = searchParams.get('sort') || 'updatedAt:desc';
+    const currentSort = searchParams.get('sort') || 'createdAt:desc';
 
     const handleSortChange = (sortValue: string) => {
         const params = new URLSearchParams(searchParams.toString());
@@ -20,16 +20,16 @@ export function SortButtons() {
         <div className="mb-4 flex gap-2">
             <Button
                 variant="secondary"
-                isActive={currentSort === 'updatedAt:desc'}
-                onClick={() => handleSortChange('updatedAt:desc')}
+                isActive={currentSort === 'createdAt:desc'}
+                onClick={() => handleSortChange('createdAt:desc')}
                 className="px-6"
             >
                 Newest first
             </Button>
             <Button
                 variant="secondary"
-                isActive={currentSort === 'updatedAt:asc'}
-                onClick={() => handleSortChange('updatedAt:asc')}
+                isActive={currentSort === 'createdAt:asc'}
+                onClick={() => handleSortChange('createdAt:asc')}
                 className="px-6"
             >
                 Oldest first

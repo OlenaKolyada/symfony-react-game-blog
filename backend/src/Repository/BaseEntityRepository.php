@@ -12,7 +12,8 @@ abstract class BaseEntityRepository extends ServiceEntityRepository
         return $this->createQueryBuilder($alias)
             ->andWhere("$alias.status = :status")
             ->setParameter('status', 'Published')
-            ->orderBy("$alias.updatedAt", 'DESC')
+            ->orderBy("$alias.createdAt", 'DESC')
+            ->addOrderBy("$alias.id", 'DESC')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
