@@ -24,7 +24,7 @@ export function CoreCollectionContainer({
                                         }: CoreCollectionPageProps) {
     const { status, page, limit, getBaseQueryParams } = useListParams(defaultStatus);
     const searchParams = useSearchParams();
-    const sort = searchParams?.get('sort') || 'updatedAt:desc';
+    const sort = searchParams?.get('sort') || 'createdAt:desc';
 
     const { data, pagination, loading, error } = useCoreCollection<Entity>(
         categoryName,
