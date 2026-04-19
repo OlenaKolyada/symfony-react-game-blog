@@ -35,7 +35,7 @@ export function HomePage() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-teal-700 hover:text-teal-900 font-semibold"
                 >
-                    View on GitHub →
+                    GitHub
                 </a>
             </section>
 
