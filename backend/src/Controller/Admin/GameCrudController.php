@@ -6,6 +6,7 @@ use App\Entity\Game;
 use App\Enum\AgeRatingEnum;
 use App\Enum\PlatformRequirementsLevelEnum;
 use App\Enum\StatusEnum;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -23,6 +24,17 @@ class GameCrudController extends AbstractCrudController
     public static function getEntityFqcn(): string
     {
         return Game::class;
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if ($entityInstance->getCover() === null) {
+            $originalData = $entityManager->getUnitOfWork()->getOriginalEntityData($entityInstance);
+            if (!empty($originalData['cover'])) {
+                $entityInstance->setCover($originalData['cover']);
+            }
+        }
+        parent::updateEntity($entityManager, $entityInstance);
     }
 
     public function configureCrud(Crud $crud): Crud
