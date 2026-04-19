@@ -6,7 +6,7 @@ const sideMenuUiStyles = {
     link: 'hidden md:flex h-[48px] max-w-[192px] grow items-center justify-start gap-2 ' +
         'rounded-md p-3 text-sm font-medium md:flex-none md:justify-start md:p-2 md:px-3',
     activeLink: '',
-    text: 'md:block pl-3',
+    text: 'md:block',
 };
 
 export function SideMenuUi() {

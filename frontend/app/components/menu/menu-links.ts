@@ -32,14 +32,14 @@ export const profileLinks: Link[] = [
 ];
 
 export const topMenuStyles = {
-    link: 'flex h-[48px] grow items-center justify-center gap-2 text-xl font-medium text-white-50 hover:text-blue-400 mr-9',
-    activeLink: 'text-blue-600 text-sky-300',
+    link: 'flex h-[48px] grow items-center justify-center gap-2 text-xl font-medium text-white-50 hover:text-teal-400 mr-9',
+    activeLink: 'text-teal-400',
     icon: 'w-6',
     text: 'block',
 };
 
 export const sideMenuStyles = {
     link: 'w-full hidden md:flex md:h-[48px] md:flex-none md:justify-start md:p-2 md:px-3',
-    activeLink: 'bg-gray-400 text-gray-900',
+    activeLink: 'bg-teal-500 text-white',
     text: 'md:block',
 };

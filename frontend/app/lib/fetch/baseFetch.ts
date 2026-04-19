@@ -1,15 +1,21 @@
 // app/lib/fetch/baseFetch.ts
 import { API_URL, API_CONFIG } from "@/app/lib/config";
 
+const getApiBase = () =>
+    typeof window === 'undefined'
+        ? (process.env.API_URL_INTERNAL || API_URL)
+        : API_URL;
+
 export async function baseFetch<T>(
     endpoint: string,
     queryParams?: Record<string, string>
 ): Promise<T> {
-    if (!API_URL) {
+    const base = getApiBase();
+    if (!base) {
         throw new Error("API_URL is not defined");
     }
 
-    let url = `${API_URL}/api/${endpoint}`;
+    let url = `${base}/api/${endpoint}`;
     if (queryParams && Object.keys(queryParams).length > 0) {
         const searchParams = new URLSearchParams(queryParams);
         url += `?${searchParams.toString()}`;

@@ -27,14 +27,14 @@ export function Button({
         primary: `${color.BG_MEDIUM_BLUE} text-white ${color.BG_MEDIUM_BLUE_HOVER} `
             + `disabled:${color.BG_MEDIUM_BLUE} focus-visible:outline-blue-600 `
             + `${color.BG_LIGHT_BLUE_ACTIVE}`,
-        secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300 disabled:bg-gray-200 "
-            + "focus-visible:outline-gray-600 active:bg-gray-400"
+        secondary: "bg-slate-200 text-slate-800 text-sm font-medium hover:bg-teal-600 hover:text-white disabled:bg-slate-200 "
+            + "focus-visible:outline-teal-600 active:bg-slate-400"
     };
 
     // Стили для активного состояния
     const activeStyles = {
-        primary: "bg-blue-700",
-        secondary: "bg-gray-300 text-gray-900"
+        primary: "bg-teal-600",
+        secondary: "bg-teal-500 text-white hover:bg-teal-400"
     };
 
     return (

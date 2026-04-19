@@ -53,7 +53,7 @@ export function NavLinksUi({ styles }: NavLinksUiProps) {
                             variant="secondary"
                             isActive={isActive()}
                             className={clsx(
-                                "w-40",
+                                "w-40 justify-center",
                                 isActive() && styles.activeLink
                             )}
                         >

@@ -33,7 +33,7 @@ export function ReadMore({
                                     id,
                                     slug,
                                     categoryName,
-                                    className = "text-blue-500 hover:text-blue-700"
+                                    className = "text-teal-400 hover:text-teal-300"
                                 }: ReadMoreProps) {
     if (id === undefined) return null;
 

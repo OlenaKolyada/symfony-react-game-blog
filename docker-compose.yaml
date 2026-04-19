@@ -59,6 +59,8 @@ services:
       context: .
       dockerfile: docker/frontend/Dockerfile
     container_name: frontend
+    environment:
+      API_URL_INTERNAL: "http://backend"
     ports:
       - "80:3001"
     networks:

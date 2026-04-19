@@ -4,7 +4,6 @@ import type { Metadata } from 'next';
 import { generateItemMetadata } from '@/app/lib/utils';
 import { fetchEntityBySlug } from "@/app/lib/fetch";
 import { Entity } from "@/app/lib/types";
-import { API_URL} from "@/app/lib/config";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -13,7 +12,7 @@ export async function generateMetadata(props: {
 
   const entity = await fetchEntityBySlug<Entity>("news", slug);
   if (!entity) {
-    return { title: "First Fuck Next1.js" };
+    return { title: "Not Found" };
   }
 
   return generateItemMetadata({
@@ -27,19 +26,18 @@ export default async function Page(props: {
 }) {
   const { slug } = await props.params;
 
-  const response = await fetch(`${API_URL}/api/news/resolve/${slug}`);
+  const entity = await fetchEntityBySlug<Entity>("news", slug);
 
-  if (!response) {
+  if (!entity) {
     notFound();
     return null;
   }
-  
+
   return (
-        <CoreEntityContainer
-            categoryName={"news"}
-            relatedMetaCategories={['tag']}
-            relatedCoreCategories={['game']}
-        />
-      // </div>
+    <CoreEntityContainer
+      categoryName={"news"}
+      relatedMetaCategories={['tag']}
+      relatedCoreCategories={['game']}
+    />
   );
 }

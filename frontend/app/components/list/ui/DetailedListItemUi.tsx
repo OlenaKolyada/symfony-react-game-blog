@@ -12,7 +12,7 @@ export function DetailedListItemUi({
                                    }: ListItemProps) {
     return (
         <div
-            className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+            className="bg-white border border-gray-200 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
         >
             <div className="flex mb-1">
                 <em.EntityCategory category={entityItem._categoryName || categoryName} />

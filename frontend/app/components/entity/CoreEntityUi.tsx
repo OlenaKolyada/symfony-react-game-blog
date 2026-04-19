@@ -39,7 +39,7 @@ export function CoreEntityUi({
 
     return (
         <main className="p-9 w-11/12">
-            <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+            <div className="bg-white border border-gray-200 p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
                 <div className="mx-9 flex flex-col md:flex-1">
                     <div className="flex mb-1">
                         <em.EntityCategory category={categoryName}/>

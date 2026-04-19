@@ -6,7 +6,7 @@ import { API_URL } from "@/app/lib/config";
 
 export function GremLogo() {
     return (
-        <div className={`flex flex-row items-center leading-none text-white`}>
+        <div className="w-44 flex justify-center items-center">
             <Link href='/'>
                 <Image
                     src={`${API_URL}/uploads/images/assets/logo.png`}

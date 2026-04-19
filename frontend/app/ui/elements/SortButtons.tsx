@@ -1,6 +1,7 @@
 'use client';
 
 import { useRouter, useSearchParams } from 'next/navigation';
+import { Button } from '@/app/ui/elements';
 
 export function SortButtons() {
     const router = useRouter();
@@ -17,22 +18,22 @@ export function SortButtons() {
 
     return (
         <div className="mb-4 flex gap-2">
-            <button
-                className={`px-3 py-1 border rounded ${
-                    currentSort === 'updatedAt:desc' ? 'bg-gray-200' : ''
-                }`}
+            <Button
+                variant="secondary"
+                isActive={currentSort === 'updatedAt:desc'}
                 onClick={() => handleSortChange('updatedAt:desc')}
+                className="px-6"
             >
                 Newest first
-            </button>
-            <button
-                className={`px-3 py-1 border rounded ${
-                    currentSort === 'updatedAt:asc' ? 'bg-gray-200' : ''
-                }`}
+            </Button>
+            <Button
+                variant="secondary"
+                isActive={currentSort === 'updatedAt:asc'}
                 onClick={() => handleSortChange('updatedAt:asc')}
+                className="px-6"
             >
                 Oldest first
-            </button>
+            </Button>
         </div>
     );
 }

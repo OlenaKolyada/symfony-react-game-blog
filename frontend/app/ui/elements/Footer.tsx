@@ -1,19 +1,12 @@
 // app/ui/elements/Footer.tsx
-import Image from 'next/image';
-import { API_URL } from "@/app/lib/config/config";
 
 export function Footer() {
+    const year = new Date().getFullYear();
     return (
-        <div className="md:ml-0 bg-gray-100 rounded-lg mt-auto py-3">
-            <div className="flex flex-col items-center mt-3">
-                <Image
-                    src={`${API_URL}/uploads/images/assets/funkycorgi.png`}
-                    alt="Funky Corgi"
-                    width={50}
-                    height={50}
-                />
-                <p className="text-xl mt-1 text-stone-800 md:text-xs md:leading-normal">
-                    &copy; 2024-2025 Funky Corgi
+        <div className="md:ml-0 bg-slate-900 border-t border-slate-700 mt-auto py-4">
+            <div className="flex flex-col items-center">
+                <p className="text-sm text-zinc-400">
+                    &copy; {year} Grem
                 </p>
             </div>
         </div>
