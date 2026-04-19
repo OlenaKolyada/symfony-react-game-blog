@@ -37,7 +37,6 @@ export interface EntityFieldsProps<T extends object> {
     entityItem: T;
     entityFields: EntityField<T>[];
     className?: string;
-    contentClassName?: string;
 }
 
 export function EntityFields<T extends object>({
