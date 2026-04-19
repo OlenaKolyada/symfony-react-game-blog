@@ -35,3 +35,8 @@ services:
         arguments:
             $backendUrl: '%env(resolve:BACKEND_URL)%'
             $frontendUrl: '%env(resolve:FRONTEND_URL)%'
+
+    App\Controller\Stats\StatsController:
+        arguments:
+            $backendUrl: '%env(resolve:BACKEND_URL)%'
+            $frontendUrl: '%env(resolve:FRONTEND_URL)%'

@@ -14,7 +14,11 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StatsController extends AbstractController
 {
-    public function __construct(private readonly EntityManagerInterface $em) {}
+    public function __construct(
+        private readonly EntityManagerInterface $em,
+        private readonly string $backendUrl,
+        private readonly string $frontendUrl,
+    ) {}
 
     #[Route('/stats', name: 'app_stats')]
     public function index(): Response
@@ -27,6 +31,10 @@ class StatsController extends AbstractController
             'comments' => $this->em->getRepository(Comment::class)->count([]),
         ];
 
-        return $this->render('stats/stats.html.twig', ['stats' => $stats]);
+        return $this->render('stats/stats.html.twig', [
+            'stats' => $stats,
+            'backend_url' => $this->backendUrl,
+            'frontend_url' => $this->frontendUrl,
+        ]);
     }
 }
