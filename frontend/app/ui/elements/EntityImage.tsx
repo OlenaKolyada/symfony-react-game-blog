@@ -23,7 +23,7 @@ export function EntityImage({
                                 imageType = 'cover'
                             }: EntityImageProps) {
     const imageUrl = coverUrl
-        ? `${API_URL}/${coverUrl}`
+        ? (coverUrl.startsWith('http') ? coverUrl : `${API_URL}/${coverUrl}`)
         : `${API_URL}//uploads/images/${categoryName}/${id}/${imageType}.jpg`;
 
     return (

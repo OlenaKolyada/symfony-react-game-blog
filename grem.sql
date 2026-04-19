@@ -1,1295 +1,632 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+mysqldump: [Warning] Using a password on the command line interface can be insecure.
+Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don't want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events. 
+Warning: A dump from a server that has GTIDs enabled will by default include the GTIDs of all transactions, even those that were executed during its extraction and might not be represented in the dumped data. This might result in an inconsistent data dump. 
+In order to ensure a consistent backup of the database, pass --single-transaction or --lock-all-tables or --source-data. 
+mysqldump: Error: 'Access denied; you need (at least one of) the PROCESS privilege(s) for this operation' when trying to dump tablespaces
+-- MySQL dump 10.13  Distrib 9.6.0, for Linux (x86_64)
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Apr 01, 2025 at 01:12 PM
--- Server version: 9.1.0
--- PHP Version: 8.3.14
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
+-- Host: localhost    Database: grem
+-- ------------------------------------------------------
+-- Server version	9.6.0
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
 
 --
--- Database: `grem`
+-- GTID state at the beginning of the backup 
 --
 
--- --------------------------------------------------------
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '4bcfc033-3be3-11f1-bae6-26358cf2d1a6:1-149';
 
 --
 -- Table structure for table `comment`
 --
 
 DROP TABLE IF EXISTS `comment`;
-CREATE TABLE IF NOT EXISTS `comment` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `comment` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
   `review_id` int NOT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_9474526CF675F31B` (`author_id`),
-  KEY `IDX_9474526C3E2E969B` (`review_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_9474526C3E2E969B` (`review_id`),
+  CONSTRAINT `FK_9474526C3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_9474526CF675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`id`, `author_id`, `review_id`, `content`, `status`, `created_at`, `updated_at`) VALUES
-(1, 1, 6, 'Vitae sit voluptatum facere quibusdam in.', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(2, 1, 14, 'Et placeat velit ex ex voluptatem ex.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(3, 1, 4, 'Totam aut doloremque autem aut non impedit.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(4, 2, 9, 'Sequi repellendus rerum incidunt ut.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(5, 2, 17, 'Laudantium harum magni quisquam.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(6, 2, 16, 'Est hic ut voluptas ut ut culpa minima.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(7, 3, 9, 'Esse aut officia vel consequatur nulla.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(8, 3, 7, 'Veniam natus ducimus iste nihil aliquid voluptas.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(9, 3, 1, 'Natus consequatur soluta illo distinctio aut.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(10, 3, 11, 'Inventore magni accusantium ut aut.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(11, 3, 25, 'Optio consequatur nihil nesciunt sequi voluptas.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(12, 4, 27, 'Qui cum eum dignissimos.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(13, 4, 5, 'Non numquam in quo nulla dolorum eum.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(14, 4, 6, 'Ut aliquam qui culpa qui sunt.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(15, 4, 20, 'Voluptas fuga asperiores consequuntur sed.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(16, 4, 1, 'Culpa ipsum facilis qui libero.', 'Edited', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(17, 4, 6, 'Pariatur ea temporibus itaque non est.', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(18, 5, 5, 'Facere fuga aliquid temporibus iusto.', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(19, 5, 26, 'Ea quo ad assumenda itaque earum eaque.', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(20, 5, 2, 'Magnam veritatis quo velit libero et sed.', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(21, 5, 16, 'Quidem aliquid in nam est ratione aut quia.', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15');
-
--- --------------------------------------------------------
+LOCK TABLES `comment` WRITE;
+/*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` VALUES (1,2,1,'The 2.0 overhaul changed the game completely. Build variety is genuinely impressive now and Night City finally feels reactive.','Published','2025-02-04 12:00:00','2025-02-04 12:00:00'),(2,3,1,'Agree on the story. The ending I got surprised me — did not expect them to take it in that direction. Worth a second run.','Published','2025-02-04 14:00:00','2025-02-04 14:00:00'),(3,4,2,'The underground map alone is worth the price of entry. Stumbled into it completely by accident and spent three hours there.','Published','2025-02-08 10:00:00','2025-02-08 10:00:00'),(4,5,2,'The DLC final boss is one of the hardest things I have ever encountered in a game. Took me four days. Do not regret a minute of it.','Published','2025-02-08 15:00:00','2025-02-08 15:00:00'),(5,2,3,'The Bloody Baron questline genuinely has no equivalent in the medium. Every choice feels real and the consequences follow through properly.','Published','2025-02-13 11:00:00','2025-02-13 11:00:00'),(6,4,3,'Blood and Wine is better than most full games. The ending of that expansion stayed with me longer than the main story did.','Published','2025-02-13 16:00:00','2025-02-13 16:00:00'),(7,3,4,'Chapter six is devastating. The writing in that section does things that prestige television rarely manages.','Published','2025-02-18 09:00:00','2025-02-18 09:00:00'),(8,5,4,'The strangers system is what I keep coming back to. Found a complete story arc across three separate encounters in different parts of the map.','Published','2025-02-18 17:00:00','2025-02-18 17:00:00'),(9,2,5,'The Atreus sections added more than I expected. His perspective on the events makes the overall story land differently.','Published','2025-02-23 10:00:00','2025-02-23 10:00:00'),(10,4,5,'The final realm set pieces are the most technically impressive things I have seen in a game this generation. Santa Monica knows what they are doing.','Published','2025-02-23 18:00:00','2025-02-23 18:00:00'),(11,2,6,'Two hundred hours and I am still encountering dialogue I have not seen. The volume of written content in this game is genuinely staggering.','Published','2025-02-28 11:00:00','2025-02-28 11:00:00'),(12,3,6,'Co-op is a completely different game. Four people making conflicting choices produces situations the designers clearly did not script. It is brilliant.','Published','2025-02-28 19:00:00','2025-02-28 19:00:00'),(13,4,7,'The boss design in this game is exceptional throughout. Each one introduces a mechanic it expects you to master before it escalates.','Published','2025-03-04 10:00:00','2025-03-04 10:00:00'),(14,5,7,'Three developers built this entire world. The scale of the achievement relative to the team size is almost impossible to explain to someone who has not played it.','Published','2025-03-04 16:00:00','2025-03-04 16:00:00'),(15,2,8,'The point where the full narrative picture assembled itself was one of the most affecting moments I have had in a game in years.','Published','2025-03-09 11:00:00','2025-03-09 11:00:00'),(16,3,8,'Every rogue-like I play now gets measured against this. Most of them fail the comparison.','Published','2025-03-09 20:00:00','2025-03-09 20:00:00'),(17,4,9,'Some of the boss arenas in chapter three are the most visually inventive I have encountered. The source material clearly gave the designers a lot to work with.','Published','2025-03-14 12:00:00','2025-03-14 12:00:00'),(18,5,9,'A remarkable first project at this scale. Whatever they build next will be very interesting to watch.','Published','2025-03-14 18:00:00','2025-03-14 18:00:00'),(19,2,10,'The final sequence tests everything the game taught you over sixty hours and does it fairly. That is harder to design than it sounds.','Published','2025-03-19 10:00:00','2025-03-19 10:00:00'),(20,3,10,'The moment the parry rhythm clicked was the most satisfying mechanical revelation I have experienced in any action game.','Published','2025-03-19 17:00:00','2025-03-19 17:00:00');
+/*!40000 ALTER TABLE `comment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `developer`
 --
 
 DROP TABLE IF EXISTS `developer`;
-CREATE TABLE IF NOT EXISTS `developer` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `developer` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `developer`
 --
 
-INSERT INTO `developer` (`id`, `title`, `slug`, `country`, `website`, `created_at`, `updated_at`) VALUES
-(1, 'Austen Carter', 'austen-carter', 'France', 'http://www.williamson.com/laboriosam-cupiditate-nihil-enim-et-iste.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(2, 'Lavada Davis', 'lavada-davis', 'China', 'https://www.mante.info/totam-eveniet-nihil-error-vel-autem-rem-voluptate', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(3, 'Aliza Kreiger', 'aliza-kreiger', 'Greece', 'http://www.nikolaus.com/a-nobis-sit-repudiandae.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(4, 'Colleen Nienow', 'colleen-nienow', 'Norway', 'http://www.beier.com/ad-esse-mollitia-molestias-qui', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(5, 'Kira Emmerich', 'kira-emmerich', 'Iceland', 'http://okon.net/dignissimos-et-tenetur-quod', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(6, 'Amir Cole', 'amir-cole', 'Spain', 'http://www.homenick.com/animi-facilis-laboriosam-et-amet-possimus', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(7, 'Annabell Kshlerin', 'annabell-kshlerin', 'Argentina', 'https://www.adams.com/beatae-aut-debitis-qui-labore-debitis-aliquid-id', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(8, 'Ronny Kilback', 'ronny-kilback', 'Switzerland', 'http://www.kuhlman.biz/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(9, 'Zachary O\'Hara', 'zachary-o-hara', 'Switzerland', 'https://schumm.com/ipsum-eveniet-et-eum-eius.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(10, 'Zaria Waelchi', 'zaria-waelchi', 'France', 'http://nienow.com/maiores-voluptas-molestias-aut-harum', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(11, 'Susie Schmitt', 'susie-schmitt', 'Cuba', 'http://greenfelder.com/quod-blanditiis-ipsa-rerum-nihil-neque-dolorem-et-aut.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(12, 'Willard Rau', 'willard-rau', 'Austria', 'http://www.schroeder.com/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(13, 'Ervin Hettinger', 'ervin-hettinger', 'Ukraine', 'http://satterfield.biz/sit-nulla-vel-ea-id-explicabo', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(14, 'Mateo Raynor', 'mateo-raynor', 'Switzerland', 'http://okeefe.com/aut-illo-sapiente-consectetur-rem-et.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(15, 'Hilton Hagenes', 'hilton-hagenes', 'Iceland', 'http://www.ebert.com/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(16, 'Bernard Schowalter', 'bernard-schowalter', 'China', 'http://stamm.com/et-laborum-et-est-qui-autem-impedit-omnis.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(17, 'Andre Borer', 'andre-borer', 'Japan', 'https://www.rice.com/saepe-accusantium-ut-voluptatem', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(18, 'Mckayla Thiel', 'mckayla-thiel', 'Croatia', 'http://gerhold.com/aliquid-qui-incidunt-incidunt-possimus-suscipit-perspiciatis', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(19, 'Alford Koss', 'alford-koss', 'Russia', 'http://www.hayes.com/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(20, 'Oswaldo Dickens', 'oswaldo-dickens', 'Andorra', 'http://www.denesik.biz/molestiae-nihil-eligendi-reprehenderit-omnis-ut.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(21, 'Fidel Nitzsche', 'fidel-nitzsche', 'Monaco', 'https://www.rodriguez.com/rerum-id-voluptate-aut-voluptatem-neque-eveniet', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(22, 'Jeffery Murphy', 'jeffery-murphy', 'Andorra', 'https://www.schultz.com/debitis-aut-necessitatibus-non-quasi', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(23, 'Mabel Wisozk', 'mabel-wisozk', 'Czech Republic', 'http://www.hackett.com/repudiandae-vero-quia-voluptatem', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(24, 'Elna Yost', 'elna-yost', 'Andorra', 'https://www.davis.info/facilis-itaque-ut-temporibus-in', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(25, 'Magnus Stanton', 'magnus-stanton', 'Hungary', 'http://rutherford.com/consequatur-ut-nobis-a-minus-saepe', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(26, 'Jared Crist', 'jared-crist', 'Belgium', 'https://berge.com/excepturi-perferendis-reiciendis-qui-molestiae-non.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(27, 'Kennedi Daugherty', 'kennedi-daugherty', 'Poland', 'http://prohaska.com/earum-quidem-quidem-consectetur-impedit-excepturi-eius', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(28, 'Coy Green', 'coy-green', 'Moldova', 'http://reichel.com/quia-quibusdam-ipsa-explicabo-ut-facilis', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(29, 'Ofelia Lebsack', 'ofelia-lebsack', 'Switzerland', 'http://www.weber.com/ea-vel-tempora-earum-temporibus-occaecati.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(30, 'Rachel Jacobson', 'rachel-jacobson', 'Monaco', 'https://www.goldner.com/quisquam-sequi-aut-consequuntur-impedit-ab', '2025-04-01 13:11:13', '2025-04-01 13:11:13');
-
--- --------------------------------------------------------
+LOCK TABLES `developer` WRITE;
+/*!40000 ALTER TABLE `developer` DISABLE KEYS */;
+INSERT INTO `developer` VALUES (1,'CD Projekt Red','cd-projekt-red','Poland','https://cdprojektred.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(2,'FromSoftware','fromsoftware','Japan','https://www.fromsoftware.jp','2025-01-01 00:00:00','2025-01-01 00:00:00'),(3,'Rockstar Games','rockstar-games','USA','https://www.rockstargames.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(4,'Santa Monica Studio','santa-monica-studio','USA','https://sms.playstation.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(5,'Larian Studios','larian-studios','Belgium','https://larian.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(6,'Naughty Dog','naughty-dog','USA','https://www.naughtydog.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(7,'Team Cherry','team-cherry','Australia','https://www.teamcherry.com.au','2025-01-01 00:00:00','2025-01-01 00:00:00'),(8,'Supergiant Games','supergiant-games','USA','https://www.supergiantgames.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(9,'Game Science','game-science','China','https://www.heishouyouxi.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(10,'Insomniac Games','insomniac-games','USA','https://insomniac.games','2025-01-01 00:00:00','2025-01-01 00:00:00');
+/*!40000 ALTER TABLE `developer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `doctrine_migration_versions`
 --
 
 DROP TABLE IF EXISTS `doctrine_migration_versions`;
-CREATE TABLE IF NOT EXISTS `doctrine_migration_versions` (
-  `version` varchar(191) COLLATE utf8mb3_unicode_ci NOT NULL,
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
   `executed_at` datetime DEFAULT NULL,
   `execution_time` int DEFAULT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `doctrine_migration_versions`
 --
 
-INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_time`) VALUES
-('DoctrineMigrations\\Version20250401131023', '2025-04-01 13:10:59', 795);
-
--- --------------------------------------------------------
+LOCK TABLES `doctrine_migration_versions` WRITE;
+/*!40000 ALTER TABLE `doctrine_migration_versions` DISABLE KEYS */;
+INSERT INTO `doctrine_migration_versions` VALUES ('DoctrineMigrations\\Version20250401131023','2025-04-01 13:10:59',795);
+/*!40000 ALTER TABLE `doctrine_migration_versions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game`
 --
 
 DROP TABLE IF EXISTS `game`;
-CREATE TABLE IF NOT EXISTS `game` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `release_date_world` date DEFAULT NULL,
   `release_date_france` date DEFAULT NULL,
-  `platform_requirements_level` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `age_rating` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `platform_requirements_level` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `age_rating` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `language` json DEFAULT NULL,
   `screenshot` json DEFAULT NULL,
-  `trailer` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `trailer` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game`
 --
 
-INSERT INTO `game` (`id`, `title`, `status`, `slug`, `content`, `summary`, `release_date_world`, `release_date_france`, `platform_requirements_level`, `age_rating`, `cover`, `language`, `screenshot`, `trailer`, `website`, `created_at`, `updated_at`) VALUES
-(1, 'Quo Laborum', 'Published', 'quo-laborum', 'Nisi enim enim quo magnam sit. Architecto accusantium possimus non porro aut voluptas. Magni deserunt reiciendis perferendis ut.\n\nEst et quis non et. Aliquam itaque beatae nam voluptates et aperiam. Ipsam fuga porro laboriosam quia ut est et.\n\nMaiores magnam architecto aliquid quas vero nam fugiat. Quo ad explicabo eveniet consequatur ut necessitatibus.', 'Nisi enim enim quo magnam sit. Architecto accusantium possimus non porro aut voluptas. Magni deserunt reiciendis perferendis ut.\n\nEst et quis non et. ...', '2025-03-28', '2019-08-20', 'Low', '18+', 'cover.jpg', '[\"en\"]', NULL, NULL, 'http://www.medhurst.com/sit-ipsam-aliquam-commodi-voluptates-mollitia-in', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(2, 'Impedit Commodi', 'Published', 'impedit-commodi', 'Et perferendis maiores doloremque rerum reiciendis hic. Qui corporis quis quas aliquam voluptas est neque ratione. Id assumenda asperiores omnis labore quisquam voluptatem esse.\n\nOfficiis et eligendi vel quidem. Consequatur mollitia qui ut omnis. Itaque magnam ut unde ut doloremque explicabo consequuntur.\n\nVel omnis veritatis quis similique earum quidem. Vel beatae ab et enim quisquam suscipit voluptatem. Ut blanditiis labore ea vel.', 'Et perferendis maiores doloremque rerum reiciendis hic. Qui corporis quis quas aliquam voluptas est neque ratione. Id assumenda asperiores omnis labor...', '2016-10-21', '2017-07-10', 'Low', '18+', 'cover.jpg', '[\"ru\", \"en\"]', NULL, NULL, 'http://damore.org/ipsam-animi-cupiditate-nemo-eius', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(3, 'Quo Minima', 'Published', 'quo-minima', 'Ut ipsum odit consequatur et qui earum. Et quisquam autem eos voluptatum cumque. Voluptatibus blanditiis ullam officiis quidem.\n\nIllo sit facilis ut placeat magni quisquam rerum. Eum nobis quibusdam eius quos quia ratione ipsa nostrum. Praesentium itaque quia asperiores qui illum. Sunt alias voluptas hic ut et deleniti. Est et sed quis sunt.\n\nRerum quia reiciendis facere laboriosam cum qui. Rem dolor consequatur repellendus veniam atque ex. Consectetur et tempore numquam totam eum blanditiis numquam. Laboriosam illum dolor rerum velit officiis.', 'Ut ipsum odit consequatur et qui earum. Et quisquam autem eos voluptatum cumque. Voluptatibus blanditiis ullam officiis quidem.\n\nIllo sit facilis ut p...', '2016-08-28', '2015-05-30', 'Low', '16+', 'cover.jpg', '[\"ru\", \"en\"]', NULL, NULL, 'http://koepp.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(4, 'Quisquam Nemo', 'Published', 'quisquam-nemo', 'At aut rerum voluptatem. Maxime recusandae voluptates aliquid beatae ex. Atque sit beatae dolorem aperiam accusamus reiciendis cupiditate. At eum maxime sit aliquid recusandae eligendi.\n\nEst sit et enim sit. Necessitatibus error facere inventore officia et ut qui.\n\nQuo est earum quisquam est. Sed occaecati voluptas recusandae et iusto. Magni ut autem sit laudantium facilis reiciendis sint. Quis inventore eveniet animi qui.', 'At aut rerum voluptatem. Maxime recusandae voluptates aliquid beatae ex. Atque sit beatae dolorem aperiam accusamus reiciendis cupiditate. At eum maxi...', '2016-01-04', '2019-08-13', 'Medium', '18+', 'cover.jpg', '[\"ru\"]', NULL, NULL, 'https://www.kuvalis.com/in-laudantium-eveniet-quaerat-nesciunt-pariatur-dolorum-repudiandae', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(5, 'Molestiae Tenetur', 'Published', 'molestiae-tenetur', 'Sint velit earum nam omnis quidem. Sed voluptatem est ratione minima. Sapiente voluptatum quibusdam in magnam eum perspiciatis sit cumque. Qui commodi blanditiis quaerat voluptatem earum.\n\nVelit minima cum harum quia blanditiis perferendis. In ut dolore id consectetur et quis hic. Suscipit voluptas ut eveniet.\n\nEt et maiores et omnis. Asperiores laboriosam non modi ratione. Qui molestiae aliquid ipsa et laboriosam aut cumque amet.', 'Sint velit earum nam omnis quidem. Sed voluptatem est ratione minima. Sapiente voluptatum quibusdam in magnam eum perspiciatis sit cumque. Qui commodi...', '2017-06-07', '2022-11-12', 'High', '3+', 'cover.jpg', '[\"en\", \"fr\", \"ru\"]', NULL, NULL, 'http://herman.com/dicta-hic-cupiditate-quae-qui-iusto', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(6, 'Voluptatem Porro', 'Published', 'voluptatem-porro', 'Dolorem ab amet reprehenderit id. Cumque nesciunt aut voluptatem voluptas expedita enim enim voluptates. Quod et temporibus molestias rerum veritatis dolorem assumenda in. Eum enim voluptas ea facere delectus repudiandae sunt.\n\nItaque laboriosam et laudantium ea dolores provident cum. Accusantium numquam inventore eos illum saepe qui nobis. Eveniet ut eos vero et. Expedita magni aut voluptates itaque consequuntur. Explicabo reprehenderit ipsa ea distinctio voluptates.\n\nSit aliquam nostrum animi hic ut qui. Qui sint necessitatibus rem. Dolorem unde error et perspiciatis tempore doloribus sunt. Itaque tempore non est repellat.', 'Dolorem ab amet reprehenderit id. Cumque nesciunt aut voluptatem voluptas expedita enim enim voluptates. Quod et temporibus molestias rerum veritatis ...', '2015-07-09', '2022-11-05', 'Low', '3+', 'cover.jpg', '[\"ru\", \"en\"]', NULL, NULL, 'https://www.feeney.com/eaque-itaque-eos-qui-voluptates-totam', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(7, 'Beatae Suscipit', 'Published', 'beatae-suscipit', 'Consectetur ullam quas facere delectus numquam aliquid delectus quod. Blanditiis neque tenetur ullam blanditiis. Eum magni illum maiores ut nobis. Excepturi aut labore porro voluptates ea ab laborum.\n\nQuam at error quaerat voluptas non. Ad numquam est dolore. Et repellat dignissimos tempora et.\n\nEst aspernatur et nostrum omnis consectetur quia non. Et quam aut corporis provident maxime est. Sit harum ut aut est eaque quae.', 'Consectetur ullam quas facere delectus numquam aliquid delectus quod. Blanditiis neque tenetur ullam blanditiis. Eum magni illum maiores ut nobis. Exc...', '2023-03-14', '2017-11-12', 'Medium', '16+', 'cover.jpg', '[\"ru\", \"fr\", \"en\"]', NULL, NULL, 'http://www.halvorson.com/porro-odio-consequatur-maiores-distinctio-non-eaque-assumenda', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(8, 'Est Dolore', 'Published', 'est-dolore', 'Optio nihil culpa nemo enim deserunt ea. Quaerat veritatis quaerat veritatis quae illum earum. Fugiat et quidem inventore nesciunt deserunt quia. Nostrum at mollitia id ipsam eaque reiciendis ut repudiandae.\n\nEa et aut accusamus rerum enim eos. Non vitae velit harum sequi. Ab omnis veritatis fuga provident sit ducimus.\n\nEa maiores sit cupiditate non exercitationem necessitatibus. Vero pariatur sit hic dolorum sunt ducimus. Similique ratione in ut soluta numquam qui et. Ut nostrum cumque fuga necessitatibus cupiditate.', 'Optio nihil culpa nemo enim deserunt ea. Quaerat veritatis quaerat veritatis quae illum earum. Fugiat et quidem inventore nesciunt deserunt quia. Nost...', '2020-11-19', '2023-10-31', 'Medium', '7+', 'cover.jpg', '[\"ru\"]', NULL, NULL, 'http://www.parisian.com/ipsum-molestias-qui-deserunt-doloremque-nulla-sapiente-et', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(9, 'Non Qui', 'Published', 'non-qui', 'Eos ut delectus id sed. Aperiam est rerum non dolorem. Velit voluptatibus et rerum reprehenderit.\n\nVoluptate ipsum et eveniet aut et voluptate praesentium. Nobis consequatur nulla voluptatum sed doloremque vitae.\n\nHic neque nesciunt dolor maxime. Odit maxime est consequatur voluptas perferendis corporis modi. Eos et est temporibus accusamus totam provident. Earum enim magni quam natus ipsam architecto.', 'Eos ut delectus id sed. Aperiam est rerum non dolorem. Velit voluptatibus et rerum reprehenderit.\n\nVoluptate ipsum et eveniet aut et voluptate praesen...', '2023-12-19', '2018-03-05', 'Medium', '16+', 'cover.jpg', '[\"en\", \"ru\"]', NULL, NULL, 'http://www.durgan.info/eveniet-aut-quidem-doloribus-ipsa-pariatur-autem', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(10, 'Ratione Excepturi', 'Published', 'ratione-excepturi', 'Fugit explicabo enim amet dolorum dolorem non qui. Dolor et sequi praesentium perferendis iusto. Ab sunt quibusdam voluptatem repudiandae. Totam nemo et magni ut autem.\n\nAnimi in error quae hic et labore quas. Et et ipsam enim animi exercitationem. Id alias explicabo labore eum quod eius suscipit et. Quo facilis minus qui.\n\nConsectetur veniam velit et. Aliquam omnis eveniet corporis. Officiis voluptatem labore eos voluptatibus et praesentium non. Nobis reprehenderit at doloribus placeat est veniam harum.', 'Fugit explicabo enim amet dolorum dolorem non qui. Dolor et sequi praesentium perferendis iusto. Ab sunt quibusdam voluptatem repudiandae. Totam nemo ...', '2020-05-20', '2015-09-05', 'Medium', '3+', 'cover.jpg', '[\"ru\"]', NULL, NULL, 'http://kuhlman.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(11, 'Saepe Quod', 'Published', 'saepe-quod', 'Perspiciatis ut quis ut sequi. Sed ut voluptates perferendis rerum. Amet suscipit molestias vitae iure quos accusamus.\n\nAut ratione qui aliquid quis saepe vero accusantium. Dignissimos quis voluptatem eveniet ut. Eligendi consequatur quaerat id dolores earum quia rerum. Placeat nam occaecati facilis voluptatem illo libero.\n\nVoluptatum cupiditate molestiae illum dolorum explicabo at et quia. Quia exercitationem consequatur consectetur expedita debitis repellat placeat.', 'Perspiciatis ut quis ut sequi. Sed ut voluptates perferendis rerum. Amet suscipit molestias vitae iure quos accusamus.\n\nAut ratione qui aliquid quis s...', '2017-06-13', '2015-09-25', 'Low', '3+', 'cover.jpg', '[\"fr\", \"en\"]', NULL, NULL, 'http://www.powlowski.org/facilis-nisi-necessitatibus-est-aut-sed', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(12, 'Rerum Aperiam', 'Published', 'rerum-aperiam', 'Quae et possimus dolor est occaecati porro. Libero iure impedit ad modi ut provident mollitia. Tenetur corrupti itaque rerum laudantium maxime impedit ut.\n\nVoluptas ad eum dolores est culpa. Ipsa cumque nam et dolores ut ut et est. Corrupti officiis laborum alias quia itaque. Sunt dolorum quo voluptas sequi id modi.\n\nQuasi consequatur et minima ab. Aut magni iste ullam. Dicta in ipsam ut quae. Consequatur voluptatem deserunt repudiandae accusantium. Nihil animi vel quo optio ut pariatur.', 'Quae et possimus dolor est occaecati porro. Libero iure impedit ad modi ut provident mollitia. Tenetur corrupti itaque rerum laudantium maxime impedit...', '2019-01-19', '2024-01-21', 'High', '16+', 'cover.jpg', '[\"ru\"]', NULL, NULL, 'http://www.marquardt.biz/dolor-est-quae-dolore-ut.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(13, 'Ipsam Ut', 'Published', 'ipsam-ut', 'Culpa illum sed id quia quia facere. Velit aut et unde distinctio nesciunt rerum. Ut fugiat qui consequuntur repellat corporis.\n\nVeniam impedit sunt placeat veniam esse sit aliquam. Praesentium dolor adipisci et sed expedita sint qui.\n\nRecusandae ut nostrum omnis aspernatur asperiores quaerat cupiditate. Libero debitis laborum velit recusandae et deserunt. Ut perferendis iste molestiae sit non reprehenderit.', 'Culpa illum sed id quia quia facere. Velit aut et unde distinctio nesciunt rerum. Ut fugiat qui consequuntur repellat corporis.\n\nVeniam impedit sunt p...', '2023-10-02', '2019-08-08', 'Medium', '16+', 'cover.jpg', '[\"fr\", \"en\", \"ru\"]', NULL, NULL, 'http://www.runolfsdottir.biz/molestiae-ut-quam-ipsam-iusto-optio-repellendus-qui', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(14, 'Necessitatibus Maiores', 'Published', 'necessitatibus-maiores', 'Soluta fugiat praesentium hic voluptatem beatae. Dolore praesentium fugiat minima. Labore quis pariatur quod inventore et amet consequatur. Debitis beatae est aliquid harum voluptas in. Id tempora placeat laudantium sed nihil ipsa.\n\nDoloremque quia dolore maxime quia optio tempora ipsam. Id ab eius molestiae recusandae quas. Incidunt et quibusdam maxime.\n\nLaudantium natus modi minima natus qui. Facere et saepe exercitationem voluptas quia est.', 'Soluta fugiat praesentium hic voluptatem beatae. Dolore praesentium fugiat minima. Labore quis pariatur quod inventore et amet consequatur. Debitis be...', '2025-03-10', '2015-12-16', 'Low', '12+', 'cover.jpg', '[\"en\"]', NULL, NULL, 'http://ward.org/nam-est-quo-similique-facilis-quia-dolorem.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(15, 'Voluptatem Qui', 'Published', 'voluptatem-qui', 'Itaque reiciendis sit at ad. Debitis veritatis facere ipsam necessitatibus illum. Et placeat consectetur ut voluptatem dolore.\n\nNumquam iure molestias voluptatem velit nulla deserunt. Quia tempore sequi molestiae molestiae quis. Quo exercitationem temporibus voluptatem aut maiores optio doloremque.\n\nQuaerat reprehenderit deleniti enim sed. Ducimus repudiandae in ipsum accusamus. Quidem et repellendus qui sint soluta doloremque voluptas aut.', 'Itaque reiciendis sit at ad. Debitis veritatis facere ipsam necessitatibus illum. Et placeat consectetur ut voluptatem dolore.\n\nNumquam iure molestias...', '2022-08-13', '2025-02-17', 'Medium', '12+', 'cover.jpg', '[\"en\", \"ru\", \"fr\"]', NULL, NULL, 'http://abbott.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(16, 'Ea Amet', 'Published', 'ea-amet', 'Quia veritatis architecto voluptas vel odit ut. Repudiandae similique voluptatum consequatur sapiente voluptatem nesciunt accusamus. Delectus reiciendis et facilis velit. Qui ea id veniam minus. Et fugit cupiditate quia rerum numquam omnis.\n\nCulpa consequatur repellendus et aut amet. Id odit cumque sapiente architecto vitae nobis. Qui harum voluptatem temporibus provident vel. Animi quisquam quasi a alias odio est. In sint vitae tenetur blanditiis.\n\nInventore in ut laboriosam rerum quis. Aspernatur consequatur impedit voluptas nostrum. Ea voluptatem adipisci commodi vel. Ullam aliquam repellat sed impedit voluptatem.', 'Quia veritatis architecto voluptas vel odit ut. Repudiandae similique voluptatum consequatur sapiente voluptatem nesciunt accusamus. Delectus reiciend...', '2019-05-10', '2023-12-18', 'Medium', '18+', 'cover.jpg', '[\"fr\", \"ru\"]', NULL, NULL, 'http://turner.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(17, 'Pariatur Totam', 'Published', 'pariatur-totam', 'Consequatur ea consectetur a non eum sint sit ullam. Voluptatem hic temporibus dolorem dolor qui magni. Ipsum et odio sed enim odit error sint rerum.\n\nDeserunt placeat sint voluptates adipisci quos quis. Qui libero at porro ut suscipit quo et. Est facilis et fuga illo facere sit consequatur. Expedita praesentium cumque necessitatibus et eveniet a nihil. Error esse eveniet et.\n\nSit laborum vel distinctio perferendis deserunt. Est autem beatae explicabo temporibus. Placeat mollitia qui minima cumque. Temporibus rem suscipit provident nulla illo quia adipisci modi.', 'Consequatur ea consectetur a non eum sint sit ullam. Voluptatem hic temporibus dolorem dolor qui magni. Ipsum et odio sed enim odit error sint rerum.\n...', '2021-07-20', '2023-10-31', 'Low', '7+', 'cover.jpg', '[\"fr\", \"ru\", \"en\"]', NULL, NULL, 'http://koch.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(18, 'Dicta Voluptatum', 'Published', 'dicta-voluptatum', 'Eius excepturi aut accusamus consequatur quia. Quasi eos est est repellendus. Asperiores porro est harum harum. Eius vitae laborum nam quod temporibus rerum.\n\nLaborum dolorum quia quia non est aperiam saepe qui. Et aliquid repudiandae provident aut.\n\nDolor vitae quia ex eveniet facilis quidem illo. Qui et explicabo dolorum molestias placeat ut. Cupiditate omnis qui sit ut quos aut.', 'Eius excepturi aut accusamus consequatur quia. Quasi eos est est repellendus. Asperiores porro est harum harum. Eius vitae laborum nam quod temporibus...', '2018-01-12', '2019-03-08', 'Low', '12+', 'cover.jpg', '[\"ru\", \"fr\"]', NULL, NULL, 'https://hackett.com/asperiores-architecto-aperiam-esse-fugit-rerum.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(19, 'Quisquam Nulla', 'Published', 'quisquam-nulla', 'Sed distinctio repellat dignissimos ad architecto quis. Eum quae est placeat adipisci doloremque labore quia. Numquam aut est enim magni et.\n\nTemporibus modi non animi est et expedita. Itaque eos est molestiae. Ut iusto et soluta et.\n\nDolorem ea aut et quas aut ad velit. Nostrum qui eaque quaerat debitis ea autem. Qui laudantium nulla consequatur dolorum sapiente id voluptas.', 'Sed distinctio repellat dignissimos ad architecto quis. Eum quae est placeat adipisci doloremque labore quia. Numquam aut est enim magni et.\n\nTemporib...', '2020-06-04', '2022-12-07', 'Low', '16+', 'cover.jpg', '[\"fr\"]', NULL, NULL, 'http://goodwin.com/dolorum-et-accusamus-dolor-rerum-amet-qui', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(20, 'Reiciendis Officia', 'Published', 'reiciendis-officia', 'Adipisci nulla quo suscipit ab vel. Error harum beatae deserunt vitae earum qui. Et illum qui itaque vitae. Optio excepturi est aut consequatur labore laborum accusamus repellendus.\n\nNumquam adipisci quas commodi quas rerum officia. Minus praesentium ut laudantium assumenda. Voluptatibus sed natus iste eaque deserunt non.\n\nQuis numquam molestiae repudiandae tempora voluptates omnis inventore. Dignissimos cupiditate unde porro odit facilis exercitationem quia. Alias et itaque est architecto unde et qui fuga.', 'Adipisci nulla quo suscipit ab vel. Error harum beatae deserunt vitae earum qui. Et illum qui itaque vitae. Optio excepturi est aut consequatur labore...', '2021-05-14', '2023-03-16', 'High', '3+', 'cover.jpg', '[\"ru\", \"en\"]', NULL, NULL, 'http://www.krajcik.com/', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(21, 'Dolorem Fugit', 'Published', 'dolorem-fugit', 'In aut id dolor quidem at. Nulla corporis suscipit ullam enim quo doloribus aliquam. Assumenda earum saepe ut aliquid. Suscipit quia libero minus eveniet.\n\nRecusandae iste debitis quo occaecati et aperiam. Quam dicta repudiandae velit omnis consequuntur quidem aut. Consequatur rem et ut atque blanditiis. Non debitis eos et molestiae officia numquam maiores.\n\nIncidunt recusandae aut nostrum odio culpa. Non molestiae voluptatem delectus et aut autem. Facilis sapiente delectus dolor assumenda. Sapiente voluptatem et incidunt voluptatum.', 'In aut id dolor quidem at. Nulla corporis suscipit ullam enim quo doloribus aliquam. Assumenda earum saepe ut aliquid. Suscipit quia libero minus even...', '2016-11-09', '2020-08-03', 'Medium', '18+', 'cover.jpg', '[\"en\", \"ru\", \"fr\"]', NULL, NULL, 'http://www.lemke.com/ad-iusto-cupiditate-blanditiis-sint-maxime', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(22, 'Omnis Temporibus', 'Published', 'omnis-temporibus', 'Repellendus sint qui velit optio quos sit provident voluptate. Repellendus rerum sit non dolor minus et est. Voluptatem autem recusandae sunt pariatur voluptatum quos.\n\nRepellat dolorem id dolor. Accusantium distinctio qui nulla vitae minima. Dolorem perferendis nemo voluptatibus voluptatem vero nihil. Et corporis pariatur fugit labore accusantium.\n\nFuga itaque commodi itaque beatae modi vero. Sapiente harum nihil maiores voluptate at. Ad sapiente adipisci at.', 'Repellendus sint qui velit optio quos sit provident voluptate. Repellendus rerum sit non dolor minus et est. Voluptatem autem recusandae sunt pariatur...', '2021-07-29', '2018-05-13', 'High', '18+', 'cover.jpg', '[\"ru\", \"fr\", \"en\"]', NULL, NULL, 'http://stamm.com/voluptas-omnis-aperiam-architecto-tempora-voluptates', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(23, 'Earum Et', 'Deleted', 'earum-et', 'Ab explicabo aperiam dicta in omnis possimus recusandae. Corrupti et perferendis iusto architecto et sed aut ut. Saepe vel asperiores quae.\n\nDoloremque ut vel quia aut deserunt voluptates. Natus iste est error. Tempora facilis animi consequatur magnam voluptates.\n\nQui temporibus explicabo nulla autem iusto magnam et. Aut sequi doloribus inventore consequatur fuga eius et. Qui voluptates dolore provident dolor. Aut nam illo necessitatibus fugiat.', 'Ab explicabo aperiam dicta in omnis possimus recusandae. Corrupti et perferendis iusto architecto et sed aut ut. Saepe vel asperiores quae.\n\nDoloremqu...', '2020-09-27', '2016-11-06', 'Low', '16+', 'cover.jpg', '[\"en\", \"fr\", \"ru\"]', NULL, NULL, 'https://cassin.com/non-cupiditate-eum-quis-non-accusamus.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(24, 'Quo Labore', 'Draft', 'quo-labore', 'Aut beatae neque reprehenderit aut facere eveniet quia. Illo quaerat ipsa voluptatum quisquam quia. Molestiae possimus voluptatibus itaque consequatur aut quia officia. Ea sapiente quia eveniet officia maxime voluptatum autem.\n\nSit illo occaecati magni vel eius asperiores. Sapiente molestiae commodi veniam voluptatem molestias eaque. Ut quia eum animi sit voluptatem. Suscipit aperiam illo dolor aut.\n\nDistinctio voluptates sequi voluptatem quia. Ratione nostrum est voluptas omnis. A dolore quod non temporibus consequuntur. Consectetur deleniti culpa et ut architecto eveniet.', 'Aut beatae neque reprehenderit aut facere eveniet quia. Illo quaerat ipsa voluptatum quisquam quia. Molestiae possimus voluptatibus itaque consequatur...', '2021-12-04', '2022-12-05', 'Low', '3+', 'cover.jpg', '[\"ru\", \"en\", \"fr\"]', NULL, NULL, 'https://gutkowski.com/accusamus-necessitatibus-at-rerum-quidem-saepe-tenetur-minima.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(25, 'Nemo Nisi', 'Archived', 'nemo-nisi', 'In exercitationem reprehenderit voluptatum repudiandae rerum. Hic magnam praesentium quis qui dignissimos eos. Corrupti excepturi est tenetur deleniti. Deserunt quis aliquid eveniet eveniet doloremque reprehenderit. Debitis tempora qui autem quod.\n\nNesciunt esse porro aliquid vitae saepe. Veniam non in optio veniam nesciunt corrupti. Sed dolorem ipsum sunt totam deleniti facere.\n\nQuas deleniti cupiditate et natus voluptas debitis. Nihil dicta consequatur sed nihil et sunt nihil. Eum ut modi facilis.', 'In exercitationem reprehenderit voluptatum repudiandae rerum. Hic magnam praesentium quis qui dignissimos eos. Corrupti excepturi est tenetur deleniti...', '2018-06-01', '2024-08-05', 'High', '18+', 'cover.jpg', '[\"ru\", \"en\"]', NULL, NULL, 'https://www.hahn.net/laboriosam-dolores-necessitatibus-distinctio-et', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(26, 'Est Tempora', 'Deleted', 'est-tempora', 'Ut blanditiis labore et deserunt. Cum doloremque vero quaerat numquam. Nulla esse nemo natus doloribus ratione placeat sit. Ut natus veniam nemo suscipit aliquid labore ut. Harum labore consectetur voluptatem.\n\nDoloremque perferendis et est. Est dolore enim molestias dolores voluptatem illo tenetur voluptas. Beatae maiores et et saepe illo ipsam similique.\n\nAdipisci tenetur dolores sunt voluptate. Quis qui non dolor voluptates. Voluptate ab ab hic ut velit.', 'Ut blanditiis labore et deserunt. Cum doloremque vero quaerat numquam. Nulla esse nemo natus doloribus ratione placeat sit. Ut natus veniam nemo susci...', '2019-11-16', '2017-03-29', 'Low', '18+', 'cover.jpg', '[\"en\"]', NULL, NULL, 'http://www.pouros.com/aliquid-unde-laudantium-sapiente', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(27, 'Dolor Sunt', 'Draft', 'dolor-sunt', 'Quia illum iure qui qui suscipit. Explicabo quo facilis animi quisquam aut commodi. Assumenda voluptas molestiae porro dolor magni beatae sequi.\n\nSaepe in minima nobis vitae qui ab. Tenetur tempore omnis ea similique aut fuga pariatur. Perferendis modi assumenda voluptatem quis temporibus aliquid quo. Pariatur quam occaecati velit consectetur dolor voluptatem.\n\nDolorem eligendi voluptatem numquam animi. Est sed corrupti consectetur voluptatem qui quam. Voluptas quidem necessitatibus eligendi quia est.', 'Quia illum iure qui qui suscipit. Explicabo quo facilis animi quisquam aut commodi. Assumenda voluptas molestiae porro dolor magni beatae sequi.\n\nSaep...', '2024-11-29', '2020-08-12', 'High', '3+', 'cover.jpg', '[\"en\"]', NULL, NULL, 'http://jast.com/veniam-ut-enim-sit-ea-rem-et-quia', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(28, 'Alias Voluptatem', 'Archived', 'alias-voluptatem', 'Qui dolor autem vitae aut dolor. Qui et non impedit nam nam.\n\nEsse aperiam repellendus dolores maiores distinctio accusamus iusto. Soluta iusto est corporis vitae quibusdam et. Molestiae sit quasi pariatur quia sit nostrum. Earum aliquam a a cumque nam hic omnis.\n\nExcepturi et molestiae dolorem qui aperiam non voluptas. Est vel eveniet architecto praesentium. Est eveniet repellat ducimus.', 'Qui dolor autem vitae aut dolor. Qui et non impedit nam nam.\n\nEsse aperiam repellendus dolores maiores distinctio accusamus iusto. Soluta iusto est co...', '2023-04-12', '2022-07-09', 'Medium', '12+', 'cover.jpg', '[\"fr\", \"en\", \"ru\"]', NULL, NULL, 'http://ward.com/libero-quos-necessitatibus-sed-sit-repellat', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(29, 'Assumenda Saepe', 'Draft', 'assumenda-saepe', 'Asperiores dolor quis et alias ut. Voluptatem omnis doloremque et ad. Voluptatibus reprehenderit nostrum ipsum accusamus perferendis nihil molestiae.\n\nMolestiae et velit aut esse quia neque. Id reprehenderit maxime voluptas quod. Eveniet asperiores aut in aut voluptas quis. Hic quis exercitationem tempora error.\n\nAliquam ut consectetur officiis. Voluptas laboriosam et distinctio quo quas commodi sed.', 'Asperiores dolor quis et alias ut. Voluptatem omnis doloremque et ad. Voluptatibus reprehenderit nostrum ipsum accusamus perferendis nihil molestiae.\n...', '2018-09-28', '2015-09-12', 'Low', '7+', 'cover.jpg', '[\"en\"]', NULL, NULL, 'http://www.zieme.com/nesciunt-sit-dignissimos-sapiente-cum', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(30, 'Soluta Laudantium', 'Archived', 'soluta-laudantium', 'Aut sint qui omnis saepe nemo dolores. Sapiente dolorum et molestiae magni. Sint est eveniet veritatis ea.\n\nPlaceat consequatur nisi perspiciatis ipsam quis sit neque qui. Inventore nihil voluptatem ut pariatur illo ipsum rem. Nostrum doloribus dolorem ea voluptatibus voluptas assumenda. Suscipit molestiae at eum animi voluptate tenetur architecto.\n\nFuga rerum fugiat quod provident dignissimos consectetur voluptatem. Tempore a maxime voluptates sunt ullam ipsum omnis. Qui sit rerum labore est illo quod.', 'Aut sint qui omnis saepe nemo dolores. Sapiente dolorum et molestiae magni. Sint est eveniet veritatis ea.\n\nPlaceat consequatur nisi perspiciatis ipsa...', '2024-05-26', '2024-10-23', 'Low', '16+', 'cover.jpg', '[\"fr\", \"ru\"]', NULL, NULL, 'http://ward.com/quia-facilis-ducimus-in-maxime-vero-ut-odit.html', '2025-04-01 13:11:15', '2025-04-01 13:11:15');
-
--- --------------------------------------------------------
+LOCK TABLES `game` WRITE;
+/*!40000 ALTER TABLE `game` DISABLE KEYS */;
+INSERT INTO `game` VALUES (1,'Cyberpunk 2077','Published','cyberpunk-2077','Cyberpunk 2077 is an open-world action RPG set in Night City, a megalopolis obsessed with power, glamour, and body modification. You play as V, a mercenary outlaw chasing a one-of-a-kind implant that is the key to immortality. The choices you make shape the story and the world around you.\n\nAfter a rough launch in 2020, CD Projekt Red spent years rebuilding the game. The 2.0 update and Phantom Liberty expansion in 2023 overhauled the police system, skill trees, and vehicle combat, adding a compelling spy-thriller storyline set in the new district of Dogtown.\n\nWith over 25 million copies sold, Cyberpunk 2077 is now considered one of the best RPGs of its generation — a redemption story as compelling as the game itself.','An open-world RPG set in the dystopian Night City. Play as V, a mercenary fighting for survival and immortality in a world of megacorporations and high technology.','2020-12-10','2020-12-10','High','18+','https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg','[\"en\", \"fr\", \"de\", \"ru\", \"pl\"]',NULL,'https://www.youtube.com/watch?v=8X2kIfS6fb8','https://www.cyberpunk.net','2025-01-10 12:00:00','2025-01-10 12:00:00'),(2,'Elden Ring','Published','elden-ring','Elden Ring is an action RPG developed by FromSoftware in collaboration with fantasy author George R.R. Martin, who provided the world\'s lore and mythos. Set in the Lands Between, players take on the role of a Tarnished, an outcast summoned back to restore the shattered Elden Ring and become the Elden Lord.\n\nThe game expands on FromSoftware\'s signature challenging combat with a fully open world, mounted exploration on a spectral steed, and a vast underground map to discover. Its interconnected legacy dungeons are some of the most intricately designed environments in gaming history.\n\nElden Ring won Game of the Year at The Game Awards 2022 and sold over 20 million copies, cementing FromSoftware\'s place as one of the most influential studios in the industry.','An open-world action RPG by FromSoftware and George R.R. Martin. Explore the Lands Between, conquer fearsome bosses, and claim the shattered Elden Ring.','2022-02-25','2022-02-25','Medium','16+','https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg','[\"en\", \"fr\", \"de\", \"ja\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=E3Huy2cdih0','https://en.bandainamcoent.eu/elden-ring','2025-01-12 12:00:00','2025-01-12 12:00:00'),(3,'The Witcher 3: Wild Hunt','Published','the-witcher-3','The Witcher 3: Wild Hunt is an open-world RPG following Geralt of Rivia, a monster hunter for hire, as he searches for his missing adopted daughter across a war-ravaged fantasy world. The game\'s main questline is interwoven with two massive expansions — Hearts of Stone and Blood and Wine — that together add over 50 hours of content.\n\nThe world of The Witcher 3 is alive with detail: every village has its own troubles, every contract tells a story, and the choices players make have meaningful consequences. The game redefined storytelling standards for open-world RPGs.\n\nWith over 50 million copies sold across all platforms, The Witcher 3 remains a benchmark of the genre more than a decade after release. The next-gen update in 2022 brought ray tracing, faster loading, and hundreds of visual improvements.','Follow Geralt of Rivia across a vast open world teeming with monsters, politics, and moral choices. The gold standard of open-world RPG storytelling.','2015-05-19','2015-05-19','Medium','18+','https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg','[\"en\", \"fr\", \"de\", \"pl\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=c0i88t0Kacs','https://www.thewitcher.com','2025-01-14 12:00:00','2025-01-14 12:00:00'),(4,'Red Dead Redemption 2','Published','red-dead-redemption-2','Red Dead Redemption 2 is an epic open-world western developed by Rockstar Games. Set in 1899, it tells the story of Arthur Morgan, an outlaw in the Van der Linde gang, navigating the decline of the American frontier as federal agents and rival gangs close in from all sides.\n\nThe game features one of the most detailed open worlds ever created, with dynamic weather, realistic animal behavior, and a living ecosystem. Every character interaction, from bar fights to chance encounters in the wilderness, feels grounded and authentic.\n\nRed Dead Redemption 2 won numerous Game of the Year awards and is widely considered one of the greatest games ever made. Its online component, Red Dead Online, continues to receive updates years after launch.','An epic western adventure following outlaw Arthur Morgan as he navigates survival, loyalty, and the end of an era in a breathtaking open world.','2018-10-26','2018-10-26','High','18+','https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg','[\"en\", \"fr\", \"de\", \"es\"]',NULL,'https://www.youtube.com/watch?v=gmA6MrX81z4','https://www.rockstargames.com/reddeadredemption2','2025-01-16 12:00:00','2025-01-16 12:00:00'),(5,'God of War: Ragnarok','Published','god-of-war-ragnarok','God of War: Ragnarok is the direct sequel to the 2018 reboot, continuing the story of Kratos and his teenage son Atreus across the Nine Realms of Norse mythology. The game picks up three years after the events of the first game, with Fimbulwinter — the great winter preceding Ragnarok — already underway.\n\nThe combat system has been expanded with new weapons, abilities, and shield mechanics. Atreus becomes a fully playable character in several pivotal sections, allowing the story to explore his perspective and coming-of-age journey in depth.\n\nReleased on PlayStation 4 and 5, Ragnarok won multiple Game of the Year awards and was praised as one of the best action-adventure games ever crafted, combining spectacular set pieces with genuine emotional depth.','Continue the journey of Kratos and Atreus through the Norse realms as they face the coming of Ragnarok and the inevitable clash with the Aesir gods.','2022-11-09','2022-11-09','Medium','18+','https://cdn.akamai.steamstatic.com/steam/apps/2322010/header.jpg','[\"en\", \"fr\", \"de\", \"es\"]',NULL,'https://www.youtube.com/watch?v=EE-4GvjKcfs','https://www.playstation.com/en-us/games/god-of-war-ragnarok','2025-01-18 12:00:00','2025-01-18 12:00:00'),(6,'Baldur\'s Gate 3','Published','baldurs-gate-3','Baldur\'s Gate 3 is a story-rich party-based RPG developed by Larian Studios, set in the Forgotten Realms of Dungeons & Dragons. Players and up to three friends can create characters, gather a party of companions, and embark on a journey through Faer&#x00FB;n — from the depths of the Underdark to the shining city of Baldur\'s Gate itself.\n\nThe game adapts the D&D 5th Edition ruleset with remarkable fidelity, translating the freedom of tabletop roleplaying into a video game with branching dialogue, environmental storytelling, and combat that rewards creative thinking. Characters can be romanced, betrayed, or sacrificed — the world reacts to every choice.\n\nBaldur\'s Gate 3 won Game of the Year 2023 at The Game Awards and is considered a landmark achievement in RPG design, selling over 10 million copies within its first year.','A sprawling RPG set in the Forgotten Realms. Gather your party, roll for initiative, and forge your own path through a world of magic, mystery, and consequence.','2023-08-03','2023-08-03','Medium','18+','https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg','[\"en\", \"fr\", \"de\", \"es\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=s8xfS2CiJNs','https://baldursgate3.game','2025-01-20 12:00:00','2025-01-20 12:00:00'),(7,'Hollow Knight','Published','hollow-knight','Hollow Knight is a challenging 2D action-adventure game developed by Team Cherry, an independent studio of just three people. Set in Hallownest, a vast underground kingdom of insects, the game follows a silent knight exploring labyrinthine tunnels and ruins to uncover the kingdom\'s ancient secrets.\n\nThe game is renowned for its hand-drawn art style, tight and responsive controls, and a sprawling interconnected world designed in the Metroidvania tradition. Combat is precise and demanding, with boss fights that have become legendary among fans of the genre.\n\nHollow Knight sold over 5 million copies and is widely celebrated as one of the greatest indie games ever made. Its sequel, Hollow Knight: Silksong, is one of the most anticipated games in development.','Explore the vast underground kingdom of Hallownest in this challenging 2D Metroidvania. Beautiful, mysterious, and brutally unforgiving.','2017-02-24','2017-02-24','Low','7+','https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg','[\"en\", \"fr\", \"de\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=UAO2urG23S4','https://www.hollowknight.com','2025-01-22 12:00:00','2025-01-22 12:00:00'),(8,'Hades','Published','hades','Hades is a rogue-like dungeon crawler developed by Supergiant Games in which you play as Zagreus, immortal son of the God of the Dead, attempting to escape from the Underworld. Each run through Tartarus, Asphodel, and Elysium is unique, fueled by a combination of powerful boons from the Olympian gods and a rich cast of mythological characters.\n\nWhat sets Hades apart is its narrative integration: every death advances the story, with new dialogue, revelations, and relationship developments. The writing is sharp and witty, making each failed escape attempt feel meaningful rather than frustrating.\n\nHades won numerous awards including Best Action Game and Best Indie Game at The Game Awards 2020. It was the first video game to win a Hugo Award, cementing its status as a cultural landmark.','Play as Zagreus and battle your way out of the Underworld in this genre-defining rogue-like. Every run tells a story; every death makes you stronger.','2020-09-17','2020-09-17','Low','12+','https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg','[\"en\", \"fr\", \"de\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=91t0ha9x0AE','https://www.supergiantgames.com/games/hades','2025-01-24 12:00:00','2025-01-24 12:00:00'),(9,'Black Myth: Wukong','Published','black-myth-wukong','Black Myth: Wukong is an action RPG developed by Game Science, inspired by the 16th-century Chinese novel Journey to the West. Players take on the role of the Destined One, a monkey warrior who must battle mythological creatures and powerful bosses to uncover the truth behind the legendary Sun Wukong\'s legacy.\n\nThe game features fast-paced, staff-based combat with shapeshifting abilities, drawing mechanics from Souls-like games while maintaining a distinct identity. Its visual fidelity on PC and PlayStation 5 is considered among the best of any game released in 2024.\n\nBlack Myth: Wukong became the best-selling Chinese game of all time, selling over 10 million copies in its first three days. It opened a new chapter for the Chinese game development industry on the global stage.','An action RPG rooted in Chinese mythology. Master the staff, transform into mythical creatures, and uncover the legacy of the Great Sage, Sun Wukong.','2024-08-20','2024-08-20','High','16+','https://cdn.akamai.steamstatic.com/steam/apps/2358720/header.jpg','[\"en\", \"fr\", \"de\", \"zh\", \"ru\"]',NULL,'https://www.youtube.com/watch?v=lvOu8Xt7JVc','https://www.heishouyouxi.com/wukong','2025-01-26 12:00:00','2025-01-26 12:00:00'),(10,'Sekiro: Shadows Die Twice','Published','sekiro-shadows-die-twice','Sekiro: Shadows Die Twice is an action-adventure game developed by FromSoftware set in a reimagined late Sengoku-era Japan. Players control Wolf, a shinobi tasked with rescuing his kidnapped lord and taking revenge on the samurai clan that severed his arm.\n\nUnlike FromSoftware\'s Soulsborne games, Sekiro focuses on a single fixed protagonist with a defined skillset. Combat centers on a posture-breaking system that rewards aggressive play and precise parrying over cautious distance management. The result is one of the most demanding and satisfying combat systems ever designed.\n\nSekiro won Game of the Year at The Game Awards 2019. Despite its punishing difficulty, it remains one of the highest-rated games of its generation and is praised for its extraordinary mechanical depth.','Master the way of the shinobi in feudal Japan. Sekiro\'s uncompromising combat system rewards patience, aggression, and perfect timing above all else.','2019-03-22','2019-03-22','Medium','18+','https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg','[\"en\", \"fr\", \"de\", \"ja\"]',NULL,'https://www.youtube.com/watch?v=rXMX4YJ7Lks','https://www.sekirothegame.com','2025-01-28 12:00:00','2025-01-28 12:00:00');
+/*!40000 ALTER TABLE `game` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_developer`
 --
 
 DROP TABLE IF EXISTS `game_developer`;
-CREATE TABLE IF NOT EXISTS `game_developer` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_developer` (
   `game_id` int NOT NULL,
   `developer_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`developer_id`),
   KEY `IDX_B75D4A98E48FD905` (`game_id`),
-  KEY `IDX_B75D4A9864DD9267` (`developer_id`)
+  KEY `IDX_B75D4A9864DD9267` (`developer_id`),
+  CONSTRAINT `FK_B75D4A9864DD9267` FOREIGN KEY (`developer_id`) REFERENCES `developer` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_B75D4A98E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_developer`
 --
 
-INSERT INTO `game_developer` (`game_id`, `developer_id`) VALUES
-(1, 20),
-(2, 17),
-(3, 14),
-(3, 20),
-(4, 9),
-(5, 3),
-(5, 19),
-(6, 4),
-(6, 23),
-(6, 26),
-(7, 6),
-(8, 6),
-(8, 9),
-(9, 7),
-(9, 17),
-(9, 23),
-(10, 11),
-(10, 20),
-(10, 30),
-(11, 4),
-(12, 10),
-(12, 17),
-(13, 4),
-(13, 24),
-(14, 4),
-(14, 7),
-(14, 29),
-(15, 29),
-(16, 20),
-(16, 29),
-(17, 19),
-(18, 23),
-(19, 25),
-(19, 29),
-(20, 21),
-(20, 27),
-(21, 8),
-(21, 16),
-(21, 29),
-(22, 2),
-(22, 4),
-(23, 5),
-(23, 18),
-(23, 19),
-(24, 14),
-(24, 19),
-(24, 22),
-(25, 8),
-(25, 19),
-(25, 21),
-(26, 12),
-(26, 16),
-(26, 22),
-(27, 5),
-(27, 13),
-(27, 22),
-(28, 9),
-(28, 20),
-(29, 8),
-(29, 19),
-(29, 24),
-(30, 11),
-(30, 16);
-
--- --------------------------------------------------------
+LOCK TABLES `game_developer` WRITE;
+/*!40000 ALTER TABLE `game_developer` DISABLE KEYS */;
+INSERT INTO `game_developer` VALUES (1,1),(2,2),(3,1),(4,3),(5,4),(6,5),(7,7),(8,8),(9,9),(10,2);
+/*!40000 ALTER TABLE `game_developer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_genre`
 --
 
 DROP TABLE IF EXISTS `game_genre`;
-CREATE TABLE IF NOT EXISTS `game_genre` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_genre` (
   `game_id` int NOT NULL,
   `genre_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`genre_id`),
   KEY `IDX_B1634A77E48FD905` (`game_id`),
-  KEY `IDX_B1634A774296D31F` (`genre_id`)
+  KEY `IDX_B1634A774296D31F` (`genre_id`),
+  CONSTRAINT `FK_B1634A774296D31F` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_B1634A77E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_genre`
 --
 
-INSERT INTO `game_genre` (`game_id`, `genre_id`) VALUES
-(1, 3),
-(1, 5),
-(2, 9),
-(2, 10),
-(3, 1),
-(3, 5),
-(3, 7),
-(4, 2),
-(4, 5),
-(5, 6),
-(6, 2),
-(6, 4),
-(6, 8),
-(7, 3),
-(7, 4),
-(8, 1),
-(9, 7),
-(10, 10),
-(11, 6),
-(12, 6),
-(12, 9),
-(12, 10),
-(13, 2),
-(14, 4),
-(14, 5),
-(14, 9),
-(15, 4),
-(15, 5),
-(15, 8),
-(16, 2),
-(17, 1),
-(17, 10),
-(18, 4),
-(19, 5),
-(19, 9),
-(20, 6),
-(21, 1),
-(21, 9),
-(21, 10),
-(22, 6),
-(22, 8),
-(22, 10),
-(23, 1),
-(23, 5),
-(23, 8),
-(24, 10),
-(25, 9),
-(25, 10),
-(26, 10),
-(27, 7),
-(27, 10),
-(28, 3),
-(28, 4),
-(28, 5),
-(29, 2),
-(29, 5),
-(29, 6),
-(30, 8);
-
--- --------------------------------------------------------
+LOCK TABLES `game_genre` WRITE;
+/*!40000 ALTER TABLE `game_genre` DISABLE KEYS */;
+INSERT INTO `game_genre` VALUES (1,1),(1,4),(2,1),(2,2),(2,5),(3,1),(3,4),(4,2),(4,3),(4,4),(5,2),(5,3),(6,1),(6,6),(7,2),(7,7),(8,1),(8,2),(9,1),(9,2),(10,2),(10,3);
+/*!40000 ALTER TABLE `game_genre` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_news`
 --
 
 DROP TABLE IF EXISTS `game_news`;
-CREATE TABLE IF NOT EXISTS `game_news` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_news` (
   `game_id` int NOT NULL,
   `news_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`news_id`),
   KEY `IDX_F6C6F57CE48FD905` (`game_id`),
-  KEY `IDX_F6C6F57CB5A459A0` (`news_id`)
+  KEY `IDX_F6C6F57CB5A459A0` (`news_id`),
+  CONSTRAINT `FK_F6C6F57CB5A459A0` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_F6C6F57CE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_news`
 --
 
-INSERT INTO `game_news` (`game_id`, `news_id`) VALUES
-(1, 5),
-(2, 1),
-(2, 6),
-(2, 16),
-(3, 27),
-(4, 3),
-(4, 11),
-(4, 14),
-(4, 21),
-(5, 5),
-(5, 16),
-(5, 18),
-(5, 26),
-(6, 8),
-(6, 28),
-(7, 3),
-(7, 19),
-(8, 13),
-(8, 30),
-(9, 30),
-(10, 2),
-(10, 12),
-(11, 10),
-(11, 17),
-(11, 24),
-(12, 2),
-(12, 6),
-(12, 9),
-(12, 15),
-(13, 14),
-(13, 23),
-(13, 29),
-(14, 8),
-(14, 21),
-(14, 23),
-(14, 27),
-(15, 17),
-(15, 18),
-(16, 25),
-(17, 5),
-(17, 16),
-(17, 29),
-(18, 9),
-(18, 20),
-(18, 29),
-(18, 30),
-(19, 15),
-(19, 26),
-(20, 7),
-(23, 3),
-(24, 22),
-(25, 6),
-(25, 20),
-(26, 20),
-(27, 1),
-(27, 13),
-(27, 19),
-(27, 21),
-(28, 13),
-(28, 18),
-(29, 4),
-(30, 19),
-(30, 24);
-
--- --------------------------------------------------------
+LOCK TABLES `game_news` WRITE;
+/*!40000 ALTER TABLE `game_news` DISABLE KEYS */;
+INSERT INTO `game_news` VALUES (1,1),(2,2),(2,7),(3,3),(4,4),(5,8),(6,5),(7,9),(8,10),(9,6),(10,7);
+/*!40000 ALTER TABLE `game_news` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_platform`
 --
 
 DROP TABLE IF EXISTS `game_platform`;
-CREATE TABLE IF NOT EXISTS `game_platform` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_platform` (
   `game_id` int NOT NULL,
   `platform_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`platform_id`),
   KEY `IDX_92162FEDE48FD905` (`game_id`),
-  KEY `IDX_92162FEDFFE6496F` (`platform_id`)
+  KEY `IDX_92162FEDFFE6496F` (`platform_id`),
+  CONSTRAINT `FK_92162FEDE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_92162FEDFFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_platform`
 --
 
-INSERT INTO `game_platform` (`game_id`, `platform_id`) VALUES
-(1, 9),
-(2, 4),
-(2, 8),
-(2, 10),
-(3, 1),
-(3, 7),
-(3, 8),
-(4, 4),
-(4, 6),
-(4, 10),
-(5, 5),
-(6, 9),
-(7, 2),
-(7, 3),
-(7, 5),
-(8, 5),
-(8, 10),
-(9, 4),
-(9, 5),
-(10, 6),
-(10, 7),
-(10, 10),
-(11, 9),
-(12, 7),
-(12, 10),
-(13, 2),
-(14, 3),
-(14, 7),
-(15, 3),
-(16, 4),
-(17, 1),
-(18, 2),
-(18, 4),
-(18, 8),
-(19, 9),
-(19, 10),
-(20, 1),
-(21, 2),
-(22, 2),
-(22, 4),
-(22, 7),
-(23, 1),
-(23, 8),
-(24, 3),
-(24, 8),
-(24, 10),
-(25, 1),
-(25, 5),
-(26, 2),
-(27, 4),
-(27, 5),
-(27, 9),
-(28, 10),
-(29, 5),
-(29, 6),
-(29, 9),
-(30, 3),
-(30, 4),
-(30, 8);
-
--- --------------------------------------------------------
+LOCK TABLES `game_platform` WRITE;
+/*!40000 ALTER TABLE `game_platform` DISABLE KEYS */;
+INSERT INTO `game_platform` VALUES (1,1),(1,2),(1,3),(1,4),(2,1),(2,2),(2,3),(2,4),(3,1),(3,2),(3,3),(3,5),(4,1),(4,3),(4,4),(5,2),(5,3),(6,1),(6,2),(7,1),(7,3),(7,5),(8,1),(8,2),(8,3),(8,4),(8,5),(9,1),(9,2),(10,1),(10,2),(10,3),(10,4);
+/*!40000 ALTER TABLE `game_platform` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_publisher`
 --
 
 DROP TABLE IF EXISTS `game_publisher`;
-CREATE TABLE IF NOT EXISTS `game_publisher` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_publisher` (
   `game_id` int NOT NULL,
   `publisher_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`publisher_id`),
   KEY `IDX_4E4E1444E48FD905` (`game_id`),
-  KEY `IDX_4E4E144440C86FCE` (`publisher_id`)
+  KEY `IDX_4E4E144440C86FCE` (`publisher_id`),
+  CONSTRAINT `FK_4E4E144440C86FCE` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_4E4E1444E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_publisher`
 --
 
-INSERT INTO `game_publisher` (`game_id`, `publisher_id`) VALUES
-(1, 17),
-(1, 27),
-(1, 29),
-(2, 19),
-(2, 23),
-(3, 13),
-(3, 20),
-(4, 18),
-(4, 28),
-(5, 8),
-(6, 9),
-(6, 10),
-(7, 19),
-(7, 23),
-(7, 24),
-(8, 30),
-(9, 3),
-(10, 8),
-(11, 3),
-(11, 12),
-(11, 22),
-(12, 4),
-(12, 5),
-(12, 22),
-(13, 4),
-(13, 7),
-(13, 20),
-(14, 2),
-(14, 4),
-(14, 11),
-(15, 19),
-(16, 20),
-(16, 25),
-(17, 23),
-(17, 25),
-(18, 14),
-(18, 23),
-(18, 30),
-(19, 8),
-(19, 17),
-(20, 15),
-(21, 2),
-(21, 15),
-(21, 26),
-(22, 1),
-(22, 13),
-(22, 25),
-(23, 7),
-(23, 18),
-(23, 22),
-(24, 5),
-(24, 21),
-(24, 28),
-(25, 18),
-(25, 27),
-(26, 8),
-(26, 14),
-(27, 11),
-(28, 8),
-(28, 16),
-(28, 22),
-(29, 4),
-(29, 16),
-(29, 26),
-(30, 3),
-(30, 5),
-(30, 18);
-
--- --------------------------------------------------------
+LOCK TABLES `game_publisher` WRITE;
+/*!40000 ALTER TABLE `game_publisher` DISABLE KEYS */;
+INSERT INTO `game_publisher` VALUES (1,1),(2,2),(3,1),(4,3),(5,4),(6,5),(7,6),(8,7),(9,8),(10,2);
+/*!40000 ALTER TABLE `game_publisher` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `game_review`
 --
 
 DROP TABLE IF EXISTS `game_review`;
-CREATE TABLE IF NOT EXISTS `game_review` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `game_review` (
   `game_id` int NOT NULL,
   `review_id` int NOT NULL,
   PRIMARY KEY (`game_id`,`review_id`),
   KEY `IDX_4762C0EE48FD905` (`game_id`),
-  KEY `IDX_4762C0E3E2E969B` (`review_id`)
+  KEY `IDX_4762C0E3E2E969B` (`review_id`),
+  CONSTRAINT `FK_4762C0E3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_4762C0EE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `game_review`
 --
 
-INSERT INTO `game_review` (`game_id`, `review_id`) VALUES
-(1, 8),
-(2, 12),
-(2, 17),
-(2, 28),
-(3, 6),
-(3, 15),
-(3, 19),
-(3, 24),
-(4, 6),
-(4, 10),
-(4, 22),
-(4, 29),
-(5, 1),
-(7, 5),
-(7, 14),
-(9, 13),
-(9, 29),
-(10, 4),
-(10, 30),
-(11, 9),
-(11, 23),
-(11, 25),
-(11, 26),
-(12, 9),
-(13, 1),
-(13, 28),
-(14, 3),
-(14, 17),
-(15, 2),
-(15, 7),
-(15, 16),
-(16, 9),
-(16, 10),
-(16, 20),
-(17, 24),
-(19, 2),
-(19, 3),
-(19, 7),
-(19, 18),
-(19, 19),
-(19, 28),
-(20, 11),
-(20, 16),
-(20, 27),
-(21, 10),
-(22, 12),
-(22, 13),
-(23, 1),
-(24, 17),
-(24, 23),
-(25, 21),
-(26, 5),
-(27, 4),
-(27, 13),
-(28, 5),
-(28, 6),
-(28, 7),
-(28, 16),
-(30, 8),
-(30, 14);
-
--- --------------------------------------------------------
+LOCK TABLES `game_review` WRITE;
+/*!40000 ALTER TABLE `game_review` DISABLE KEYS */;
+INSERT INTO `game_review` VALUES (1,1),(2,2),(3,3),(4,4),(5,5),(6,6),(7,7),(8,8),(9,9),(10,10);
+/*!40000 ALTER TABLE `game_review` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `genre`
 --
 
 DROP TABLE IF EXISTS `genre`;
-CREATE TABLE IF NOT EXISTS `genre` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `genre` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `genre`
 --
 
-INSERT INTO `genre` (`id`, `title`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Action', 'action', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(2, 'Adventure', 'adventure', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(3, 'RPG', 'rpg', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(4, 'Shooter', 'shooter', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(5, 'Fighting', 'fighting', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(6, 'Strategy', 'strategy', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(7, 'Simulation', 'simulation', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(8, 'Sports', 'sports', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(9, 'Puzzle', 'puzzle', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(10, 'Horror', 'horror', '2025-04-01 13:11:13', '2025-04-01 13:11:13');
-
--- --------------------------------------------------------
+LOCK TABLES `genre` WRITE;
+/*!40000 ALTER TABLE `genre` DISABLE KEYS */;
+INSERT INTO `genre` VALUES (1,'RPG','rpg','2025-01-01 00:00:00','2025-01-01 00:00:00'),(2,'Action','action','2025-01-01 00:00:00','2025-01-01 00:00:00'),(3,'Adventure','adventure','2025-01-01 00:00:00','2025-01-01 00:00:00'),(4,'Open World','open-world','2025-01-01 00:00:00','2025-01-01 00:00:00'),(5,'Souls-like','souls-like','2025-01-01 00:00:00','2025-01-01 00:00:00'),(6,'Strategy','strategy','2025-01-01 00:00:00','2025-01-01 00:00:00'),(7,'Platformer','platformer','2025-01-01 00:00:00','2025-01-01 00:00:00'),(8,'Shooter','shooter','2025-01-01 00:00:00','2025-01-01 00:00:00');
+/*!40000 ALTER TABLE `genre` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `news`
 --
 
 DROP TABLE IF EXISTS `news`;
-CREATE TABLE IF NOT EXISTS `news` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `news` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_1DD39950F675F31B` (`author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_1DD39950F675F31B` (`author_id`),
+  CONSTRAINT `FK_1DD39950F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `news`
 --
 
-INSERT INTO `news` (`id`, `author_id`, `title`, `slug`, `content`, `summary`, `cover`, `status`, `created_at`, `updated_at`) VALUES
-(1, 3, 'Consequatur Fugiat Animi Unde Voluptatibus Et Quod', 'consequatur-fugiat-animi-unde-voluptatibus-et-quod', 'Sed aut eos vel nostrum debitis architecto assumenda. Voluptas est nam impedit dolor sint. Sunt ad sequi quia et aperiam et.\n\nAssumenda aut iure porro error iusto. Vitae voluptatum facere quis nemo sit aut fuga. Eligendi aut debitis quam eos consequatur quos.\n\nRem accusantium qui earum maxime qui consequuntur. Ad incidunt ex voluptatibus velit debitis. Dolor sed ullam hic et quia voluptatem quae inventore.', 'Sed aut eos vel nostrum debitis architecto assumenda. Voluptas est nam impedit dolor sint. Sunt ad sequi quia et aperiam et.\n\nAssumenda aut iure porro...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(2, 3, 'Recusandae Accusamus Deleniti Numquam Aliquam Ab Dolorem Incidunt', 'recusandae-accusamus-deleniti-numquam-aliquam-ab-dolorem-incidunt', 'Est molestias quo odio culpa rerum repellat. Consectetur et et aut. Aperiam eveniet quia dolorem debitis sequi ab expedita. Eius sed nisi dolorem vel earum.\n\nIllum culpa ex molestias nemo sit. Cum perspiciatis omnis dolores qui dolores autem tempore. Sed a illum sit ab quis eos unde. Inventore aut iure eveniet qui. Quasi omnis sunt nemo velit ratione facilis quia.\n\nFugiat aperiam quia ut dolores voluptas. Nam aut doloremque repellendus corporis. Sed quibusdam cum sit deserunt. Sint cum et maiores perferendis.', 'Est molestias quo odio culpa rerum repellat. Consectetur et et aut. Aperiam eveniet quia dolorem debitis sequi ab expedita. Eius sed nisi dolorem vel ...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(3, 5, 'Reprehenderit Nisi Ratione Et Distinctio Aspernatur Facere Doloremque Enim', 'reprehenderit-nisi-ratione-et-distinctio-aspernatur-facere-doloremque-enim', 'Ut id dicta amet totam est suscipit quos culpa. Repellendus provident laudantium labore ipsum libero impedit adipisci impedit. Voluptatem dolores qui ad quis.\n\nReiciendis ut dicta nihil qui cum. Et quam in eum aut non culpa nemo. Aut rerum distinctio et et ullam error qui. Omnis non cum autem quia enim doloremque. Nam laborum et eveniet quae laborum similique consequuntur numquam.\n\nOmnis aliquid ratione repellendus suscipit aperiam ducimus praesentium. Est sequi ab veritatis repudiandae. Deserunt sed repellat sit vel.', 'Ut id dicta amet totam est suscipit quos culpa. Repellendus provident laudantium labore ipsum libero impedit adipisci impedit. Voluptatem dolores qui ...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(4, 1, 'Quia In Maiores Debitis Alias Inventore', 'quia-in-maiores-debitis-alias-inventore', 'Consectetur non dignissimos consectetur maiores sequi quisquam cumque. Sit iste facilis soluta voluptatem quidem cum nisi.\n\nDolores itaque deleniti consequatur reprehenderit et ea et. Est nihil natus est aut. Ad cupiditate rem voluptatem occaecati ratione deleniti. Et quos quae aut.\n\nVoluptatem facilis iusto totam laborum dolorem voluptatem qui voluptatem. Sint nihil rerum tempora et iusto sequi minus. Totam et et dolor ea.', 'Consectetur non dignissimos consectetur maiores sequi quisquam cumque. Sit iste facilis soluta voluptatem quidem cum nisi.\n\nDolores itaque deleniti co...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(5, 4, 'Odio Voluptas Optio Et Eum Aut Accusantium Sed Aut', 'odio-voluptas-optio-et-eum-aut-accusantium-sed-aut', 'Omnis dolore sunt ratione culpa. Et vel suscipit ut quis iste. Mollitia porro quia quia adipisci sint voluptate quasi. Nemo facilis pariatur qui iusto non.\n\nDolores saepe veritatis vero. Amet et qui magni et. Recusandae enim nihil id sit error nihil maiores. Tempora enim quidem vero esse similique laudantium nihil.\n\nQuod ut est aperiam doloremque iste consectetur facilis. Perferendis odio consequuntur nesciunt tempore. Atque accusantium qui quis non libero velit. Aut libero dolores dolor eveniet.', 'Omnis dolore sunt ratione culpa. Et vel suscipit ut quis iste. Mollitia porro quia quia adipisci sint voluptate quasi. Nemo facilis pariatur qui iusto...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(6, 1, 'Voluptas Fugit Eos Sunt Quod', 'voluptas-fugit-eos-sunt-quod', 'Repellat dolorem ipsam vel. Tempora hic nihil laborum nisi inventore. Soluta voluptates nobis omnis eius quia aperiam.\n\nSint fuga non pariatur. Fugiat est voluptates quia facere quaerat. Suscipit animi similique reprehenderit recusandae dolor et.\n\nRecusandae nulla tenetur deserunt recusandae. Ut expedita enim magni tenetur ut. Dolores labore qui est dolores sed autem. Odit aperiam tempora ab quasi.', 'Repellat dolorem ipsam vel. Tempora hic nihil laborum nisi inventore. Soluta voluptates nobis omnis eius quia aperiam.\n\nSint fuga non pariatur. Fugiat...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(7, 4, 'Dignissimos Aspernatur Molestiae Nemo', 'dignissimos-aspernatur-molestiae-nemo', 'Sunt consequatur eligendi at aliquid assumenda reprehenderit vitae. Eveniet nobis assumenda cum laboriosam.\n\nDolorem et quos dolore nulla voluptatem. Illum officia suscipit in. Sequi vero voluptas enim aliquam ut voluptatem error.\n\nEx omnis ab et ut at. Nisi ad totam ducimus at. Ipsam sit aut et et exercitationem. Facilis veniam quod harum sunt officiis et. Reprehenderit numquam molestiae est quasi repudiandae rerum aut.', 'Sunt consequatur eligendi at aliquid assumenda reprehenderit vitae. Eveniet nobis assumenda cum laboriosam.\n\nDolorem et quos dolore nulla voluptatem. ...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(8, 4, 'Ea Consequuntur Corrupti Quae Rerum Sit Occaecati', 'ea-consequuntur-corrupti-quae-rerum-sit-occaecati', 'Ipsa provident voluptatem autem sapiente perferendis sunt esse. A accusamus et placeat aut et. Aliquid labore fugit inventore unde nobis commodi cumque.\n\nSunt ut eveniet blanditiis rerum aperiam quasi fuga dolorem. Rerum nulla aut distinctio odit. Delectus porro voluptas quis. Voluptatem omnis rem ipsam est nobis maiores.\n\nQuisquam est quia ut at. Facilis fugit quia perspiciatis eligendi officia ea aut. Quia sunt molestias iusto ut voluptatum. Ut dolorem doloribus aut hic voluptatibus.', 'Ipsa provident voluptatem autem sapiente perferendis sunt esse. A accusamus et placeat aut et. Aliquid labore fugit inventore unde nobis commodi cumqu...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(9, 2, 'Maiores Iure Ut Enim Maiores Similique', 'maiores-iure-ut-enim-maiores-similique', 'Est alias voluptates odio officiis. Fuga inventore nemo sed non quaerat laudantium. Dolor ipsa similique sed reprehenderit placeat velit placeat.\n\nEnim excepturi id eum et. Quia minus quo occaecati et vel fugiat nisi. Facilis maxime earum sed.\n\nNatus quae numquam fugiat iusto aspernatur odit aut at. Repellat magnam minus aut voluptatum eligendi aspernatur mollitia. Harum voluptas distinctio tempora iusto nostrum. Doloremque facere voluptas at.', 'Est alias voluptates odio officiis. Fuga inventore nemo sed non quaerat laudantium. Dolor ipsa similique sed reprehenderit placeat velit placeat.\n\nEni...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(10, 3, 'Necessitatibus Sit Magnam Quia Quia', 'necessitatibus-sit-magnam-quia-quia', 'Explicabo error illo qui. Deserunt qui ea vitae nulla. Corrupti nihil a eum aut quibusdam. Optio reprehenderit iusto harum maiores.\n\nCorrupti culpa fuga sequi ea. Eius suscipit laudantium qui dolorem magni laudantium id. Odit rem odit aut rerum.\n\nMinus a quo odio nobis reprehenderit eum. Totam earum error asperiores enim suscipit et facilis exercitationem. Est dolores dolorem maxime doloremque in aliquid beatae minus.', 'Explicabo error illo qui. Deserunt qui ea vitae nulla. Corrupti nihil a eum aut quibusdam. Optio reprehenderit iusto harum maiores.\n\nCorrupti culpa fu...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(11, 4, 'Aut Asperiores Dolores Vitae Id Aut Aperiam Dolor', 'aut-asperiores-dolores-vitae-id-aut-aperiam-dolor', 'Rerum adipisci quam qui aut velit. Earum quo explicabo saepe reprehenderit asperiores deserunt. Nostrum cupiditate odit quas corporis. Odit sed voluptas enim ad necessitatibus vitae quidem.\n\nQuas voluptate voluptates vel a qui. Soluta vel ducimus repudiandae iure quibusdam. Quia quod fugiat atque laboriosam dolor minima. Et voluptatem atque quae aliquam excepturi.\n\nNon autem illum ut sunt molestiae id nostrum. Ut labore qui nemo laborum. Nulla occaecati quasi quia praesentium corporis.', 'Rerum adipisci quam qui aut velit. Earum quo explicabo saepe reprehenderit asperiores deserunt. Nostrum cupiditate odit quas corporis. Odit sed volupt...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(12, 2, 'Dolorem Pariatur Qui Error', 'dolorem-pariatur-qui-error', 'Repudiandae odit consequatur veniam voluptas ut tempore voluptatem sunt. Laudantium non in aspernatur non nam accusantium. Velit architecto error quos repellat quidem culpa. Rem assumenda temporibus in animi.\n\nVoluptatem commodi doloremque vitae assumenda asperiores omnis cum asperiores. Aut deserunt reiciendis nostrum exercitationem at doloremque. Nulla rerum est repellendus sed officiis repellendus in.\n\nEius ad quia ad. Sed dolorem inventore eos et minus architecto illum omnis.', 'Repudiandae odit consequatur veniam voluptas ut tempore voluptatem sunt. Laudantium non in aspernatur non nam accusantium. Velit architecto error quos...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(13, 3, 'Voluptatibus Unde Repellat Minima Doloribus', 'voluptatibus-unde-repellat-minima-doloribus', 'Natus officiis error ut molestiae ducimus cum suscipit. Possimus expedita reiciendis fuga quam molestiae occaecati. Quasi ex assumenda qui aut laboriosam ratione.\n\nFacilis et culpa nulla iste earum non. Ipsum nam est quae sunt fugit eius. Beatae quam ut autem et vitae cupiditate.\n\nVoluptatibus omnis voluptatem quia delectus sapiente quidem et. Sed provident ut totam ex doloribus quod. Et libero deleniti voluptatum repellendus magni deleniti nobis.', 'Natus officiis error ut molestiae ducimus cum suscipit. Possimus expedita reiciendis fuga quam molestiae occaecati. Quasi ex assumenda qui aut laborio...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(14, 1, 'Repellat Natus Quia Sit Laborum Ipsam Quidem Aut', 'repellat-natus-quia-sit-laborum-ipsam-quidem-aut', 'Consequatur in est neque repellat ad. Doloribus et esse error iure et eum. Distinctio rerum placeat recusandae porro incidunt suscipit eos. Eveniet ipsam architecto sed est quidem in neque autem.\n\nSequi sit aspernatur sequi voluptates ipsum. Natus sit et cupiditate ad.\n\nOmnis consequuntur qui id. Et ut nulla perferendis excepturi eum sit est. Aut autem sunt sit voluptas. Deserunt magni debitis eius aut harum itaque.', 'Consequatur in est neque repellat ad. Doloribus et esse error iure et eum. Distinctio rerum placeat recusandae porro incidunt suscipit eos. Eveniet ip...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(15, 1, 'Ea Doloribus Porro Mollitia Est', 'ea-doloribus-porro-mollitia-est', 'Facilis ipsam iusto sit dignissimos eum rem. Dolore velit maxime ut. Enim quas dicta dignissimos rerum debitis.\n\nNatus sed accusantium quod harum accusantium. Enim et accusamus quam officia vitae dolorem. A reiciendis dolorem similique fugiat consequatur molestiae quod.\n\nNihil sed sunt ullam temporibus aut architecto. Placeat natus mollitia consectetur. Alias iure natus qui velit qui voluptatem quibusdam.', 'Facilis ipsam iusto sit dignissimos eum rem. Dolore velit maxime ut. Enim quas dicta dignissimos rerum debitis.\n\nNatus sed accusantium quod harum accu...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(16, 2, 'Blanditiis Occaecati Sint Eum Id Blanditiis Voluptates Aliquam Culpa', 'blanditiis-occaecati-sint-eum-id-blanditiis-voluptates-aliquam-culpa', 'Et minima soluta sit excepturi culpa rerum fugit. Rerum blanditiis quia vel in libero maiores. Rerum eum consequatur sit in.\n\nId omnis aut dolor minima tempora reprehenderit cupiditate. Omnis eveniet nihil porro sed. Alias suscipit voluptatem in id facilis perspiciatis sit. Dolorem voluptate voluptates dolor eius. Porro et velit magni voluptas.\n\nEius omnis reiciendis veniam minus. Numquam assumenda autem maxime est. Et nemo iste quae ea id ut deleniti officia. Fuga incidunt et aut qui.', 'Et minima soluta sit excepturi culpa rerum fugit. Rerum blanditiis quia vel in libero maiores. Rerum eum consequatur sit in.\n\nId omnis aut dolor minim...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(17, 2, 'Illum Omnis Eos Quod Molestiae Itaque Ab', 'illum-omnis-eos-quod-molestiae-itaque-ab', 'Est saepe exercitationem nam odit voluptas voluptas. Minima omnis adipisci quos nihil neque qui fuga. Quam sint dolores modi non ea fugiat quos. Aliquam dolor totam sunt et cum dicta pariatur.\n\nIllum et quia pariatur pariatur atque voluptas. Ut mollitia quidem maxime repellendus. Ut pariatur aut itaque est unde eaque aliquam. Ex dicta aut iste. Neque sit amet sequi est perferendis voluptatum maxime vel.\n\nQuidem quis doloremque eveniet voluptate harum laboriosam fugit eligendi. Libero ut sit necessitatibus placeat iste blanditiis.', 'Est saepe exercitationem nam odit voluptas voluptas. Minima omnis adipisci quos nihil neque qui fuga. Quam sint dolores modi non ea fugiat quos. Aliqu...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(18, 2, 'Quia Ullam Voluptatem Maiores Sed Quaerat Quas', 'quia-ullam-voluptatem-maiores-sed-quaerat-quas', 'Molestiae in voluptatem fuga delectus dolores voluptate. Ducimus corporis consequatur atque voluptas optio odio aliquid. Fugiat aliquid qui ratione quis. Aliquam aut ea dolores dolor officiis doloremque nihil ad.\n\nEligendi veniam dolor eum. Culpa est aspernatur iste totam velit vero. Autem veritatis voluptas nemo dolorem assumenda. Qui iste voluptates cumque quasi reiciendis eaque.\n\nVoluptas saepe exercitationem et ipsum vel. Facilis ut amet dolor sit repudiandae.', 'Molestiae in voluptatem fuga delectus dolores voluptate. Ducimus corporis consequatur atque voluptas optio odio aliquid. Fugiat aliquid qui ratione qu...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(19, 3, 'Non Quia Et Harum Porro Cum Officia Eos', 'non-quia-et-harum-porro-cum-officia-eos', 'Corrupti enim dolorem quisquam quasi consequatur. Numquam cupiditate accusantium placeat corrupti necessitatibus. Praesentium minus ratione quae dolor laudantium neque consequatur.\n\nAut quam sapiente tempora recusandae. Placeat perferendis omnis consequuntur ratione. Qui iure quos enim et et dolore ut.\n\nRerum nulla error unde hic. Voluptatem unde consequatur eligendi sed molestias quia iure. Minus ut rerum odio omnis ea ab nihil sapiente.', 'Corrupti enim dolorem quisquam quasi consequatur. Numquam cupiditate accusantium placeat corrupti necessitatibus. Praesentium minus ratione quae dolor...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(20, 1, 'Sed Harum Et Commodi Quia Nam Dolores Numquam', 'sed-harum-et-commodi-quia-nam-dolores-numquam', 'Ut esse ab eum dolor quisquam. Praesentium dignissimos eos fuga facilis. Voluptatem rerum magnam ut eaque. Natus rerum recusandae fuga ut. Eos voluptas voluptas sint a ab.\n\nOdio dolorum facilis commodi rerum. Culpa in magni eum quis voluptates voluptas. Aut aut unde illum molestias necessitatibus dolores. Ipsa eos similique est culpa placeat omnis.\n\nDolor hic doloribus incidunt neque nulla dolor adipisci consequatur. Voluptatem voluptatibus eaque asperiores. Ipsum aut distinctio animi blanditiis pariatur.', 'Ut esse ab eum dolor quisquam. Praesentium dignissimos eos fuga facilis. Voluptatem rerum magnam ut eaque. Natus rerum recusandae fuga ut. Eos volupta...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(21, 3, 'Itaque Animi Ut Et Aut Iure Facere', 'itaque-animi-ut-et-aut-iure-facere', 'Voluptatem molestiae omnis quasi provident recusandae. Aspernatur qui eligendi velit. Quasi similique perferendis qui.\n\nQuas molestias magni sapiente reiciendis repudiandae ut voluptatum magni. In consequatur et numquam qui dolor iusto est. Fugiat maiores modi consequatur perspiciatis. Non id ipsum atque et nemo.\n\nItaque accusamus sed nihil voluptatem quas provident iusto. Aut vel voluptas alias amet non ipsum aliquid. Quisquam reiciendis autem libero numquam.', 'Voluptatem molestiae omnis quasi provident recusandae. Aspernatur qui eligendi velit. Quasi similique perferendis qui.\n\nQuas molestias magni sapiente ...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(22, 4, 'Repellat Explicabo Et Perspiciatis Earum', 'repellat-explicabo-et-perspiciatis-earum', 'Quia qui molestias facilis quaerat expedita sunt accusantium. In consequatur asperiores sunt explicabo. Officia et earum voluptas minus. Consequatur quisquam eligendi quos eveniet deserunt corporis. Ipsam rerum assumenda adipisci molestias reiciendis.\n\nIusto ducimus molestiae eos aut. Suscipit ex neque eos autem asperiores velit et.\n\nVeritatis animi ad expedita libero et similique. Aut dolore dolor voluptates odit facere consectetur saepe. Tempore a quod rerum ut quis est. Omnis dolor qui beatae eaque nihil.', 'Quia qui molestias facilis quaerat expedita sunt accusantium. In consequatur asperiores sunt explicabo. Officia et earum voluptas minus. Consequatur q...', 'cover.jpg', 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(23, 5, 'Aut Vitae Alias Neque Distinctio Libero', 'aut-vitae-alias-neque-distinctio-libero', 'Delectus quo autem nam et laborum laborum nihil. Modi non fugit vel asperiores voluptatibus error. Dicta voluptas nihil cupiditate odit vel.\n\nTemporibus omnis dolore facilis nisi architecto minima enim. Porro qui quas tempora labore ullam.\n\nMollitia iure rerum ipsa dolores ut dolores error corrupti. Laboriosam dolorum saepe velit molestiae. Rerum aperiam facilis corporis ullam. Ducimus sit repellendus explicabo.', 'Delectus quo autem nam et laborum laborum nihil. Modi non fugit vel asperiores voluptatibus error. Dicta voluptas nihil cupiditate odit vel.\n\nTemporib...', 'cover.jpg', 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(24, 3, 'Enim Sunt Hic Et Voluptatem Quos Officia Excepturi', 'enim-sunt-hic-et-voluptatem-quos-officia-excepturi', 'Voluptate vel sit ipsa. Nam sint inventore iste eaque eveniet. Et enim nisi aliquid asperiores.\n\nQuibusdam dolorem sed aut exercitationem tenetur harum iste aut. Corrupti dolorum sunt temporibus ut cumque rerum.\n\nAnimi qui tempore repellendus ut sunt ea quia praesentium. Vel sit consectetur sed ut. Accusantium ab quo voluptas suscipit delectus modi adipisci.', 'Voluptate vel sit ipsa. Nam sint inventore iste eaque eveniet. Et enim nisi aliquid asperiores.\n\nQuibusdam dolorem sed aut exercitationem tenetur haru...', 'cover.jpg', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(25, 5, 'Beatae Ipsam Et Suscipit Et', 'beatae-ipsam-et-suscipit-et', 'Iure asperiores quos magnam est nesciunt suscipit. Earum quia eum qui nesciunt natus aperiam provident. Pariatur error officia quo nemo.\n\nDoloremque deserunt ipsa qui esse voluptatibus. Temporibus optio tempora minima perspiciatis optio in et reiciendis. Numquam saepe et non provident earum.\n\nQuod voluptatum quaerat sunt ratione sunt dolores. Esse natus sed nulla soluta. Sint quos autem praesentium.', 'Iure asperiores quos magnam est nesciunt suscipit. Earum quia eum qui nesciunt natus aperiam provident. Pariatur error officia quo nemo.\n\nDoloremque d...', 'cover.jpg', 'Archived', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(26, 4, 'Vero Mollitia Voluptatum Reiciendis Enim Minima Voluptatum Reiciendis', 'vero-mollitia-voluptatum-reiciendis-enim-minima-voluptatum-reiciendis', 'Eos deleniti tempore aut. Culpa quia cum iusto maiores placeat suscipit. Quam ratione quas alias. Minima magni voluptatem quia eveniet.\n\nNihil voluptatem esse labore inventore id nemo hic. Quod assumenda saepe dolorum ex officia. Vel esse vel amet quisquam porro consequatur neque. Et est beatae hic quod.\n\nAperiam aut reiciendis autem sit autem tempore voluptatibus. Rem rem aperiam aut cum nulla perferendis eos. Omnis commodi laboriosam odit sed consequatur repellat voluptas.', 'Eos deleniti tempore aut. Culpa quia cum iusto maiores placeat suscipit. Quam ratione quas alias. Minima magni voluptatem quia eveniet.\n\nNihil volupta...', 'cover.jpg', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(27, 5, 'Iusto Delectus Inventore Accusamus Esse', 'iusto-delectus-inventore-accusamus-esse', 'Nostrum impedit aut odit quae non. Aliquid et iste assumenda dolores. Itaque accusamus voluptas omnis est voluptatem. Veniam animi pariatur commodi corrupti eum nostrum.\n\nEst excepturi cumque dolor dolorem temporibus quidem ut. Et provident fugiat ut cumque consequatur. Inventore sed voluptatem molestias. Commodi qui expedita ullam iusto.\n\nOptio assumenda quis repellendus omnis. Sunt et dolorum quidem perspiciatis quia vel.', 'Nostrum impedit aut odit quae non. Aliquid et iste assumenda dolores. Itaque accusamus voluptas omnis est voluptatem. Veniam animi pariatur commodi co...', 'cover.jpg', 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(28, 5, 'Reiciendis Corporis Cupiditate Molestias Enim', 'reiciendis-corporis-cupiditate-molestias-enim', 'Temporibus distinctio placeat eaque quaerat molestias. Voluptas molestiae consequuntur nostrum maiores odit. Qui ratione consequatur harum veniam sunt quisquam incidunt. Quae omnis consequuntur nobis natus commodi molestiae pariatur.\n\nOfficia inventore eius et sunt consequuntur ducimus eum pariatur. Voluptates veniam ratione modi qui quo. Et dolores debitis aut animi temporibus sit eaque fuga.\n\nDoloribus minima qui atque beatae. Est ut quia est aperiam. Est explicabo nemo quasi ut autem quas aut.', 'Temporibus distinctio placeat eaque quaerat molestias. Voluptas molestiae consequuntur nostrum maiores odit. Qui ratione consequatur harum veniam sunt...', 'cover.jpg', 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(29, 5, 'Recusandae Ipsa Aut Repellendus', 'recusandae-ipsa-aut-repellendus', 'Ea aut consequatur voluptatum consequuntur aliquid totam. Odit labore expedita rerum est quaerat.\n\nUt ut dolor repudiandae autem et dignissimos ducimus. Autem tempora placeat et. Repellat aliquam ipsum est qui consequatur non numquam.\n\nQui corporis aut et et placeat voluptas. Possimus in in mollitia animi autem eos saepe qui.', 'Ea aut consequatur voluptatum consequuntur aliquid totam. Odit labore expedita rerum est quaerat.\n\nUt ut dolor repudiandae autem et dignissimos ducimu...', 'cover.jpg', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(30, 1, 'Ab Inventore Harum Autem Beatae', 'ab-inventore-harum-autem-beatae', 'Ad repudiandae quibusdam incidunt in deleniti. Facilis et nesciunt quia velit est ut. Nulla officiis dolore velit corrupti eligendi aliquid commodi illum. Culpa a eum numquam id voluptate.\n\nMinima nulla debitis quis repellendus ratione ut cupiditate quae. Natus maiores dolor placeat et. Dolorum officia debitis quis sed nemo quas.\n\nAut reprehenderit tempore adipisci voluptatum eos et. Sed omnis odit delectus placeat. Placeat omnis numquam fugiat. Minus autem laborum facilis praesentium.', 'Ad repudiandae quibusdam incidunt in deleniti. Facilis et nesciunt quia velit est ut. Nulla officiis dolore velit corrupti eligendi aliquid commodi il...', 'cover.jpg', 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15');
-
--- --------------------------------------------------------
+LOCK TABLES `news` WRITE;
+/*!40000 ALTER TABLE `news` DISABLE KEYS */;
+INSERT INTO `news` VALUES (1,1,'Cyberpunk 2077 Expansion Pushes Past Major Sales Milestone','cyberpunk-2077-expansion-sales-milestone','The post-launch expansion for Cyberpunk 2077 has continued to perform strongly in the market, crossing a significant sales threshold that few standalone DLC products ever reach. CD Projekt Red confirmed the figures in a quarterly investor update, describing the results as exceeding internal projections.\n\nMuch of the expansion\'s commercial success has been attributed to the simultaneous release of a sweeping gameplay overhaul that addressed long-standing criticisms of the base game. The combination drew back lapsed players and attracted newcomers, resulting in some of the highest concurrent player counts the game had seen since launch.\n\nThe studio has indicated that no further major expansions are planned for this title, with resources now directed toward the next project in the pipeline. However, the game itself will continue to receive smaller maintenance updates for the foreseeable future.','CD Projekt Red\'s expansion for Cyberpunk 2077 surpassed a major commercial milestone, fueled by strong player engagement following the simultaneous release of a major gameplay update.','https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg','Published','2025-02-01 10:00:00','2025-02-01 10:00:00'),(2,1,'Elden Ring DLC Sets New Benchmark for Expansion Content','elden-ring-dlc-benchmark','The first major paid expansion for Elden Ring has established a new commercial benchmark for DLC products in the action RPG space, according to sales data released by the publisher. The figures represent the fastest opening week for any expansion in the studio\'s catalog.\n\nThe expansion introduces a substantial new region with its own progression mechanics layered on top of the base game systems. Early player feedback has been polarized on difficulty, with many praising the ambition of the encounter design while others questioned whether the challenge had been calibrated appropriately for the intended audience.\n\nCritics have largely been enthusiastic, with several noting that the new content expands meaningfully on the world\'s lore while providing dozens of additional hours for players who completed the main campaign. The studio has not yet indicated plans for additional paid content.','Elden Ring\'s first paid expansion posted record-breaking opening sales figures, setting a new standard for what players can expect from action RPG downloadable content.','https://cdn.akamai.steamstatic.com/steam/apps/1245620/header.jpg','Published','2025-02-05 10:00:00','2025-02-05 10:00:00'),(3,2,'New Witcher Title Transitions Into Full Development Phase','new-witcher-title-full-development','CD Projekt Red has announced that the next installment in the Witcher franchise has formally entered full production, marking a transition from the pre-production and prototyping phase that the project has been in for the past two years. The studio shared the update as part of a broader company roadmap presentation.\n\nThe new title will shift the series\' protagonist focus, introducing a different lead character with connections to the existing lore. The narrative will be built to function as both a continuation for longtime fans and an accessible entry point for players new to the world.\n\nDevelopment is proceeding on an engine that represents a significant technical departure from the studio\'s previous projects. The team has expressed confidence that the switch will result in improvements to development efficiency and final visual quality, though no release window has been announced.','The next Witcher game has officially moved into full production at CD Projekt Red, with a new protagonist and a different engine powering the experience.','https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg','Published','2025-02-10 10:00:00','2025-02-10 10:00:00'),(4,2,'Rockstar Confirms Release Period for Long-Awaited Open-World Sequel','rockstar-open-world-sequel-release','Rockstar Games has confirmed a release period for its next open-world title, ending a period of extended speculation among the gaming community. The confirmation came via an official update that included new details about the game\'s setting and playable cast.\n\nThe game is set in a fictional recreation of a sun-drenched American city and surrounding region, and will feature two playable protagonists whose stories intertwine across the main narrative. Early materials suggest a significant leap in environmental detail and NPC behavior compared to the studio\'s previous output.\n\nThe title is targeting current-generation platforms at launch, with no immediate announcement regarding a PC version. Given the studio\'s previous release pattern, industry analysts expect a staggered release schedule, though Rockstar has not commented on post-launch platform availability.','Rockstar Games has confirmed a release period for its next major open-world game, providing the first concrete timeline for one of the most anticipated titles in recent memory.','https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg','Published','2025-02-15 10:00:00','2025-02-15 10:00:00'),(5,3,'Party-Based RPG Takes Top Honor at Annual Industry Awards','party-rpg-takes-top-award','Larian Studios\' party-based role-playing game claimed the top prize at a prominent annual industry ceremony, capping a year in which it dominated sales charts and critical rankings across the genre. The studio founder accepted the award on behalf of the full development team.\n\nThe acceptance speech drew widespread attention for its candid remarks about working conditions in the industry and the importance of listening to community feedback during development. The game had benefited from an extended early access period during which player response shaped a number of key design decisions.\n\nThe win was notable given the strength of the competition, which included several high-profile titles from major publishers. The result was interpreted by many in the industry as a signal that production scale and marketing budgets are no longer reliable predictors of critical recognition.','An independently published party-based RPG won the top prize at one of gaming\'s most prestigious annual ceremonies, edging out several high-profile releases.','https://cdn.akamai.steamstatic.com/steam/apps/1086940/header.jpg','Published','2025-02-20 10:00:00','2025-02-20 10:00:00'),(6,3,'Chinese Action RPG Breaks Regional and Global Sales Records','chinese-action-rpg-sales-records','A debut action RPG from a Chinese independent studio has set new records for the regional games industry, posting opening sales figures that no Chinese-developed title had previously achieved. The game sold several million copies within the first few days of its worldwide release across PC and console platforms.\n\nThe game\'s success has been attributed to a combination of exceptionally high visual quality, a combat system influenced by well-established action RPG conventions, and strong cultural resonance with its source material. Marketing materials released over a four-year development period built sustained international anticipation.\n\nAnalysts have noted that the result marks a meaningful shift in the global games market, suggesting that Chinese studios are now capable of competing at the highest commercial and critical level with established developers from Japan, North America, and Europe.','A Chinese-developed action RPG posted record-breaking global sales on launch, marking a new era for the country\'s position in the premium games industry.','https://cdn.akamai.steamstatic.com/steam/apps/2358720/header.jpg','Published','2025-02-25 10:00:00','2025-02-25 10:00:00'),(7,4,'FromSoftware Studio Head Discusses Direction After Open-World Success','fromsoftware-direction-after-open-world','Hidetaka Miyazaki, the studio head at FromSoftware, has discussed the direction of the company\'s next project in a rare extended interview, hinting that the team is inclined toward new creative territory rather than a direct follow-up to their most recent release.\n\nMiyazaki described the studio\'s ongoing interest in subverting player expectations and cited the value of exploring unfamiliar settings and mechanics. While he did not provide specifics about the next project, he indicated that a formal announcement would come when the team felt the concept was ready to be shared publicly.\n\nThe comments have generated significant speculation in the gaming community, with fans proposing various interpretations of Miyazaki\'s phrasing. The studio has a track record of surprising its audience with significant departures between releases, and most observers expect the next title to diverge meaningfully from recent output.','FromSoftware\'s Hidetaka Miyazaki has hinted that the studio\'s next game will explore new creative directions rather than directly continuing recent successful formulas.','https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg','Published','2025-03-01 10:00:00','2025-03-01 10:00:00'),(8,4,'Action-Adventure Franchise Crosses Major Lifetime Sales Threshold','action-adventure-franchise-lifetime-sales','Sony Interactive Entertainment has confirmed that one of its flagship action-adventure franchises has surpassed a significant lifetime sales milestone, reflecting the series\' continued relevance across multiple console generations. The announcement covered all entries in the franchise from its original release onward.\n\nThe most recent mainline entry contributed substantially to the milestone, having sold exceptionally well since its launch on PlayStation hardware. The title was notable for its narrative ambition and the depth of its character writing, which drew comparisons to prestige television rather than conventional video game storytelling.\n\nA PC release of the most recent sequel has been confirmed for a future date, following the positive reception of its predecessor on that platform. No details regarding a follow-up entry in the franchise have been announced, though the studio has indicated that the property remains a priority.','One of PlayStation\'s most celebrated action-adventure franchises has crossed a major lifetime sales milestone, reflecting strong performance across multiple generations.','https://cdn.akamai.steamstatic.com/steam/apps/2322010/header.jpg','Published','2025-03-05 10:00:00','2025-03-05 10:00:00'),(9,5,'Anticipated Indie Sequel Remains in Development, Studio Confirms','indie-sequel-development-confirmed','Team Cherry has provided a brief update confirming that development on the sequel to their acclaimed underground exploration game is continuing, following an extended period of near-silence from the studio. The update did not include a release date or detailed information about the current state of the project.\n\nThe studio reiterated its commitment to delivering the game only when it meets the standard they have set for themselves, pointing to the extended development of the original title as evidence of their process. The sequel was first announced several years ago and has become one of the most discussed unreleased games in the independent games space.\n\nCommunity reaction to the update was mixed, with many players expressing understanding of the studio\'s small size and independent status, while others voiced frustration at the lack of concrete information. Team Cherry has not addressed the question of whether the scope of the project has grown beyond original intentions.','Team Cherry confirmed that their highly anticipated indie sequel is still in active development, though no release window or new gameplay details were shared.','https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg','Published','2025-03-10 10:00:00','2025-03-10 10:00:00'),(10,5,'Rogue-Like Sequel Enters Early Access to Strong Initial Response','roguelike-sequel-early-access','Supergiant Games has launched the early access phase of the sequel to their award-winning rogue-like dungeon crawler, receiving an enthusiastic initial response from both critics and the player community. The early access build contains a substantial portion of the planned content, with additional story and gameplay content to be added throughout the access period.\n\nThe sequel introduces a new protagonist and expands the scope of the original game\'s setting in ways that reviewers have described as both surprising and coherent with the existing lore. New mechanics including a broader ability set and a surface-world exploration component have been highlighted as significant additions to the formula.\n\nThe studio has historically used the early access model to incorporate player feedback into the final product, a practice that was credited with improving several key systems in the original title before its full release. No estimated date for the completion of early access has been provided.','Supergiant Games\' sequel to their acclaimed rogue-like entered early access to strong reviews, introducing a new protagonist and expanded mechanics.','https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg','Published','2025-03-15 10:00:00','2025-03-15 10:00:00');
+/*!40000 ALTER TABLE `news` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `news_tag`
 --
 
 DROP TABLE IF EXISTS `news_tag`;
-CREATE TABLE IF NOT EXISTS `news_tag` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `news_tag` (
   `news_id` int NOT NULL,
   `tag_id` int NOT NULL,
   PRIMARY KEY (`news_id`,`tag_id`),
   KEY `IDX_BE3ED8A1B5A459A0` (`news_id`),
-  KEY `IDX_BE3ED8A1BAD26311` (`tag_id`)
+  KEY `IDX_BE3ED8A1BAD26311` (`tag_id`),
+  CONSTRAINT `FK_BE3ED8A1B5A459A0` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_BE3ED8A1BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `news_tag`
 --
 
-INSERT INTO `news_tag` (`news_id`, `tag_id`) VALUES
-(1, 3),
-(1, 13),
-(2, 5),
-(2, 16),
-(2, 29),
-(3, 1),
-(3, 10),
-(3, 13),
-(4, 20),
-(4, 30),
-(5, 4),
-(6, 12),
-(7, 17),
-(7, 24),
-(8, 8),
-(8, 10),
-(9, 24),
-(10, 9),
-(10, 14),
-(10, 22),
-(11, 20),
-(12, 9),
-(12, 28),
-(13, 4),
-(14, 27),
-(15, 7),
-(15, 10),
-(16, 20),
-(17, 4),
-(18, 9),
-(18, 13),
-(19, 23),
-(19, 29),
-(20, 18),
-(21, 9),
-(21, 13),
-(22, 2),
-(22, 20),
-(22, 26),
-(23, 6),
-(23, 7),
-(24, 8),
-(24, 12),
-(25, 7),
-(25, 11),
-(25, 17),
-(26, 10),
-(26, 15),
-(26, 28),
-(27, 9),
-(27, 12),
-(27, 16),
-(28, 1),
-(29, 5),
-(29, 6),
-(30, 11),
-(30, 17);
-
--- --------------------------------------------------------
+LOCK TABLES `news_tag` WRITE;
+/*!40000 ALTER TABLE `news_tag` DISABLE KEYS */;
+INSERT INTO `news_tag` VALUES (1,1),(1,7),(2,2),(2,6),(3,3),(3,9),(4,1),(4,10),(5,3),(5,4),(6,2),(6,9),(7,2),(7,6),(8,3),(8,5),(9,5),(9,8),(10,3),(10,8);
+/*!40000 ALTER TABLE `news_tag` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `platform`
 --
 
 DROP TABLE IF EXISTS `platform`;
-CREATE TABLE IF NOT EXISTS `platform` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `platform` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `platform`
 --
 
-INSERT INTO `platform` (`id`, `title`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'PS5', 'ps5', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(2, 'PS4', 'ps4', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(3, 'Xbox Series X/S', 'xbox-series-x-s', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(4, 'Xbox One', 'xbox-one', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(5, 'Nintendo Switch', 'nintendo-switch', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(6, 'Windows', 'windows', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(7, 'macOS', 'macos', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(8, 'Linux', 'linux', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(9, 'Android', 'android', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(10, 'iOS', 'ios', '2025-04-01 13:11:13', '2025-04-01 13:11:13');
-
--- --------------------------------------------------------
+LOCK TABLES `platform` WRITE;
+/*!40000 ALTER TABLE `platform` DISABLE KEYS */;
+INSERT INTO `platform` VALUES (1,'PC','pc','2025-01-01 00:00:00','2025-01-01 00:00:00'),(2,'PlayStation 5','playstation-5','2025-01-01 00:00:00','2025-01-01 00:00:00'),(3,'PlayStation 4','playstation-4','2025-01-01 00:00:00','2025-01-01 00:00:00'),(4,'Xbox Series X/S','xbox-series','2025-01-01 00:00:00','2025-01-01 00:00:00'),(5,'Nintendo Switch','nintendo-switch','2025-01-01 00:00:00','2025-01-01 00:00:00');
+/*!40000 ALTER TABLE `platform` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `publisher`
 --
 
 DROP TABLE IF EXISTS `publisher`;
-CREATE TABLE IF NOT EXISTS `publisher` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `publisher` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `country` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `country` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `website` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `publisher`
 --
 
-INSERT INTO `publisher` (`id`, `title`, `slug`, `country`, `website`, `created_at`, `updated_at`) VALUES
-(1, 'Repellat', 'repellat', 'Estonia', 'http://collier.org/odio-rerum-voluptatem-itaque-odit-sit-dolores', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(2, 'Nam', 'nam', 'Romania', 'https://ritchie.info/quia-eos-eveniet-molestias-vero-in-fuga.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(3, 'Rem', 'rem', 'Hungary', 'http://www.schultz.net/neque-aliquam-est-quibusdam-delectus-reprehenderit-ipsa', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(4, 'Rerum', 'rerum', 'Germany', 'http://www.schowalter.com/temporibus-neque-quo-odio-dolorem-ipsam-repudiandae-nisi', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(5, 'Dolorem', 'dolorem', 'Brazil', 'https://www.damore.com/quis-quis-molestiae-qui-et-iusto', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(6, 'Quod', 'quod', 'Spain', 'http://bayer.com/nesciunt-ut-ullam-veniam-in-cum.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(7, 'Officiis', 'officiis', 'Estonia', 'http://leannon.info/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(8, 'Maiores', 'maiores', 'Andorra', 'http://www.weissnat.info/pariatur-deleniti-magnam-nulla-culpa-qui-eaque-sit-est', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(9, 'Inventore', 'inventore', 'China', 'https://terry.biz/nulla-quia-provident-vitae-tempora-soluta-vero-laborum.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(10, 'Expedita', 'expedita', 'Monaco', 'http://rolfson.com/temporibus-veritatis-omnis-quo-atque-non-perspiciatis-consequatur', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(11, 'Sapiente', 'sapiente', 'Belgium', 'https://www.homenick.biz/odit-et-at-nihil-sit-ipsam-ipsa-qui', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(12, 'Qui', 'qui', 'Chile', 'https://oconner.com/et-nobis-ullam-totam-rerum-aut-sint.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(13, 'Quis', 'quis', 'United Kingdom', 'http://oberbrunner.info/quo-optio-maxime-aut-ab-in-est.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(14, 'Velit', 'velit', 'Czech Republic', 'http://www.wilderman.org/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(15, 'Tenetur', 'tenetur', 'Croatia', 'http://www.boyle.com/illum-soluta-qui-unde-iure-sit-culpa-rerum.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(16, 'Neque', 'neque', 'Italy', 'https://little.com/accusamus-recusandae-sint-veritatis-itaque.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(17, 'Illum', 'illum', 'Belarus', 'http://schmitt.com/voluptatem-nobis-praesentium-et-quo-omnis-officia', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(18, 'Porro', 'porro', 'Spain', 'http://www.cummerata.com/delectus-repudiandae-voluptatem-ut.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(19, 'Quos', 'quos', 'Hungary', 'https://hammes.com/eum-impedit-laborum-tempore-magni-eos-pariatur-blanditiis.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(20, 'Vero', 'vero', 'Belarus', 'http://hackett.com/qui-ad-temporibus-qui-suscipit-provident-hic-harum', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(21, 'Deleniti', 'deleniti', 'Portugal', 'https://maggio.info/occaecati-eveniet-suscipit-maiores-omnis-doloremque.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(22, 'Tempora', 'tempora', 'Norway', 'http://larson.com/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(23, 'Quae', 'quae', 'Estonia', 'http://friesen.com/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(24, 'Ullam', 'ullam', 'Belarus', 'http://www.yundt.com/aut-sapiente-ut-voluptatum-quaerat-pariatur-esse-non', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(25, 'Error', 'error', 'Malta', 'http://durgan.info/beatae-totam-animi-est-molestias-aut', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(26, 'Repellendus', 'repellendus', 'Romania', 'http://www.ferry.com/impedit-quia-voluptatem-laudantium-ut-repudiandae-ut-aut-sapiente.html', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(27, 'Fugiat', 'fugiat', 'Belarus', 'https://www.dach.org/nobis-molestiae-omnis-non-ut-odit', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(28, 'Perferendis', 'perferendis', 'Monaco', 'http://www.hammes.net/', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(29, 'Aut', 'aut', 'Netherlands', 'http://www.leannon.com/aliquid-delectus-id-consequuntur-voluptates-autem', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(30, 'Voluptatem', 'voluptatem', 'Belgium', 'http://www.larson.org/', '2025-04-01 13:11:13', '2025-04-01 13:11:13');
-
--- --------------------------------------------------------
+LOCK TABLES `publisher` WRITE;
+/*!40000 ALTER TABLE `publisher` DISABLE KEYS */;
+INSERT INTO `publisher` VALUES (1,'CD Projekt','cd-projekt','Poland','https://cdprojekt.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(2,'Bandai Namco Entertainment','bandai-namco','Japan','https://www.bandainamcoent.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(3,'Rockstar Games','rockstar-games-pub','USA','https://www.rockstargames.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(4,'Sony Interactive Entertainment','sony-interactive','USA','https://www.sie.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(5,'Larian Studios','larian-studios-pub','Belgium','https://larian.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(6,'Team Cherry','team-cherry-pub','Australia','https://www.teamcherry.com.au','2025-01-01 00:00:00','2025-01-01 00:00:00'),(7,'Supergiant Games','supergiant-games-pub','USA','https://www.supergiantgames.com','2025-01-01 00:00:00','2025-01-01 00:00:00'),(8,'Game Science','game-science-pub','China','https://www.heishouyouxi.com','2025-01-01 00:00:00','2025-01-01 00:00:00');
+/*!40000 ALTER TABLE `publisher` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `review`
 --
 
 DROP TABLE IF EXISTS `review`;
-CREATE TABLE IF NOT EXISTS `review` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `review` (
   `id` int NOT NULL AUTO_INCREMENT,
   `author_id` int DEFAULT NULL,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `content` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `summary` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `content` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `summary` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `game_rating` int NOT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_794381C6F675F31B` (`author_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  KEY `IDX_794381C6F675F31B` (`author_id`),
+  CONSTRAINT `FK_794381C6F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `review`
 --
 
-INSERT INTO `review` (`id`, `author_id`, `title`, `slug`, `content`, `summary`, `cover`, `game_rating`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 'Velit Est Itaque Ut Voluptatibus Enim', 'velit-est-itaque-ut-voluptatibus-enim', 'Id blanditiis alias laborum cupiditate possimus quasi enim. Amet reiciendis ad dignissimos iusto veritatis accusamus voluptatibus non. Iure facere nihil perspiciatis dolore aliquid quia.\n\nProvident voluptates autem soluta debitis illo. Quaerat quis sed quia. Nihil dolores laboriosam nulla veritatis et voluptatem deleniti corrupti. Molestiae aspernatur tempore exercitationem ullam et.\n\nTempora dolorum quia excepturi. Rem reprehenderit quo doloribus quos nihil nemo delectus. Ut enim asperiores non et qui delectus. Aliquam impedit eaque dolorem expedita rerum non eaque.', 'Id blanditiis alias laborum cupiditate possimus quasi enim. Amet reiciendis ad dignissimos iusto veritatis accusamus voluptatibus non. Iure facere nih...', 'cover.jpg', 7, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(2, 2, 'Illum Ea Corporis Et Accusamus', 'illum-ea-corporis-et-accusamus', 'Quisquam fugiat earum molestias sunt corrupti cum. Magnam provident laborum impedit non. Incidunt officiis in omnis rerum. A voluptatem non reprehenderit aut recusandae est eum.\n\nSimilique sint est dicta aperiam et nulla consequatur. Repellendus nihil quis est in aliquid et laudantium adipisci. Est harum repellat culpa excepturi cum reprehenderit. Quibusdam facilis et expedita nulla fuga excepturi incidunt.\n\nRerum molestias dolor in voluptate repellendus nisi exercitationem dolore. Totam dolorem id similique.', 'Quisquam fugiat earum molestias sunt corrupti cum. Magnam provident laborum impedit non. Incidunt officiis in omnis rerum. A voluptatem non reprehende...', 'cover.jpg', 1, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(3, 2, 'Et Sunt At Ratione', 'et-sunt-at-ratione', 'Est quas omnis vel temporibus officia velit. Beatae cum saepe nam repellendus quod incidunt consectetur. Minus natus laborum totam.\n\nCupiditate sunt molestias atque consequuntur deleniti aut velit. Iste nam deserunt nostrum ipsum nobis numquam fuga. Minima molestiae provident et beatae beatae non.\n\nReiciendis sed perferendis sint officia. Rerum officiis est unde voluptas accusantium adipisci. Sunt sed natus non sunt quia tempora fugit. Possimus voluptatem voluptatem animi tenetur et perspiciatis sed reprehenderit.', 'Est quas omnis vel temporibus officia velit. Beatae cum saepe nam repellendus quod incidunt consectetur. Minus natus laborum totam.\n\nCupiditate sunt m...', 'cover.jpg', 8, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(4, 3, 'Dolorem Ut Perspiciatis Atque Minima Dolores Ut', 'dolorem-ut-perspiciatis-atque-minima-dolores-ut', 'Aut aspernatur id et voluptatem delectus. Perferendis excepturi et quis eos voluptatem omnis aut et. Quia deleniti necessitatibus qui quasi aliquam nulla autem. Unde quisquam corporis maiores fugiat aut rem.\n\nIn ut corrupti ipsa eius odio. Quia cupiditate cupiditate eligendi aperiam. Quas iure vel et doloribus dolorum dolorem tenetur aut. Nihil est ad sint.\n\nFuga aut possimus eveniet voluptatem. Debitis ipsam vitae repellendus ut et saepe. Aspernatur quam animi totam est sapiente numquam.', 'Aut aspernatur id et voluptatem delectus. Perferendis excepturi et quis eos voluptatem omnis aut et. Quia deleniti necessitatibus qui quasi aliquam nu...', 'cover.jpg', 4, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(5, 2, 'Alias Ad Illum Autem Reiciendis', 'alias-ad-illum-autem-reiciendis', 'Sit harum ut quos accusantium sunt nisi. Nobis ducimus cumque necessitatibus quisquam. Mollitia culpa fuga explicabo omnis aperiam repudiandae.\n\nFacere autem consequatur labore. Laboriosam et perferendis odit doloribus dicta commodi. Iusto sed dolorem quae libero. Et dolorem error facere architecto similique quaerat vel. Et quaerat rem velit est.\n\nQui ex modi quae unde sit. Ut et nostrum omnis in. Fugit est architecto porro. Error praesentium eveniet nobis et rerum.', 'Sit harum ut quos accusantium sunt nisi. Nobis ducimus cumque necessitatibus quisquam. Mollitia culpa fuga explicabo omnis aperiam repudiandae.\n\nFacer...', 'cover.jpg', 4, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(6, 5, 'Similique Repellendus Ut Reiciendis Eligendi Sed Dignissimos', 'similique-repellendus-ut-reiciendis-eligendi-sed-dignissimos', 'Nesciunt iste vel et id voluptas ut. Ratione nobis adipisci ut sint. Enim rerum eligendi quibusdam nulla dolorem. Aut fugit nisi omnis omnis.\n\nAlias odit voluptatibus temporibus qui saepe autem. Possimus doloremque reiciendis quo provident consequatur tenetur. Quis et id explicabo. Est voluptatem rerum est aut impedit. A ab ut sit.\n\nTempore officia non at consequatur. Nisi consequuntur nam quibusdam maiores. Animi magnam vel molestiae aut eos. Ut voluptatem sint ut error quam quia voluptatem est.', 'Nesciunt iste vel et id voluptas ut. Ratione nobis adipisci ut sint. Enim rerum eligendi quibusdam nulla dolorem. Aut fugit nisi omnis omnis.\n\nAlias o...', 'cover.jpg', 4, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(7, 1, 'Voluptas Quae Culpa Qui Tenetur', 'voluptas-quae-culpa-qui-tenetur', 'Aut fugiat nihil voluptate aut eos ut ut doloribus. Assumenda a et repudiandae doloribus qui. Cum doloribus libero mollitia minus quis qui. Quos eaque eum ipsam reiciendis.\n\nFacilis dignissimos debitis laborum omnis corporis cum. Ipsa quasi delectus ut consequatur. Sed ex voluptatem quia aspernatur illum omnis.\n\nEt aspernatur hic illum assumenda est ipsum. Necessitatibus aut ipsa similique veritatis voluptate temporibus. Rerum iusto impedit iure quis dolorem itaque. Cum id magni est id esse est quia.', 'Aut fugiat nihil voluptate aut eos ut ut doloribus. Assumenda a et repudiandae doloribus qui. Cum doloribus libero mollitia minus quis qui. Quos eaque...', 'cover.jpg', 1, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(8, 3, 'Officia Soluta Minima Molestiae Nisi Veniam Modi Vitae', 'officia-soluta-minima-molestiae-nisi-veniam-modi-vitae', 'Eveniet sunt enim temporibus sunt. Vitae sapiente sequi sed eum maxime ex. Qui enim iste suscipit odio minus.\n\nQuia enim iure dolor ut sunt. Et eaque consequatur error. Blanditiis omnis enim neque nisi ut sit dolor atque.\n\nVoluptates itaque maiores qui repudiandae dolores et. Ea perferendis sit autem dolorum quo at libero. Similique quia natus nisi quia dignissimos quo recusandae. Labore quia illo deleniti voluptatem et voluptatem.', 'Eveniet sunt enim temporibus sunt. Vitae sapiente sequi sed eum maxime ex. Qui enim iste suscipit odio minus.\n\nQuia enim iure dolor ut sunt. Et eaque ...', 'cover.jpg', 9, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(9, 2, 'Laborum Est Qui Quae Eum Molestias Aut', 'laborum-est-qui-quae-eum-molestias-aut', 'Debitis voluptas perspiciatis sed repellat. Mollitia architecto sed quia. Exercitationem molestias minus aut eum. Culpa quibusdam et commodi. Nihil omnis non rem esse rerum qui voluptatem culpa.\n\nProvident sint natus cumque voluptatum. Dolorem reiciendis sint aut id quia. Aliquid non quis qui quasi officia asperiores. Animi voluptatem ut voluptate vitae fugiat et voluptate.\n\nEt debitis ratione alias magni repellat tempora. Voluptatem nostrum voluptatum et dignissimos velit ab. Molestiae aliquid aliquam ea debitis rerum reprehenderit dolor. Aperiam earum earum labore qui qui ex.', 'Debitis voluptas perspiciatis sed repellat. Mollitia architecto sed quia. Exercitationem molestias minus aut eum. Culpa quibusdam et commodi. Nihil om...', 'cover.jpg', 6, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(10, 1, 'Sed Fugit Quis Quidem Et Atque Temporibus Neque Delectus', 'sed-fugit-quis-quidem-et-atque-temporibus-neque-delectus', 'Voluptatem quod hic tempora. Praesentium ratione laborum aut vero. Praesentium et magnam voluptatem eum mollitia qui ratione. Voluptates soluta ipsum amet dolorem.\n\nAt impedit quaerat voluptatem dolorem. Dignissimos non ut illo sed ducimus dolor et. Reprehenderit dolor enim repellat reprehenderit qui quis.\n\nAperiam dicta eos earum doloribus ad. Est ut et quisquam nisi voluptatum expedita in. Esse aut dolores iste ut aut dignissimos quia. Ut sint assumenda beatae similique non et.', 'Voluptatem quod hic tempora. Praesentium ratione laborum aut vero. Praesentium et magnam voluptatem eum mollitia qui ratione. Voluptates soluta ipsum ...', 'cover.jpg', 8, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(11, 2, 'Tempora Magni Unde Molestias Soluta', 'tempora-magni-unde-molestias-soluta', 'Impedit eum vero corrupti natus unde est fugiat. Incidunt dolor repudiandae a cum possimus incidunt. Ea consequatur modi officia non quia. Sapiente rerum doloribus animi excepturi.\n\nOptio iure provident tempore est excepturi. Tempore architecto quo autem rerum. Ipsa voluptatem et eos blanditiis aperiam earum qui repellat. Vitae dolorum minima cupiditate aut.\n\nNumquam perspiciatis modi ut fugiat aut id iste. Explicabo sapiente omnis nulla autem. Est quibusdam et ipsam inventore sequi ipsam rerum. Placeat est atque quam aliquam omnis at.', 'Impedit eum vero corrupti natus unde est fugiat. Incidunt dolor repudiandae a cum possimus incidunt. Ea consequatur modi officia non quia. Sapiente re...', 'cover.jpg', 8, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(12, 4, 'Autem Veritatis Repellendus A Delectus', 'autem-veritatis-repellendus-a-delectus', 'Autem iusto quod incidunt sed ex mollitia. Ex porro id quibusdam voluptate deserunt non error commodi. Nihil vitae magni voluptatibus dolore aut soluta tempore.\n\nNesciunt nesciunt qui soluta sed temporibus sunt recusandae. Suscipit esse harum earum quo aut error eum. Perspiciatis iure ut odio modi. Possimus doloremque voluptatem culpa ab aliquid.\n\nAspernatur eum et et. Ipsum voluptas sapiente vel sunt consectetur ex. Labore sit maxime officia et qui et.', 'Autem iusto quod incidunt sed ex mollitia. Ex porro id quibusdam voluptate deserunt non error commodi. Nihil vitae magni voluptatibus dolore aut solut...', 'cover.jpg', 9, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(13, 4, 'Distinctio Et Nesciunt Atque Eius Dolorem Quas', 'distinctio-et-nesciunt-atque-eius-dolorem-quas', 'Quia necessitatibus dolorem fugit numquam at quia. Tempore ut cum quidem saepe dolorem recusandae adipisci. Sunt ullam in debitis eveniet. Praesentium ipsum explicabo praesentium quo facere est non commodi.\n\nDolor voluptate rem qui quos minus inventore. Et optio et commodi. Voluptatum minima fugiat quidem eligendi quia accusamus deleniti. Quasi alias error qui reiciendis laboriosam.\n\nSed quo quis delectus quia illo. Eum ut qui illo dolores sed autem id. Cupiditate eius ut exercitationem alias in ea voluptatem enim.', 'Quia necessitatibus dolorem fugit numquam at quia. Tempore ut cum quidem saepe dolorem recusandae adipisci. Sunt ullam in debitis eveniet. Praesentium...', 'cover.jpg', 10, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(14, 2, 'Error Et Nisi Aspernatur Fugiat Nihil Consequatur Nam', 'error-et-nisi-aspernatur-fugiat-nihil-consequatur-nam', 'Et sed perferendis in hic autem accusamus eius voluptatem. Ea officiis magnam placeat consectetur velit quia accusamus.\n\nNecessitatibus iste repellendus commodi itaque laboriosam soluta incidunt. Perspiciatis perspiciatis enim sequi consequatur laboriosam consequatur. Repudiandae ducimus adipisci ad.\n\nDicta non inventore qui. Suscipit tenetur assumenda et nemo animi accusantium. Sapiente blanditiis non maiores.', 'Et sed perferendis in hic autem accusamus eius voluptatem. Ea officiis magnam placeat consectetur velit quia accusamus.\n\nNecessitatibus iste repellend...', 'cover.jpg', 5, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(15, 2, 'Quo Reprehenderit Et Repellat Ut Minus Dolorem Maiores Totam', 'quo-reprehenderit-et-repellat-ut-minus-dolorem-maiores-totam', 'Nobis omnis sed quia magnam molestias et. Nobis quibusdam et voluptates.\n\nModi optio enim molestiae. Voluptas doloribus dolore dicta enim maiores quia temporibus soluta. Sit quidem adipisci eveniet velit rerum praesentium.\n\nEos iste ut expedita vel perferendis asperiores. Maiores aut quo numquam quis sunt voluptatibus error dolores. Quidem quibusdam sequi doloribus ut impedit ipsa neque.', 'Nobis omnis sed quia magnam molestias et. Nobis quibusdam et voluptates.\n\nModi optio enim molestiae. Voluptas doloribus dolore dicta enim maiores quia...', 'cover.jpg', 3, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(16, 3, 'Facere Sunt Beatae Aut Sit', 'facere-sunt-beatae-aut-sit', 'Voluptatibus ipsam harum quia architecto rerum ut quae. Quo ab neque ea velit consectetur.\n\nOdit eligendi molestias modi voluptatem error omnis consequatur. Inventore provident pariatur ullam eum quasi maiores quod. Dolore a excepturi et. Necessitatibus velit aut sed possimus ex et.\n\nBeatae excepturi esse rerum iste consequatur veritatis dolorum. Neque aliquam mollitia sint nihil dolorum quo. Ipsam eos aperiam sint incidunt odit. Non consequatur corrupti inventore possimus explicabo labore.', 'Voluptatibus ipsam harum quia architecto rerum ut quae. Quo ab neque ea velit consectetur.\n\nOdit eligendi molestias modi voluptatem error omnis conseq...', 'cover.jpg', 3, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(17, 5, 'Esse Blanditiis Culpa Exercitationem Est Ea Et', 'esse-blanditiis-culpa-exercitationem-est-ea-et', 'Sint aperiam praesentium doloribus reiciendis consequatur nihil laborum. Enim eligendi suscipit ut porro molestias quisquam consectetur. Reprehenderit qui dolor deserunt in expedita ut aut. Sint quae dicta facere doloremque repellendus. Laboriosam consequatur porro illo aut est veniam autem.\n\nPraesentium in officia earum quo excepturi. Reiciendis et consequatur perspiciatis in. Repudiandae nemo sed adipisci aut voluptate.\n\nSed quisquam totam est modi aut. Corporis aliquid placeat aut magni. Dolor fugiat accusamus voluptate velit laudantium sed eum modi. Aut aut qui omnis rerum quos.', 'Sint aperiam praesentium doloribus reiciendis consequatur nihil laborum. Enim eligendi suscipit ut porro molestias quisquam consectetur. Reprehenderit...', 'cover.jpg', 4, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(18, 4, 'Reiciendis Sed Nihil Officiis Enim Voluptatibus Deleniti', 'reiciendis-sed-nihil-officiis-enim-voluptatibus-deleniti', 'Et suscipit dolores velit hic. Assumenda non ut numquam repellendus. Dolores natus eius molestiae voluptates sint. Laborum omnis labore necessitatibus.\n\nVelit vel assumenda illum sit molestias. Incidunt aspernatur eligendi quaerat vel quis similique nihil.\n\nEa consequatur dolores quibusdam incidunt omnis quia ex. Aperiam accusantium repellat aut odio sed repudiandae. Neque illo non id assumenda officia. Fugit voluptas et sint.', 'Et suscipit dolores velit hic. Assumenda non ut numquam repellendus. Dolores natus eius molestiae voluptates sint. Laborum omnis labore necessitatibus...', 'cover.jpg', 2, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(19, 5, 'Illum Voluptatem Ut Aut Sint Sed', 'illum-voluptatem-ut-aut-sint-sed', 'Adipisci repudiandae qui ad consequuntur autem in natus. Id omnis est voluptatem harum aperiam explicabo eius. Eaque in delectus iste eaque dolorem perspiciatis in.\n\nDolorum facere expedita harum et vel consectetur assumenda. Voluptate ipsa debitis placeat. Necessitatibus aliquam voluptatum enim.\n\nNon ipsam beatae totam non qui consequatur earum. Voluptas natus et ut omnis iusto laboriosam totam dolores. Cumque nisi sit velit optio consectetur adipisci consequatur ipsam. Et voluptatem ut rem est omnis sed. Quod explicabo sunt autem animi autem voluptates sequi.', 'Adipisci repudiandae qui ad consequuntur autem in natus. Id omnis est voluptatem harum aperiam explicabo eius. Eaque in delectus iste eaque dolorem pe...', 'cover.jpg', 9, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(20, 4, 'Ipsa Cupiditate Ipsam Perspiciatis Quis', 'ipsa-cupiditate-ipsam-perspiciatis-quis', 'Et quia est officia aut animi sed. Ab molestias officiis sit expedita tenetur pariatur. Voluptas aperiam voluptatibus voluptatem. Aut et ipsum magni sapiente ut culpa.\n\nRatione perspiciatis libero ad repudiandae nesciunt id a. Iste laudantium quaerat voluptates tenetur quasi cupiditate. Qui et laboriosam est non quas consequatur recusandae. In repellendus voluptatem accusamus ullam.\n\nRepellat aut quis vel eius eligendi et et. Rerum asperiores maiores autem ipsam soluta pariatur dolor. Saepe recusandae minima velit velit dolor. Quasi et iure adipisci corporis voluptatem pariatur similique.', 'Et quia est officia aut animi sed. Ab molestias officiis sit expedita tenetur pariatur. Voluptas aperiam voluptatibus voluptatem. Aut et ipsum magni s...', 'cover.jpg', 6, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(21, 1, 'Maiores Deserunt Qui Cum Deleniti Ratione Suscipit Reprehenderit', 'maiores-deserunt-qui-cum-deleniti-ratione-suscipit-reprehenderit', 'Quae qui voluptatem doloremque quod dolore et architecto. Consectetur maxime et consequuntur omnis tempora. Voluptates est molestias velit sed dolores quaerat et.\n\nOfficiis eius enim quo quo est reprehenderit commodi accusantium. Aut quasi quidem ut voluptatem error. Suscipit deleniti dolor tempora dolorum corrupti.\n\nFugiat ut ab ab nisi non. Repellat veniam pariatur commodi et ipsa error. Quos consequatur rerum qui iste et distinctio.', 'Quae qui voluptatem doloremque quod dolore et architecto. Consectetur maxime et consequuntur omnis tempora. Voluptates est molestias velit sed dolores...', 'cover.jpg', 5, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(22, 5, 'Ipsam Dolores Voluptas Facilis Vero Quam', 'ipsam-dolores-voluptas-facilis-vero-quam', 'Blanditiis ullam totam harum. Ipsum atque distinctio distinctio ipsa eligendi omnis veritatis. Rerum veniam nihil maxime et dignissimos sint id.\n\nFugit quod soluta ipsa qui quibusdam. Vitae mollitia ab eum vel. Dicta aut et aperiam sequi voluptas at omnis velit.\n\nEt voluptatum ut non ut assumenda. Et ducimus iure non omnis ea. Veritatis est unde sed dolore officia eius porro. Sit ipsum autem eveniet omnis.', 'Blanditiis ullam totam harum. Ipsum atque distinctio distinctio ipsa eligendi omnis veritatis. Rerum veniam nihil maxime et dignissimos sint id.\n\nFugi...', 'cover.jpg', 1, 'Published', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(23, 4, 'Qui Dicta Animi Ab Rerum Eius Id Et Quibusdam', 'qui-dicta-animi-ab-rerum-eius-id-et-quibusdam', 'Magni saepe labore quis nemo. Ut rerum velit neque ut omnis id sit.\n\nDeserunt consequatur esse ipsam sapiente laboriosam. Ea molestiae qui quam voluptas quae voluptas dolores. Et voluptates facere animi adipisci qui. Consequatur velit non autem qui ex.\n\nDebitis reiciendis quia ea at doloribus. Et nesciunt numquam odio amet quis et ut assumenda. Consequatur deserunt illo delectus ratione. Provident provident nostrum qui sequi ullam laborum quia.', 'Magni saepe labore quis nemo. Ut rerum velit neque ut omnis id sit.\n\nDeserunt consequatur esse ipsam sapiente laboriosam. Ea molestiae qui quam volupt...', 'cover.jpg', 6, 'Archived', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(24, 5, 'Suscipit Officiis Sit Assumenda Adipisci Perspiciatis Necessitatibus', 'suscipit-officiis-sit-assumenda-adipisci-perspiciatis-necessitatibus', 'Unde odio nobis dolor est corrupti voluptatem nihil. Exercitationem eos ducimus eius harum laudantium. Eligendi maxime est autem inventore perferendis accusamus.\n\nMagni commodi quo placeat ea placeat cum earum nobis. Optio ipsa eos perferendis. Est tempora ab aspernatur libero ex eos recusandae. Aspernatur error iste qui omnis et voluptates.\n\nEt delectus et aut rerum dolorem placeat esse. Earum et suscipit et labore. Velit id molestiae neque aut quibusdam.', 'Unde odio nobis dolor est corrupti voluptatem nihil. Exercitationem eos ducimus eius harum laudantium. Eligendi maxime est autem inventore perferendis...', 'cover.jpg', 5, 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(25, 4, 'Eos Vel Nihil Labore In', 'eos-vel-nihil-labore-in', 'Totam velit blanditiis veritatis. Cupiditate nulla earum iusto est. Consequatur voluptatem cupiditate rerum dignissimos nihil. Ut et aliquam et illum.\n\nAut occaecati facilis sit eius. Ex debitis autem soluta ut eligendi quos. Earum quibusdam vel expedita repellendus provident ea vitae.\n\nOmnis excepturi est pariatur praesentium. A nesciunt amet enim et rerum ad quaerat. Dolores voluptatum asperiores eos iste.', 'Totam velit blanditiis veritatis. Cupiditate nulla earum iusto est. Consequatur voluptatem cupiditate rerum dignissimos nihil. Ut et aliquam et illum....', 'cover.jpg', 10, 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(26, 5, 'Voluptatem Sit Consequuntur Sit', 'voluptatem-sit-consequuntur-sit', 'Et sit velit expedita. Rem nihil facilis eveniet sint veniam maxime sit. Eligendi non nulla temporibus dolor.\n\nEt nisi odio vel aliquid ut id soluta dicta. Voluptatum dignissimos ut est qui aut molestiae. Ullam quisquam est dolor cupiditate et.\n\nEst ut quis aut doloribus sint quos veniam. Architecto quo vel porro omnis perferendis nam animi. Sapiente totam in rerum.', 'Et sit velit expedita. Rem nihil facilis eveniet sint veniam maxime sit. Eligendi non nulla temporibus dolor.\n\nEt nisi odio vel aliquid ut id soluta d...', 'cover.jpg', 2, 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(27, 3, 'Molestiae Est Voluptas Dolorum Accusamus Ipsa', 'molestiae-est-voluptas-dolorum-accusamus-ipsa', 'Perspiciatis sed aliquid quaerat. Quas est minus officia aperiam eaque et. Culpa quia non tempora iusto.\n\nConsequatur vitae aut commodi aspernatur amet excepturi. Et sit ab provident odit. Expedita necessitatibus et atque voluptatem.\n\nNisi similique vel cupiditate voluptatibus excepturi consequatur natus. At illo quis dignissimos ad maiores quas sunt. Earum porro explicabo labore. Esse possimus enim consequatur sequi nobis consequatur reiciendis.', 'Perspiciatis sed aliquid quaerat. Quas est minus officia aperiam eaque et. Culpa quia non tempora iusto.\n\nConsequatur vitae aut commodi aspernatur ame...', 'cover.jpg', 5, 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(28, 4, 'Consequatur Delectus Deserunt Ratione Aperiam Facilis Vel', 'consequatur-delectus-deserunt-ratione-aperiam-facilis-vel', 'Quod provident voluptatum hic et unde laudantium. Sunt cumque sit quis possimus ipsa. Ex natus porro ducimus. Atque aut ad enim distinctio.\n\nDucimus repellendus omnis blanditiis nulla. Voluptas aspernatur non quia nisi et est. Dolor modi eos tenetur reprehenderit quia.\n\nExercitationem nam odit consequuntur natus qui excepturi sunt. Autem molestiae eos excepturi et. Ut ipsum autem eum sint quos impedit. Sunt dolorum est maiores ut voluptas.', 'Quod provident voluptatum hic et unde laudantium. Sunt cumque sit quis possimus ipsa. Ex natus porro ducimus. Atque aut ad enim distinctio.\n\nDucimus r...', 'cover.jpg', 7, 'Archived', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(29, 3, 'Deserunt Debitis Voluptas Ducimus', 'deserunt-debitis-voluptas-ducimus', 'Exercitationem quaerat est hic nobis officia eaque. Ea velit culpa accusantium dolores.\n\nEius ducimus aperiam et aperiam. Tempore quo voluptatem ipsum. Aut inventore deleniti occaecati dolor architecto eum. Aspernatur omnis fugiat cumque inventore quia et perferendis in.\n\nNon dolores aut voluptatum at excepturi aut molestiae. Expedita eum ut reprehenderit assumenda voluptatem magnam modi sed. Cum reiciendis esse in rerum et hic.', 'Exercitationem quaerat est hic nobis officia eaque. Ea velit culpa accusantium dolores.\n\nEius ducimus aperiam et aperiam. Tempore quo voluptatem ipsum...', 'cover.jpg', 4, 'Draft', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(30, 3, 'Facere Voluptatem Ipsa Commodi Et Velit Qui', 'facere-voluptatem-ipsa-commodi-et-velit-qui', 'Omnis nemo natus voluptatem cupiditate autem. Sunt accusantium perferendis qui. Voluptas maxime expedita autem consectetur vitae illum vel. Molestias non non sunt eius.\n\nConsequatur ea eligendi et voluptas minima. Aliquid ipsum omnis voluptatibus esse ut. Officia dolores minima pariatur sequi qui quae voluptatem. Officia et exercitationem ad adipisci.\n\nEaque et ut molestiae est blanditiis eum. Veritatis dolor dolores minima. Molestias perferendis ea ea ipsa. Provident officiis est hic dicta delectus eum.', 'Omnis nemo natus voluptatem cupiditate autem. Sunt accusantium perferendis qui. Voluptas maxime expedita autem consectetur vitae illum vel. Molestias ...', 'cover.jpg', 3, 'Deleted', '2025-04-01 13:11:15', '2025-04-01 13:11:15');
-
--- --------------------------------------------------------
+LOCK TABLES `review` WRITE;
+/*!40000 ALTER TABLE `review` DISABLE KEYS */;
+INSERT INTO `review` VALUES (1,1,'Cyberpunk 2077: A City Worth Getting Lost In','cyberpunk-2077-review','Night City is one of the most visually dense urban environments ever constructed in a video game. Every street corner feels like it was designed by someone with a specific story in mind — the neon signs, the food stalls, the residents sitting in doorways. Walking through it without any objective in mind is a genuinely absorbing experience, and that alone justifies a significant portion of the time investment the game asks of you.\n\nThe core RPG loop has been meaningfully strengthened by a skills overhaul that arrived well after the initial release. Builds now feel genuinely distinct from one another, and the game rewards commitment to a chosen approach rather than punishing players for specializing. Whether you prefer to ghost through missions or approach them as a series of escalating firefights, the systems support both playstyles with enough depth to stay interesting.\n\nThe story, centered on a mercenary navigating a terminal diagnosis while hosting an increasingly intrusive digital passenger, is told with a confidence that the game\'s early reception obscured for too long. The final act in particular lands with real emotional weight, and multiple ending paths give the experience genuine replay value. Night City deserved a better launch than it got, but it deserves the attention it receives now.','Night City finally gets the game it deserved. Cyberpunk 2077 has matured into a compelling open-world RPG with strong writing and genuinely distinct build options.','https://cdn.akamai.steamstatic.com/steam/apps/1091500/capsule_616x353.jpg',9,'Published','2025-04-01 10:00:00','2025-04-01 10:00:00'),(2,1,'Elden Ring: Where Difficulty Meets Discovery','elden-ring-review','The most important thing to understand about Elden Ring is that its difficulty is a feature of the exploration, not a barrier to it. Every time the game turns you back from a direction you were heading, it is implicitly pointing you somewhere else. The open world is a tool for managing your own progression in a way that few games have attempted and fewer have executed well.\n\nCombat retains the deliberate, read-and-respond quality that defines this studio\'s output, but the variety of weapons, spells, and summon options creates a wider range of viable approaches than the studio\'s earlier works allowed. Players who struggled with previous entries will find the open-world structure genuinely accommodating without the game ever feeling like it has compromised on its identity.\n\nThe world design is exceptional. Each area has a visual identity and an implicit narrative told through enemy placement, item descriptions, and the ruined or inhabited state of the environments. Spending time piecing together what happened here before your character arrived is one of the game\'s primary pleasures. This is a substantial, carefully constructed work that more than justifies its reputation.','Elden Ring reframes the studio\'s signature challenge within an open world that rewards curiosity and makes player-directed progression genuinely satisfying.','https://cdn.akamai.steamstatic.com/steam/apps/1245620/capsule_616x353.jpg',10,'Published','2025-02-07 10:00:00','2025-02-07 10:00:00'),(3,2,'The Witcher 3: A Decade On and Still Unmatched','the-witcher-3-review','Very few games of the past ten years have aged as well as The Witcher 3. Its open world remains one of the most carefully realized in the medium — not merely large, but populated with content that was clearly written by people who cared about the specific village, the specific characters, the specific problem at hand. The result is a world that feels inhabited rather than generated.\n\nGeralt of Rivia is a reliable anchor for a sprawling narrative that moves between political intrigue, family drama, and monster hunting with unusual ease. The main storyline holds its shape across a runtime that many open-world games use as an excuse to pad. The two expansions extend the experience further, with one of them delivering a self-contained story that stands among the best the medium has produced.\n\nThe technical upgrades introduced in the current-generation version address many of the visual compromises that were apparent in the original release, making this the definitive way to experience a game that needed no improvement in any area that actually mattered. Required playing.','The Witcher 3 holds up remarkably well a decade after release. Its world, characters, and narrative remain benchmarks that most open-world games still fail to reach.','https://cdn.akamai.steamstatic.com/steam/apps/292030/capsule_616x353.jpg',10,'Published','2025-02-12 10:00:00','2025-02-12 10:00:00'),(4,2,'Red Dead Redemption 2: Patience as a Design Principle','red-dead-redemption-2-review','Red Dead Redemption 2 is a game about the pace of a dying era, and it has the courage to make you feel that pace. Travel is slow. Conversations take as long as they need to. The camp you return to between missions changes gradually, and the people in it respond to your presence differently depending on how you have behaved. These are design choices that will frustrate players looking for constant stimulation, and they are exactly right for what the game is trying to accomplish.\n\nArthur Morgan is the most fully realized protagonist Rockstar has produced. His arc across the game\'s six chapters moves from competence to reflection to something approaching grace, and the writing supports every stage of that transition without forcing it. The late-game sections in particular achieve a register that most narrative games never attempt.\n\nThe world itself is a genuine achievement — not just in its visual fidelity, which is extraordinary, but in the density of its incidental content. Strangers you meet once deliver small stories with beginnings and ends. Animals behave according to their own logic. The frontier feels like a place that would exist without you, which is the highest compliment you can pay to an open world.','Red Dead Redemption 2 commits fully to its slow, deliberate rhythm and is better for it. Arthur Morgan\'s story earns every hour it asks of you.','https://cdn.akamai.steamstatic.com/steam/apps/1174180/capsule_616x353.jpg',9,'Published','2025-02-17 10:00:00','2025-02-17 10:00:00'),(5,3,'God of War Ragnarok: A Sequel That Earns Its Scale','god-of-war-ragnarok-review','The challenge facing any sequel to a universally praised game is how to be more without simply being larger. God of War Ragnarok navigates this by deepening rather than widening — the relationship at its center is more complex, the moral questions are harder, and the narrative is willing to sit with ambiguity in a way that action games rarely attempt.\n\nKratos has become one of the medium\'s most interesting characters precisely because the game resists the temptation to resolve his contradictions. He is trying to be different from what he was, and the game acknowledges that trying and succeeding are not the same thing. The scenes between him and Atreus carry the weight of that effort, and the voice performances support it at every turn.\n\nCombat is expanded from the previous entry in ways that feel considered rather than additive for its own sake. New weapon options and enemy designs encourage more varied approaches, and the spectacle of the larger set pieces is handled with a confidence that comes from a studio at the height of its technical ability. A very strong entry in a franchise that has reinvented itself successfully.','God of War Ragnarok deepens its predecessor in ways that matter — stronger character work, harder questions, and combat that rewards the new tools it gives you.','https://cdn.akamai.steamstatic.com/steam/apps/2322010/capsule_616x353.jpg',9,'Published','2025-02-22 10:00:00','2025-02-22 10:00:00'),(6,3,'Baldur\'s Gate 3: The Tabletop Dream Realized','baldurs-gate-3-review','The central promise of Baldur\'s Gate 3 is that the world will respond to what you do with the flexibility and creativity of a skilled dungeon master, and the remarkable thing is that it largely keeps that promise. Solutions present themselves from unexpected directions. Characters remember what you did and respond accordingly. The systems interact in ways that produce outcomes the designers clearly did not specifically script.\n\nThe companion writing is the game\'s most consistent strength. Each character arrives with a history and a perspective that resists easy summary, and the arcs they travel across the game\'s three acts feel earned rather than prescribed. The co-operative mode amplifies everything — four players making divergent choices produces a kind of emergent narrative chaos that the game absorbs with surprising grace.\n\nAct three, set in the city the game is named after, is ambitious to the point of occasional incoherence, but the ambition itself is worth acknowledging. Few games attempt content at this scale while maintaining this level of quality in the writing. The result is imperfect and essential in equal measure.','Baldur\'s Gate 3 keeps its central promise: the world responds to what you do with genuine flexibility. The companion writing and co-op experience are exceptional throughout.','https://cdn.akamai.steamstatic.com/steam/apps/1086940/capsule_616x353.jpg',10,'Published','2025-02-27 10:00:00','2025-02-27 10:00:00'),(7,4,'Hollow Knight: Small Studio, Enormous World','hollow-knight-review','Hallownest is a kingdom with the texture of a place that once mattered. Its architecture suggests a civilization with its own rituals and hierarchies; the enemies that now inhabit it carry the remnants of roles they no longer serve. Wandering through it is an act of archaeology as much as combat, and the game is designed to reward the player who pays attention to what the environment is saying.\n\nThe Metroidvania structure is executed with unusual discipline. New abilities open old paths in ways that feel logical rather than arbitrary, and the map — which you assemble manually using purchased pins — gives the navigation a tactile quality that most games in the genre skip past. Getting lost and finding your way out is part of the design, not a failure state.\n\nCombat asks you to be precise and aggressive within a limited range. This is a deliberate constraint — the nail is short, enemies are numerous, and many encounters require you to stay close to things that are trying to hurt you. Boss fights build on this tension into encounters that are demanding and fair in equal measure. This is a game made with real conviction by people who cared deeply about every corner of it.','Hollow Knight builds a world worth getting lost in, and fills it with combat that rewards the precision it demands. A genuine achievement from a tiny team.','https://cdn.akamai.steamstatic.com/steam/apps/367520/capsule_616x353.jpg',9,'Published','2025-03-03 10:00:00','2025-03-03 10:00:00'),(8,4,'Hades: Death as Narrative Progression','hades-review','The structural insight at the heart of Hades is that failure should advance the story rather than interrupt it. Every death returns the player to the starting point, but the world changes in response to each attempt — new dialogue appears, relationships develop, and information accumulates. The rogue-like loop and the narrative are not running in parallel; they are driving each other.\n\nThe combat is fast and readable, built around a boon system that creates meaningfully different configurations on each run. The God-granted abilities interact in ways that encourage experimentation, and the distinction between a strong build and a weak one is clear enough that improving your decision-making produces a tangible effect on outcomes. The core loop does not overstay its welcome because each run feels like a different version of the same challenge.\n\nThe writing deserves specific recognition. The script is expansive and consistently sharp, maintaining distinct voices for a large cast of mythological characters. The main narrative thread — a son trying to leave home, a family trying to prevent it — lands with real emotional resonance once the full picture emerges. A landmark achievement in genre design.','Hades integrates narrative and rogue-like structure more effectively than anything before it. The combat, writing, and loop design work together to create something exceptional.','https://cdn.akamai.steamstatic.com/steam/apps/1145360/capsule_616x353.jpg',10,'Published','2025-03-08 10:00:00','2025-03-08 10:00:00'),(9,5,'Black Myth: Wukong — A Confident Debut','black-myth-wukong-review','Black Myth: Wukong announces itself immediately as a game of serious technical ambition. The opening sequences establish a visual quality that places the game in direct comparison with the best-looking titles currently available, and the environmental art design draws on source material that Western and Japanese games have rarely touched. The world has a distinct look that does not feel derivative.\n\nThe combat system centers on a stance-shifting staff moveset supplemented by transformation abilities that allow the player character to assume the form of defeated enemies. The system has depth without requiring mastery to enjoy, and the boss encounters — which are numerous and inventive — are designed to showcase the full range of what the mechanics can do.\n\nNarrative pacing is uneven, and some mid-game sections suffer from a lack of environmental variety that the stronger areas make more apparent by contrast. These are minor reservations about a game that delivers on its core promise impressively. As a first project from a studio with no previous output at this scale, it represents a significant achievement and a strong foundation for future work.','Black Myth: Wukong is a technically impressive debut with inventive boss design and a distinctive visual identity rooted in Chinese mythology.','https://cdn.akamai.steamstatic.com/steam/apps/2358720/capsule_616x353.jpg',8,'Published','2025-03-13 10:00:00','2025-03-13 10:00:00'),(10,5,'Sekiro: The Case for Precision','sekiro-review','Sekiro argues, with its entire design, that precision is a more satisfying basis for a combat system than flexibility. Where other action RPGs offer builds and equipment as a buffer between player input and outcomes, Sekiro removes that buffer almost entirely. You succeed when your timing is correct. You fail when it is not. This is either a compelling proposition or an alienating one, depending entirely on what you want from the genre.\n\nFor players willing to meet the game on its own terms, the posture system is exceptional. Every fight is a structured conversation in which attacking and defending are not cleanly separated — an aggressive offense fills the opponent\'s posture bar and creates the vulnerability that ends the encounter. Learning to read enemy patterns and apply pressure continuously is a genuinely teachable skill, and the moment it clicks in a previously impossible fight is among the most satisfying experiences the medium offers.\n\nThe setting deserves acknowledgment independent of the mechanical discussion. Late Sengoku Japan, rendered with an attention to architectural and environmental detail that most historical settings lack, gives the game a visual coherence that enhances the atmosphere of its encounters. The final bosses are designed to test everything the game has taught you, and they are worthy of the build-up. Difficult, precise, and worth every attempt.','Sekiro builds its entire design around a single commitment to precision, and the result is one of the most satisfying combat systems in any action game.','https://cdn.akamai.steamstatic.com/steam/apps/814380/capsule_616x353.jpg',9,'Published','2025-03-18 10:00:00','2025-03-18 10:00:00');
+/*!40000 ALTER TABLE `review` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `review_tag`
 --
 
 DROP TABLE IF EXISTS `review_tag`;
-CREATE TABLE IF NOT EXISTS `review_tag` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `review_tag` (
   `review_id` int NOT NULL,
   `tag_id` int NOT NULL,
   PRIMARY KEY (`review_id`,`tag_id`),
   KEY `IDX_FBEBB4A3E2E969B` (`review_id`),
-  KEY `IDX_FBEBB4ABAD26311` (`tag_id`)
+  KEY `IDX_FBEBB4ABAD26311` (`tag_id`),
+  CONSTRAINT `FK_FBEBB4A3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_FBEBB4ABAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `review_tag`
 --
 
-INSERT INTO `review_tag` (`review_id`, `tag_id`) VALUES
-(1, 23),
-(1, 26),
-(1, 30),
-(2, 1),
-(2, 5),
-(2, 20),
-(3, 6),
-(3, 23),
-(4, 22),
-(4, 24),
-(4, 29),
-(5, 25),
-(6, 12),
-(6, 15),
-(7, 20),
-(8, 21),
-(8, 28),
-(9, 13),
-(9, 14),
-(10, 7),
-(10, 12),
-(10, 17),
-(11, 8),
-(11, 19),
-(12, 7),
-(12, 26),
-(13, 1),
-(13, 3),
-(13, 24),
-(14, 3),
-(14, 22),
-(14, 27),
-(15, 11),
-(16, 6),
-(16, 8),
-(16, 11),
-(17, 12),
-(17, 14),
-(17, 21),
-(18, 1),
-(18, 27),
-(19, 19),
-(20, 1),
-(20, 22),
-(21, 4),
-(21, 12),
-(21, 18),
-(22, 5),
-(23, 13),
-(24, 3),
-(24, 13),
-(24, 21),
-(25, 7),
-(25, 24),
-(26, 5),
-(26, 12),
-(26, 25),
-(27, 8),
-(27, 15),
-(27, 21),
-(28, 13),
-(28, 27),
-(29, 11),
-(30, 29);
-
--- --------------------------------------------------------
+LOCK TABLES `review_tag` WRITE;
+/*!40000 ALTER TABLE `review_tag` DISABLE KEYS */;
+INSERT INTO `review_tag` VALUES (1,1),(1,7),(1,9),(2,2),(2,5),(2,6),(3,1),(3,3),(3,9),(4,1),(4,3),(4,10),(5,3),(5,5),(5,6),(6,3),(6,4),(6,9),(7,5),(7,6),(7,8),(8,3),(8,5),(8,8),(9,2),(9,5),(9,9),(10,2),(10,5),(10,6);
+/*!40000 ALTER TABLE `review_tag` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `tag`
 --
 
 DROP TABLE IF EXISTS `tag`;
-CREATE TABLE IF NOT EXISTS `tag` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `tag` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `slug` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `slug` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `tag`
 --
 
-INSERT INTO `tag` (`id`, `title`, `slug`, `created_at`, `updated_at`) VALUES
-(1, 'Optio', 'optio', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(2, 'Dicta', 'dicta', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(3, 'Assumenda', 'assumenda', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(4, 'Reprehenderit', 'reprehenderit', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(5, 'Distinctio', 'distinctio', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(6, 'Molestiae', 'molestiae', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(7, 'Iusto', 'iusto', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(8, 'Sed', 'sed', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(9, 'Excepturi', 'excepturi', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(10, 'Minima', 'minima', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(11, 'Rerum', 'rerum', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(12, 'Qui', 'qui', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(13, 'Magnam', 'magnam', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(14, 'Sunt', 'sunt', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(15, 'Asperiores', 'asperiores', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(16, 'Officiis', 'officiis', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(17, 'Dignissimos', 'dignissimos', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(18, 'Veritatis', 'veritatis', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(19, 'Nulla', 'nulla', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(20, 'Consequatur', 'consequatur', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(21, 'Doloremque', 'doloremque', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(22, 'Perspiciatis', 'perspiciatis', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(23, 'Amet', 'amet', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(24, 'Similique', 'similique', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(25, 'Quos', 'quos', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(26, 'Minus', 'minus', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(27, 'Temporibus', 'temporibus', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(28, 'Quam', 'quam', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(29, 'Magni', 'magni', '2025-04-01 13:11:13', '2025-04-01 13:11:13'),
-(30, 'Neque', 'neque', '2025-04-01 13:11:13', '2025-04-01 13:11:13');
-
--- --------------------------------------------------------
+LOCK TABLES `tag` WRITE;
+/*!40000 ALTER TABLE `tag` DISABLE KEYS */;
+INSERT INTO `tag` VALUES (1,'Open World','open-world','2025-01-01 00:00:00','2025-01-01 00:00:00'),(2,'Souls-like','souls-like','2025-01-01 00:00:00','2025-01-01 00:00:00'),(3,'Story Rich','story-rich','2025-01-01 00:00:00','2025-01-01 00:00:00'),(4,'Multiplayer','multiplayer','2025-01-01 00:00:00','2025-01-01 00:00:00'),(5,'Single Player','single-player','2025-01-01 00:00:00','2025-01-01 00:00:00'),(6,'Dark Fantasy','dark-fantasy','2025-01-01 00:00:00','2025-01-01 00:00:00'),(7,'Cyberpunk','cyberpunk','2025-01-01 00:00:00','2025-01-01 00:00:00'),(8,'Indie','indie','2025-01-01 00:00:00','2025-01-01 00:00:00'),(9,'Action RPG','action-rpg','2025-01-01 00:00:00','2025-01-01 00:00:00'),(10,'Noir','noir','2025-01-01 00:00:00','2025-01-01 00:00:00');
+/*!40000 ALTER TABLE `tag` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(180) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json NOT NULL,
-  `nickname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `twitch_account` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nickname` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `twitch_account` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQ_IDENTIFIER_EMAIL` (`email`),
   UNIQUE KEY `UNIQ_USER_NICKNAME` (`nickname`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `email`, `password`, `roles`, `nickname`, `twitch_account`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'brie@gmail.com', '$2y$13$DGBEw2JCqHq1SKlRYfYpiudYz2heUR/0tV5W/yiaicNA2VXzB3/oC', '[\"ROLE_ADMIN\", \"ROLE_USER\"]', 'Brie', 'http://wiegand.com/', 'avatar.jpg', '2025-04-01 13:11:14', '2025-04-01 13:11:14'),
-(2, 'kai@gmail.com', '$2y$13$YUn182Pv1p0gwpgxGDiNYef1qErJDhkpi..1H5Y4xCAwQ/NBdFk1e', '[\"ROLE_USER\"]', 'Kai', 'http://mosciski.com/', 'avatar.jpg', '2025-04-01 13:11:14', '2025-04-01 13:11:14'),
-(3, 'sapphire@gmail.com', '$2y$13$fogtV.SubPKhub2Cv.CdXeISQ13tsM4hhfdOlDcgro1j0bvHCxdZu', '[\"ROLE_USER\"]', 'Sapphire', 'http://www.schowalter.net/', 'avatar.jpg', '2025-04-01 13:11:14', '2025-04-01 13:11:14'),
-(4, 'muse@gmail.com', '$2y$13$cM/PCvwkdLBXaiCgoQ2vIeNPGsnBgvSHZbFuk3pIU1hBGo60CMoWq', '[\"ROLE_USER\"]', 'Muse', 'http://www.haley.com/rem-totam-doloremque-laudantium-voluptas-ut-sint-est', 'avatar.jpg', '2025-04-01 13:11:15', '2025-04-01 13:11:15'),
-(5, 'oneeyed@gmail.com', '$2y$13$JD6zTQIojvW245jQH8SAd.ay8ulKlMpr5d1bv4hHpPnRAOK6CEPAG', '[\"ROLE_USER\"]', 'OneEyed', 'https://fay.com/soluta-minima-eum-dolor-sunt.html', 'avatar.jpg', '2025-04-01 13:11:15', '2025-04-01 13:11:15');
-
--- --------------------------------------------------------
+LOCK TABLES `user` WRITE;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'brie@gmail.com','$2y$13$DGBEw2JCqHq1SKlRYfYpiudYz2heUR/0tV5W/yiaicNA2VXzB3/oC','[\"ROLE_ADMIN\", \"ROLE_USER\"]','Brie','http://wiegand.com/','avatar.jpg','2025-04-01 13:11:14','2025-04-01 13:11:14'),(2,'kai@gmail.com','$2y$13$YUn182Pv1p0gwpgxGDiNYef1qErJDhkpi..1H5Y4xCAwQ/NBdFk1e','[\"ROLE_USER\"]','Kai','http://mosciski.com/','avatar.jpg','2025-04-01 13:11:14','2025-04-01 13:11:14'),(3,'sapphire@gmail.com','$2y$13$fogtV.SubPKhub2Cv.CdXeISQ13tsM4hhfdOlDcgro1j0bvHCxdZu','[\"ROLE_USER\"]','Sapphire','http://www.schowalter.net/','avatar.jpg','2025-04-01 13:11:14','2025-04-01 13:11:14'),(4,'muse@gmail.com','$2y$13$cM/PCvwkdLBXaiCgoQ2vIeNPGsnBgvSHZbFuk3pIU1hBGo60CMoWq','[\"ROLE_USER\"]','Muse','http://www.haley.com/rem-totam-doloremque-laudantium-voluptas-ut-sint-est','avatar.jpg','2025-04-01 13:11:15','2025-04-01 13:11:15'),(5,'oneeyed@gmail.com','$2y$13$JD6zTQIojvW245jQH8SAd.ay8ulKlMpr5d1bv4hHpPnRAOK6CEPAG','[\"ROLE_USER\"]','OneEyed','https://fay.com/soluta-minima-eum-dolor-sunt.html','avatar.jpg','2025-04-01 13:11:15','2025-04-01 13:11:15');
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `user_token`
 --
 
 DROP TABLE IF EXISTS `user_token`;
-CREATE TABLE IF NOT EXISTS `user_token` (
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `user_token` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
-  `token` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `session_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `session_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `expires_at` datetime NOT NULL,
   `is_revoked` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `IDX_BDF55A63A76ED395` (`user_id`)
+  KEY `IDX_BDF55A63A76ED395` (`user_id`),
+  CONSTRAINT `FK_BDF55A63A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Constraints for dumped tables
+-- Dumping data for table `user_token`
 --
 
---
--- Constraints for table `comment`
---
-ALTER TABLE `comment`
-  ADD CONSTRAINT `FK_9474526C3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_9474526CF675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE CASCADE;
+LOCK TABLES `user_token` WRITE;
+/*!40000 ALTER TABLE `user_token` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_token` ENABLE KEYS */;
+UNLOCK TABLES;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
---
--- Constraints for table `game_developer`
---
-ALTER TABLE `game_developer`
-  ADD CONSTRAINT `FK_B75D4A9864DD9267` FOREIGN KEY (`developer_id`) REFERENCES `developer` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_B75D4A98E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `game_genre`
---
-ALTER TABLE `game_genre`
-  ADD CONSTRAINT `FK_B1634A774296D31F` FOREIGN KEY (`genre_id`) REFERENCES `genre` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_B1634A77E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `game_news`
---
-ALTER TABLE `game_news`
-  ADD CONSTRAINT `FK_F6C6F57CB5A459A0` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_F6C6F57CE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `game_platform`
---
-ALTER TABLE `game_platform`
-  ADD CONSTRAINT `FK_92162FEDE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_92162FEDFFE6496F` FOREIGN KEY (`platform_id`) REFERENCES `platform` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `game_publisher`
---
-ALTER TABLE `game_publisher`
-  ADD CONSTRAINT `FK_4E4E144440C86FCE` FOREIGN KEY (`publisher_id`) REFERENCES `publisher` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_4E4E1444E48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `game_review`
---
-ALTER TABLE `game_review`
-  ADD CONSTRAINT `FK_4762C0E3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_4762C0EE48FD905` FOREIGN KEY (`game_id`) REFERENCES `game` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `news`
---
-ALTER TABLE `news`
-  ADD CONSTRAINT `FK_1DD39950F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `news_tag`
---
-ALTER TABLE `news_tag`
-  ADD CONSTRAINT `FK_BE3ED8A1B5A459A0` FOREIGN KEY (`news_id`) REFERENCES `news` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_BE3ED8A1BAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `review`
---
-ALTER TABLE `review`
-  ADD CONSTRAINT `FK_794381C6F675F31B` FOREIGN KEY (`author_id`) REFERENCES `user` (`id`) ON DELETE SET NULL;
-
---
--- Constraints for table `review_tag`
---
-ALTER TABLE `review_tag`
-  ADD CONSTRAINT `FK_FBEBB4A3E2E969B` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `FK_FBEBB4ABAD26311` FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `user_token`
---
-ALTER TABLE `user_token`
-  ADD CONSTRAINT `FK_BDF55A63A76ED395` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
-COMMIT;
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-04-19 16:20:15

@@ -168,7 +168,9 @@ class News
     #[Groups([self::GROUP_GET_NEWS, self::GROUP_GET_NEWS_COLLECTION, Game::GROUP_GET_GAME, Tag::GROUP_GET_TAG])]
     public function getCoverUrl(): ?string
     {
-        return $this->cover ? '/uploads/images/news/' . $this->getId() . '/' . $this->cover : null;
+        if (!$this->cover) return null;
+        if (str_starts_with($this->cover, 'http')) return $this->cover;
+        return '/uploads/images/news/' . $this->getId() . '/' . $this->cover;
     }
 
     public function getStatus(): ?StatusEnum

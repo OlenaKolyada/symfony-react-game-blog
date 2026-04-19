@@ -349,7 +349,9 @@ class Game
     ])]
     public function getCoverUrl(): ?string
     {
-        return $this->cover ? '/uploads/images/game/' . $this->getId() . '/' . $this->cover : null;
+        if (!$this->cover) return null;
+        if (str_starts_with($this->cover, 'http')) return $this->cover;
+        return '/uploads/images/game/' . $this->getId() . '/' . $this->cover;
     }
 
     public function getLanguage(): ?array
