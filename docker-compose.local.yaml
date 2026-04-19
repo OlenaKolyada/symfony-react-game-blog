@@ -3,3 +3,5 @@ services:
     environment:
       BACKEND_URL: "http://localhost:8001"
       FRONTEND_URL: "http://localhost"
+      CORS_ALLOW_ORIGIN: "^https?://localhost(:\\d+)?$"
+    command: ["/bin/bash", "-c", "tr -d '\\r' < /entrypoint.sh > /tmp/ep.sh && bash /tmp/ep.sh"]
