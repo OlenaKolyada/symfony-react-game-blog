@@ -85,9 +85,7 @@ class Game
     #[ORM\Column(type: Types::TEXT)]
     #[Assert\NotBlank(message: 'Content cannot be blank.')]
     #[Groups([self::GROUP_GET_GAME])]
-    #[Assert\Length(min: 10, max: 1000,
-        minMessage: 'Content must be at least {{ limit }} characters long.',
-        maxMessage: 'Content cannot be longer than {{ limit }} characters.')]
+    #[Assert\Length(min: 10, max: 50000, minMessage: 'Content must be at least {{ limit }} characters long.', maxMessage: 'Content cannot be longer than {{ limit }} characters.')]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::TEXT)]

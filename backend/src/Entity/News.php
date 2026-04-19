@@ -44,9 +44,7 @@ class News
     #[ORM\Column(type: Types::TEXT)]
     #[Groups([self::GROUP_GET_NEWS])]
     #[Assert\NotBlank(message: 'Content cannot be empty')]
-    #[Assert\Length(min: 10, max: 1000,
-        minMessage: 'Content must be at least {{ limit }} characters long.',
-        maxMessage: 'Content cannot be longer than {{ limit }} characters.')]
+    #[Assert\Length(min: 10, max: 50000, minMessage: 'Content must be at least {{ limit }} characters long.', maxMessage: 'Content cannot be longer than {{ limit }} characters.')]
     private ?string $content = null;
 
     #[ORM\Column(type: Types::TEXT)]
