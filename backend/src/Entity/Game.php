@@ -350,7 +350,7 @@ class Game
     {
         if (!$this->cover) return null;
         if (str_starts_with($this->cover, 'http')) return $this->cover;
-        return '/uploads/images/game/' . $this->getId() . '/' . $this->cover;
+        return '/uploads/images/game/' . $this->cover;
     }
 
     public function getLanguage(): ?array

@@ -83,6 +83,13 @@ export function CoreEntityUi({
                     </div>
                 </div>
 
+                {entityItem.content && (
+                    <div
+                        className="ml-9 mb-9 text-gray-700 prose max-w-none"
+                        dangerouslySetInnerHTML={{ __html: entityItem.content }}
+                    />
+                )}
+
                 <div className="ml-9 mb-9">
                     <DetailedListContainer
                         entityItem={entityItem}

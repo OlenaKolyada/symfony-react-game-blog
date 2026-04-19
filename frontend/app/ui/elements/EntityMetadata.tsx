@@ -84,8 +84,6 @@ export function EntitySummary({
     if (!summary) return null;
 
     return (
-        <p className={className}>
-            {summary}
-        </p>
+        <p className={className} dangerouslySetInnerHTML={{ __html: summary }} />
     );
 }
