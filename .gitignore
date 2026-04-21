@@ -4,3 +4,5 @@
 .env.aws
 CLAUDE.md
 .claude/
+backup/*.sql
+backup/*.zip
