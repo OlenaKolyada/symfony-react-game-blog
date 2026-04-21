@@ -70,7 +70,8 @@ class NewsCrudController extends AbstractCrudController
            AssociationField::new('game', 'Games')
                ->setFormTypeOptions([
                    'choice_label' => 'title',
-                   'multiple' => true
+                   'multiple' => true,
+                   'by_reference' => false
                ])
                ->formatValue(fn($value) => $value ? implode('<br>', array_map(fn($game) => $game->getTitle(), $value->toArray())) : ''),
 

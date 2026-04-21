@@ -82,7 +82,8 @@ class ReviewCrudController extends AbstractCrudController
            AssociationField::new('game')
                ->setFormTypeOptions([
                    'choice_label' => 'title',
-                   'multiple' => true
+                   'multiple' => true,
+                   'by_reference' => false
                ])
                ->setLabel('Games')
                ->formatValue(fn($value) => $value ? implode('<br>', array_map(fn($game) => $game->getTitle(), $value->toArray())) : ''),
