@@ -57,7 +57,7 @@ export function CoreEntityContainer({
 
     if (isFetching) {
         console.log('CLIENT - Still fetching, showing loading');
-        return <main className="p-9 w-4/5"></main>;
+        return <main className="p-3 md:p-9 w-full"></main>;
     }
 
     if (error || !entityItem) {

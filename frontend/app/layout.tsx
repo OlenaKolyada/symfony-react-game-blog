@@ -25,11 +25,13 @@ export default function RootLayout({
         <Providers>
             <div className="flex flex-col flex-grow">
                 <Header/>
-                <div className="flex flex-grow min-h-0">
+                <div className="flex flex-col md:flex-row flex-grow min-h-0">
                     <Suspense fallback={<div></div>}>
-                    <SideMenuContainer/>
+                        <div className="hidden min-[1025px]:block min-[1025px]:w-56 min-[1025px]:shrink-0">
+                            <SideMenuContainer/>
+                        </div>
                     </Suspense>
-                    <main className="flex-grow flex flex-col ">{children}</main>
+                    <main className="flex-grow flex flex-col min-w-0 px-4 min-[1025px]:pl-0 min-[1025px]:pr-6">{children}</main>
                 </div>
             </div>
             <Footer/>

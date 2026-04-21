@@ -13,16 +13,17 @@ export function LatestUi({ latestItems }: LatestUiProps) {
     const categories = Object.keys(latestItems);
 
     return (
-        <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="w-full">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,220px))] justify-start gap-4">
                 {categories.map(category => (
-                    <div key={category} className="flex flex-col">
+                    <div key={category} className="flex flex-col w-[220px]">
                         <h2 className="text-xl font-bold mb-4 capitalize">
                             Latest {category}
                         </h2>
                         <DetailedListItemUi
                             entityItem={latestItems[category]}
                             categoryName={category}
+                            compact
                         />
                     </div>
                 ))}

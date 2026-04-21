@@ -11,7 +11,7 @@ interface TopMenuUiProps {
 
 export function TopMenuUi({ isAdmin = false, isAuthenticated = false }: TopMenuUiProps) {
     return (
-        <div className={`flex h-full flex-row px-3 py-4 md:px-2`}>
+        <div className={`flex h-full flex-row flex-wrap justify-end px-1 md:px-2`}>
             {isAdmin && (
                 <>
                     {adminLinks.map(link => (

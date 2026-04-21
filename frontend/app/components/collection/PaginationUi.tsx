@@ -22,8 +22,8 @@ export function PaginationUI({
                                  createPageUrl
                              }: PaginationUIProps) {
     return (
-        <div className="flex justify-center mt-6">
-            <nav className="inline-flex">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-3 mt-6">
+            <nav className="inline-flex flex-wrap justify-center">
                 {/* Кнопка Предыдущая */}
                 {page > 1 ? (
                     <Link
@@ -73,7 +73,7 @@ export function PaginationUI({
                 )}
             </nav>
 
-            <div className="text-sm text-gray-500 ml-4 self-center">
+            <div className="text-xs md:text-sm text-gray-500 self-center text-center md:text-left">
                 Showing {totalItems > 0 ? (page - 1) * limit + 1 : 0} to {Math.min(page * limit, totalItems)} of {totalItems} results
             </div>
         </div>

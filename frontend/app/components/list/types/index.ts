@@ -12,6 +12,7 @@ export interface BaseListProps {
 export interface ListItemProps {
     entityItem: Entity;
     categoryName: string;
+    compact?: boolean;
 }
 
 // Brief List типы
@@ -30,6 +31,7 @@ export interface DetailedListProps extends BaseListProps {
     entityItem?: Entity;
     relatedCategoryNames?: string[];
     defaultStatus?: StatusEnum;
+    compact?: boolean;
 }
 
 export interface DetailedListLayoutProps extends BaseListProps {
@@ -42,6 +44,7 @@ export interface DetailedListLayoutProps extends BaseListProps {
         uniqueKey: string
     ) => React.ReactNode;
     status?: StatusEnum;
+    compact?: boolean;
 }
 
 // Grid типы

@@ -20,9 +20,9 @@ export function MetaEntityUi({
                                    entityFields = []
 }: MetaEntityCardProps) {
     return (
-        <div className="mb-2 flex flex-col gap-2 w-4/5">
+        <div className="mb-2 flex flex-col gap-2 w-full md:w-4/5 px-3 md:px-0">
 
-            <div className="flex items-center">
+            <div className="flex flex-wrap items-center gap-2">
                 <EntityTitle title={entityItem?.title}/>
                 <EntityCollectionLink categoryName={categoryName}/>
             </div>

@@ -9,8 +9,8 @@ export function HomePage() {
     const featuredCategories = ['news', 'review', 'game'];
 
     return (
-        <div className="container mx-auto py-8">
-            <section className="mb-16 bg-white rounded-lg p-6">
+        <div className="w-full px-3 md:px-4 py-4 md:py-8">
+            <section className="mb-8 md:mb-16 bg-white rounded-lg p-4 md:p-6">
                 <h1 className="text-2xl font-bold text-teal-700 mb-2">Grem — Gaming Portal</h1>
                 <p className="text-gray-600 mb-4">An academic portfolio project: a gaming portal featuring news, reviews, and a game catalog.</p>
 

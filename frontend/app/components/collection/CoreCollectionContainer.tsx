@@ -44,7 +44,7 @@ export function CoreCollectionContainer({
     if (!data || data.length === 0) return <ListEmpty />;
 
     return (
-        <div className="my-9">
+        <div className="my-4 md:my-9 px-3 md:px-0">
             <SortButtons />
             <DetailedListContainer
                 entityItems={data}

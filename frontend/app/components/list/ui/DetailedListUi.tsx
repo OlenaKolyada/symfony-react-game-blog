@@ -10,7 +10,8 @@ export function DetailedListUi({
                                    entityItem,
                                    relatedCategoryNames = [],
                                    renderEntityCard,
-                                   status
+                                   status,
+                                   compact = false
                                }: DetailedListLayoutProps) {
 
     const { rows, hasContent } = useGridData(
@@ -26,16 +27,14 @@ export function DetailedListUi({
         return null;
     }
 
+    const gridItems = rows.flat();
+
     return (
-        <div className="space-y-6">
-            {rows.map((rowItems, rowIndex) => (
-                <div
-                    key={`row-${rowIndex}`}
-                    className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-                >
-                    {rowItems}
-                </div>
-            ))}
+        <div className={compact
+            ? "grid grid-cols-[repeat(auto-fit,minmax(220px,220px))] justify-start gap-4"
+            : "grid grid-cols-1 min-[751px]:grid-cols-2 min-[1201px]:grid-cols-3 gap-6"
+        }>
+            {gridItems}
         </div>
     );
 }

@@ -15,7 +15,8 @@ export function DetailedListContainer({
                                           categoryNames = [],
                                           entityItem,
                                           relatedCategoryNames = [],
-                                          defaultStatus
+                                          defaultStatus,
+                                          compact = false
                                       }: DetailedListProps) {
 
     const { status } = useListParams(defaultStatus);
@@ -29,6 +30,7 @@ export function DetailedListContainer({
             key={uniqueKey}
             entityItem={entityItem}
             categoryName={categoryName}
+            compact={compact}
         />
     );
 
@@ -40,6 +42,7 @@ export function DetailedListContainer({
             relatedCategoryNames={relatedCategoryNames}
             renderEntityCard={renderEntityCard}
             status={status}
+            compact={compact}
         />
     );
 }
