@@ -80,7 +80,9 @@ class GameCrudController extends AbstractCrudController
             ImageField::new('cover', 'Cover Image')
                 ->setUploadDir('public/uploads/images/game')
                 ->setBasePath('uploads/images/game')
-                ->setRequired(false)
+                ->setRequired(true)
+                ->setFormTypeOption('allow_delete', false)
+                ->setHelp('Cover is required. If another field fails validation, please select the file again before saving.')
                 ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->onlyOnForms(),
 
