@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="900" viewBox="0 0 1400 900">
+  <style>
+    text { font-family: Arial, sans-serif; fill: #1f2937; }
+    .title { font-size: 26px; font-weight: 700; }
+    .label { font-size: 17px; font-weight: 700; }
+    .small { font-size: 12px; }
+    .group { fill: #f8fafc; stroke: #64748b; stroke-width: 2; rx: 10; }
+    .box { fill: #ffffff; stroke: #334155; stroke-width: 2; rx: 8; }
+    .service { fill: #eef2ff; stroke: #4f46e5; stroke-width: 2; rx: 8; }
+    .security { fill: #fef3c7; stroke: #b45309; stroke-width: 2; rx: 8; }
+    .db { fill: #ecfdf5; stroke: #047857; stroke-width: 2; rx: 8; }
+    .line { stroke: #475569; stroke-width: 2; marker-end: url(#arrow); fill: none; }
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L9,3 z" fill="#475569"/>
+    </marker>
+  </defs>
+  <text x="40" y="48" class="title">Grem Backend Component Diagram</text>
+
+  <rect x="270" y="90" width="1040" height="700" class="group"/>
+  <text x="300" y="125" class="label">Symfony Backend</text>
+
+  <rect x="40" y="170" width="170" height="80" class="box"/>
+  <text x="75" y="205" class="label">Next.js</text>
+  <text x="70" y="228" class="small">Frontend client</text>
+
+  <rect x="40" y="330" width="170" height="80" class="box"/>
+  <text x="73" y="365" class="label">Admin User</text>
+  <text x="75" y="388" class="small">Back office</text>
+
+  <rect x="320" y="170" width="220" height="80" class="box"/>
+  <text x="352" y="205" class="label">Apache Front</text>
+  <text x="345" y="228" class="small">public/index.php</text>
+
+  <rect x="620" y="150" width="230" height="90" class="box"/>
+  <text x="652" y="185" class="label">Auth Controllers</text>
+  <text x="650" y="208" class="small">Login, logout, profile</text>
+
+  <rect x="930" y="150" width="230" height="90" class="box"/>
+  <text x="960" y="185" class="label">Core Controllers</text>
+  <text x="958" y="208" class="small">Game, news, review, comment</text>
+
+  <rect x="620" y="290" width="230" height="90" class="box"/>
+  <text x="646" y="325" class="label">Metadata Controllers</text>
+  <text x="650" y="348" class="small">Tag, genre, platform, studio</text>
+
+  <rect x="930" y="290" width="230" height="90" class="box"/>
+  <text x="962" y="325" class="label">EasyAdmin</text>
+  <text x="958" y="348" class="small">CRUD dashboards</text>
+
+  <rect x="620" y="440" width="230" height="90" class="security"/>
+  <text x="650" y="475" class="label">Token Security</text>
+  <text x="650" y="498" class="small">TokenAuthenticator, TokenManager</text>
+
+  <rect x="930" y="440" width="230" height="90" class="service"/>
+  <text x="965" y="475" class="label">Services</text>
+  <text x="958" y="498" class="small">Cache, entity field processing</text>
+
+  <rect x="620" y="600" width="230" height="90" class="box"/>
+  <text x="665" y="635" class="label">Entities</text>
+  <text x="650" y="658" class="small">Doctrine domain model</text>
+
+  <rect x="930" y="600" width="230" height="90" class="box"/>
+  <text x="960" y="635" class="label">Repositories</text>
+  <text x="958" y="658" class="small">Doctrine data access</text>
+
+  <rect x="1120" y="810" width="220" height="70" class="db"/>
+  <text x="1192" y="842" class="label">MySQL</text>
+  <text x="1164" y="864" class="small">Relational database</text>
+
+  <path d="M210 210 L320 210" class="line"/>
+  <path d="M210 370 L320 230" class="line"/>
+  <path d="M540 210 L620 195" class="line"/>
+  <path d="M540 215 L930 195" class="line"/>
+  <path d="M540 225 L620 335" class="line"/>
+  <path d="M540 230 L930 335" class="line"/>
+  <path d="M735 240 L735 440" class="line"/>
+  <path d="M1045 240 L1045 440" class="line"/>
+  <path d="M735 530 L735 600" class="line"/>
+  <path d="M1045 530 L1045 600" class="line"/>
+  <path d="M850 645 L930 645" class="line"/>
+  <path d="M1045 690 L1195 810" class="line"/>
+</svg>
+
