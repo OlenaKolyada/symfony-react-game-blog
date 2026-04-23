@@ -6,6 +6,39 @@ use Doctrine\Persistence\ObjectManager;
 
 trait EntityHelperTrait
 {
+    protected function setPrivateProperty(object $entity, string $property, mixed $value): void
+    {
+        $reflection = new \ReflectionObject($entity);
+
+        while ($reflection) {
+            if ($reflection->hasProperty($property)) {
+                $reflectionProperty = $reflection->getProperty($property);
+                $reflectionProperty->setAccessible(true);
+                $reflectionProperty->setValue($entity, $value);
+
+                return;
+            }
+
+            $reflection = $reflection->getParentClass();
+        }
+
+        throw new \RuntimeException(sprintf('Property "%s" not found on %s', $property, $entity::class));
+    }
+
+    protected function setEntityTimestamps(
+        object $entity,
+        ?\DateTimeInterface $createdAt,
+        ?\DateTimeInterface $updatedAt
+    ): void {
+        if ($createdAt !== null) {
+            $this->setPrivateProperty($entity, 'createdAt', $createdAt);
+        }
+
+        if ($updatedAt !== null) {
+            $this->setPrivateProperty($entity, 'updatedAt', $updatedAt);
+        }
+    }
+
     protected function addRandomEntities(ObjectManager $manager, object $entity, array $entityTypes): void
     {
         foreach ($entityTypes as $entityType => $class) {

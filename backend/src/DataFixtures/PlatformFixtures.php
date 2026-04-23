@@ -5,27 +5,73 @@ namespace App\DataFixtures;
 use App\Entity\Platform;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 
 class PlatformFixtures extends Fixture
 {
+    use EntityHelperTrait;
+
+    private const ROWS = [
+            [
+                'id' => 1,
+                'title' => 'PC',
+                'slug' => 'pc',
+                'created_at' => '2025-01-01 00:00:00',
+                'updated_at' => '2025-01-01 00:00:00',
+            ],
+            [
+                'id' => 2,
+                'title' => 'PlayStation 5',
+                'slug' => 'playstation-5',
+                'created_at' => '2025-01-01 00:00:00',
+                'updated_at' => '2025-01-01 00:00:00',
+            ],
+            [
+                'id' => 3,
+                'title' => 'PlayStation 4',
+                'slug' => 'playstation-4',
+                'created_at' => '2025-01-01 00:00:00',
+                'updated_at' => '2025-01-01 00:00:00',
+            ],
+            [
+                'id' => 4,
+                'title' => 'Xbox Series X/S',
+                'slug' => 'xbox-series',
+                'created_at' => '2025-01-01 00:00:00',
+                'updated_at' => '2025-01-01 00:00:00',
+            ],
+            [
+                'id' => 5,
+                'title' => 'Nintendo Switch',
+                'slug' => 'nintendo-switch',
+                'created_at' => '2025-01-01 00:00:00',
+                'updated_at' => '2025-01-01 00:00:00',
+            ],
+            [
+                'id' => 6,
+                'title' => 'Steam',
+                'slug' => 'steam',
+                'created_at' => '2026-04-21 20:36:00',
+                'updated_at' => '2026-04-21 20:36:00',
+            ],
+        ];
+
     public function load(ObjectManager $manager): void
     {
-        $platforms = ['PS5', 'PS4', 'Xbox Series X/S', 'Xbox One',
-            'Nintendo Switch', 'Windows', 'macOS', 'Linux', 'Android', 'iOS'];
+        foreach (self::ROWS as $row) {
+            $platform = (new Platform())
+                ->setTitle($row['title'])
+                ->setSlug($row['slug']);
 
-        $slugger = new AsciiSlugger();
+            $this->setEntityTimestamps(
+                $platform,
+                new \DateTimeImmutable($row['created_at']),
+                new \DateTimeImmutable($row['updated_at'])
+            );
 
-        foreach ($platforms as $key => $title) {
-            $platform = new Platform();
-            $slug = strtolower($slugger->slug($title));
-
-            $platform
-                ->setTitle($title)
-                ->setSlug($slug);
             $manager->persist($platform);
-            $this->addReference('platform_' . $key, $platform);
+            $this->addReference('platform_' . $row['id'], $platform);
         }
+
         $manager->flush();
     }
 }

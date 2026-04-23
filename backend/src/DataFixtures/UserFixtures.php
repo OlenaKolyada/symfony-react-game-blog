@@ -5,46 +5,91 @@ namespace App\DataFixtures;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Faker\Factory;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class UserFixtures extends Fixture
 {
-    private UserPasswordHasherInterface $userPasswordHasher;
+    use EntityHelperTrait;
 
-    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
-    {
-        $this->userPasswordHasher = $userPasswordHasher;
+    private const string DEFAULT_PASSWORD = 'grem-user';
+
+    public function __construct(
+        private readonly UserPasswordHasherInterface $userPasswordHasher
+    ) {
     }
+
+    private const ROWS = [
+            [
+                'id' => 1,
+                'email' => 'brie@gmail.com',
+                'roles' => '["ROLE_ADMIN", "ROLE_USER"]',
+                'nickname' => 'Brie',
+                'twitch_account' => 'http://wiegand.com/',
+                'avatar' => 'avatar.jpg',
+                'created_at' => '2025-04-01 13:11:14',
+                'updated_at' => '2025-04-01 13:11:14',
+            ],
+            [
+                'id' => 2,
+                'email' => 'kai@gmail.com',
+                'roles' => '["ROLE_USER"]',
+                'nickname' => 'Kai',
+                'twitch_account' => 'http://mosciski.com/',
+                'avatar' => 'avatar.jpg',
+                'created_at' => '2025-04-01 13:11:14',
+                'updated_at' => '2025-04-01 13:11:14',
+            ],
+            [
+                'id' => 3,
+                'email' => 'sapphire@gmail.com',
+                'roles' => '["ROLE_USER"]',
+                'nickname' => 'Sapphire',
+                'twitch_account' => 'http://www.schowalter.net/',
+                'avatar' => 'avatar.jpg',
+                'created_at' => '2025-04-01 13:11:14',
+                'updated_at' => '2025-04-01 13:11:14',
+            ],
+            [
+                'id' => 4,
+                'email' => 'muse@gmail.com',
+                'roles' => '["ROLE_USER"]',
+                'nickname' => 'Muse',
+                'twitch_account' => 'http://www.haley.com/rem-totam-doloremque-laudantium-voluptas-ut-sint-est',
+                'avatar' => 'avatar.jpg',
+                'created_at' => '2025-04-01 13:11:15',
+                'updated_at' => '2025-04-01 13:11:15',
+            ],
+            [
+                'id' => 5,
+                'email' => 'oneeyed@gmail.com',
+                'roles' => '["ROLE_USER"]',
+                'nickname' => 'OneEyed',
+                'twitch_account' => 'https://fay.com/soluta-minima-eum-dolor-sunt.html',
+                'avatar' => 'avatar.jpg',
+                'created_at' => '2025-04-01 13:11:15',
+                'updated_at' => '2025-04-01 13:11:15',
+            ],
+        ];
 
     public function load(ObjectManager $manager): void
     {
-        $faker = Factory::create();
+        foreach (self::ROWS as $row) {
+            $user = (new User())
+                ->setNickname($row['nickname'])
+                ->setEmail($row['email'])
+                ->setRoles(json_decode($row['roles'], true, 512, JSON_THROW_ON_ERROR))
+                ->setPassword($this->userPasswordHasher->hashPassword($user, self::DEFAULT_PASSWORD))
+                ->setTwitchAccount($row['twitch_account'])
+                ->setAvatar($row['avatar']);
 
-        $users = [
-            'Brie' => ['ROLE_ADMIN', 'ROLE_USER'],
-            'Kai' => ['ROLE_USER'],
-            'Sapphire' => ['ROLE_USER'],
-            'Muse' => ['ROLE_USER'],
-            'OneEyed' => ['ROLE_USER']
-        ];
-
-        $i = 1;
-        foreach ($users as $name => $roles) {
-            $user = new User();
-            $email = strtolower($name) . '@gmail.com';
-
-            $user
-                ->setNickname($name)
-                ->setEmail($email)
-                ->setRoles($roles)
-                ->setPassword($this->userPasswordHasher->hashPassword($user, 'password'))
-                ->setTwitchAccount($faker->url)
-                ->setAvatar('avatar.jpg');
+            $this->setEntityTimestamps(
+                $user,
+                new \DateTimeImmutable($row['created_at']),
+                new \DateTimeImmutable($row['updated_at'])
+            );
 
             $manager->persist($user);
-            $this->addReference('user_' . $i, $user);
-            $i++;
+            $this->addReference('user_' . $row['id'], $user);
         }
 
         $manager->flush();
