@@ -20,7 +20,8 @@ class Comment
     #[ORM\Column(type: Types::INTEGER)]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?int $id = null;
 
@@ -28,7 +29,8 @@ class Comment
     #[Assert\NotBlank(message: 'Content cannot be empty')]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?string $content = null;
 
@@ -36,7 +38,8 @@ class Comment
     #[Assert\NotBlank(message: 'Status cannot be empty.')]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?CommentStatusEnum $status = null;
 
@@ -44,21 +47,24 @@ class Comment
     #[ORM\JoinColumn(nullable: true, onDelete: "CASCADE")]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?User $author = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Groups([
         self::GROUP_GET_COMMENT,
-        self::GROUP_GET_COMMENT_COLLECTION
+        self::GROUP_GET_COMMENT_COLLECTION,
+        Review::GROUP_GET_REVIEW
     ])]
     private ?\DateTimeInterface $updatedAt = null;
 

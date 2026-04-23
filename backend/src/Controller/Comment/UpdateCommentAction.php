@@ -4,6 +4,8 @@ namespace App\Controller\Comment;
 
 use App\Controller\Abstract\AbstractUpdateEntityAction;
 use App\Entity\Comment;
+use App\Entity\User;
+use App\Enum\CommentStatusEnum;
 use App\Service\EntityField\Configuration\EntityConfigurationFactoryInterface;
 use App\Service\EntityField\Processor\ErrorProcessor;
 use App\Service\EntityField\Processor\FieldProcessor;
@@ -13,22 +15,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Nelmio\ApiDocBundle\Attribute\Security;
 use OpenApi\Attributes as OA;
 
-class UpdateCommentAction extends AbstractUpdateEntityAction
+class UpdateCommentAction extends AbstractController
 {
     private array $fieldConfig;
 
     public function __construct(
-        EntityManagerInterface $manager,
-        FieldProcessor $fieldProcessor,
-        ErrorProcessor $errorProcessor,
-        ResponseProcessor $responseProcessor,
-        EntityConfigurationFactoryInterface $configFactory
+        private readonly EntityManagerInterface $manager,
+        private readonly FieldProcessor $fieldProcessor,
+        private readonly ErrorProcessor $errorProcessor,
+        private readonly ResponseProcessor $responseProcessor,
+        EntityConfigurationFactoryInterface $configFactory,
+        private readonly TagAwareCacheInterface $cache
     ) {
-        parent::__construct($manager, $fieldProcessor, $errorProcessor, $responseProcessor);
-
         $this->fieldConfig = $configFactory->createForUpdate('comment');
     }
 
@@ -65,8 +68,42 @@ class UpdateCommentAction extends AbstractUpdateEntityAction
     #[Security(name: "bearerAuth")]
     public function __invoke(Request $request, Comment $comment): JsonResponse
     {
-        $content = $request->toArray();
+        /** @var User|null $user */
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse(['error' => 'Not authenticated'], JsonResponse::HTTP_UNAUTHORIZED);
+        }
 
-        return $this->updateEntityData($comment, $content, $this->fieldConfig, 'getComment');
+        $isAdmin = in_array('ROLE_ADMIN', $user->getRoles(), true);
+        $isOwner = $comment->getAuthor()?->getId() === $user->getId();
+
+        if (!$isAdmin && !$isOwner) {
+            return new JsonResponse(['error' => 'You can only edit your own comments'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
+        $content = $request->toArray();
+        unset($content['author'], $content['review']);
+        $content['review'] = (string) $comment->getReview()?->getId();
+
+        if (array_key_exists('content', $content)) {
+            $comment->setStatus(CommentStatusEnum::Edited);
+        }
+
+        if (!$isAdmin) {
+            unset($content['status']);
+        }
+
+        $validationErrors = new \Symfony\Component\Validator\ConstraintViolationList();
+        $this->fieldProcessor->processFieldsFromConfig($comment, $content, $this->fieldConfig, $validationErrors);
+
+        $errorResponse = $this->errorProcessor->processErrors($comment, $validationErrors);
+        if ($errorResponse) {
+            return $errorResponse;
+        }
+
+        $this->manager->flush();
+        $this->cache->invalidateTags(['commentCache', 'reviewCache']);
+
+        return $this->responseProcessor->createSuccessResponse($comment, 'getComment');
     }
 }

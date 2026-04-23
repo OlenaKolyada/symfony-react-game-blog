@@ -11,6 +11,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\SerializedName;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReviewRepository::class)]
@@ -311,6 +312,28 @@ class Review
     public function getComment(): Collection
     {
         return $this->comment;
+    }
+
+    #[Groups([self::GROUP_GET_REVIEW])]
+    #[SerializedName('comment')]
+    public function getVisibleComment(): array
+    {
+        $comments = $this->comment
+            ->filter(
+                fn (Comment $comment) => in_array(
+                    $comment->getStatus(),
+                    [\App\Enum\CommentStatusEnum::Published, \App\Enum\CommentStatusEnum::Edited],
+                    true
+                )
+            )
+            ->toArray();
+
+        usort(
+            $comments,
+            fn (Comment $left, Comment $right) => $right->getCreatedAt() <=> $left->getCreatedAt()
+        );
+
+        return $comments;
     }
 
     public function addComment(Comment $comment): static

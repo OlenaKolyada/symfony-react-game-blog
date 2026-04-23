@@ -25,6 +25,7 @@ export type Entity = {
     [key: string]: Entity[]
   };
   author?: t.User;
+  comment?: t.Comment[];
   _categoryName?: string;
 }
 

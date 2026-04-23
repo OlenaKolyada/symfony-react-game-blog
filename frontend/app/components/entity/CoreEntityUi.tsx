@@ -8,6 +8,7 @@ import {
     BriefListContainer,
     DetailedListContainer
 } from "@/app/components/list";
+import { CommentsSection } from "@/app/components/comments";
 import { EntityImage, EntityFields } from "@/app/ui/elements";
 
 // Функция для получения мета-сущностей
@@ -98,6 +99,13 @@ export function CoreEntityUi({
                         compact
                     />
                 </div>
+
+                {categoryName === 'review' && entityItem.id && (
+                    <CommentsSection
+                        comments={entityItem.comment}
+                        reviewId={entityItem.id}
+                    />
+                )}
             </div>
         </main>
     );

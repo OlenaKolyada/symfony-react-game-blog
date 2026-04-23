@@ -5,6 +5,7 @@ export * from './fetchBySlug';
 export * from './fetchLatest';
 export * from './fetchMetaCollection';
 export * from './fetchUser';
+export * from './fetchComment';
 
 
 

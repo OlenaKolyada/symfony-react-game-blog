@@ -4,7 +4,10 @@ namespace App\Controller\Comment;
 
 use App\Controller\Abstract\AbstractDeleteEntityAction;
 use App\Entity\Comment;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -12,14 +15,12 @@ use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Nelmio\ApiDocBundle\Attribute\Security;
 use OpenApi\Attributes as OA;
 
-class DeleteCommentAction extends AbstractDeleteEntityAction
+class DeleteCommentAction extends AbstractController
 {
     public function __construct(
-        EntityManagerInterface $manager,
-        TagAwareCacheInterface $cache
-    ) {
-        parent::__construct($manager, $cache);
-    }
+        private readonly EntityManagerInterface $manager,
+        private readonly TagAwareCacheInterface $cache
+    ) {}
 
     #[Route('/api/comment/{id}', name: 'app_delete_comment_item', methods: ['DELETE'])]
     #[IsGranted('ROLE_USER', message: 'You do not have sufficient permissions')]
@@ -34,6 +35,23 @@ class DeleteCommentAction extends AbstractDeleteEntityAction
     #[Security(name: "bearerAuth")]
     public function __invoke(Comment $comment): Response
     {
-        return $this->deleteEntity($comment, "commentCache");
+        /** @var User|null $user */
+        $user = $this->getUser();
+        if (!$user) {
+            return new JsonResponse(['error' => 'Not authenticated'], JsonResponse::HTTP_UNAUTHORIZED);
+        }
+
+        $isAdmin = in_array('ROLE_ADMIN', $user->getRoles(), true);
+        $isOwner = $comment->getAuthor()?->getId() === $user->getId();
+
+        if (!$isAdmin && !$isOwner) {
+            return new JsonResponse(['error' => 'You can only delete your own comments'], JsonResponse::HTTP_FORBIDDEN);
+        }
+
+        $this->cache->invalidateTags(['commentCache', 'reviewCache']);
+        $this->manager->remove($comment);
+        $this->manager->flush();
+
+        return new Response(null, Response::HTTP_NO_CONTENT);
     }
 }

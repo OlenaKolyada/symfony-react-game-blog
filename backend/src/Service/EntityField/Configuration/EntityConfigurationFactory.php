@@ -49,11 +49,10 @@ readonly class EntityConfigurationFactory implements EntityConfigurationFactoryI
     private function createCommentConfig(): array
     {
         return [
-            'required' => ['content', 'status'],
-            'optional' => ['country', 'website'],
+            'required' => ['content'],
+            'optional' => [],
             'relations' => [
-                'author' => $this->createEntityRelation($this->userRepository),
-                'review' => $this->createEntityRelation($this->reviewRepository)
+                'review' => $this->createEntityRelation($this->reviewRepository, true)
             ]
         ];
     }

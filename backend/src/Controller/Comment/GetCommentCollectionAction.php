@@ -42,10 +42,14 @@ class GetCommentCollectionAction extends AbstractGetMetaEntityCollectionAction
     public function __invoke(Request $request): JsonResponse
     {
         $status = $request->query->get('status');
+        $reviewId = $request->query->get('review');
         $criteria = [];
 
         if ($status) {
             $criteria['status'] = $status;
+        }
+        if ($reviewId) {
+            $criteria['review'] = $reviewId;
         }
 
         return $this->getEntityData(
@@ -54,7 +58,7 @@ class GetCommentCollectionAction extends AbstractGetMetaEntityCollectionAction
             'getCommentCollection',
             ['comment'],
             $criteria,
-            $status
+            implode('-', array_filter([$status, $reviewId]))
         );
     }
 }
