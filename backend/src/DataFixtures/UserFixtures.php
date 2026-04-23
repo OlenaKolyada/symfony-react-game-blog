@@ -74,7 +74,9 @@ class UserFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         foreach (self::ROWS as $row) {
-            $user = (new User())
+            $user = new User();
+
+            $user
                 ->setNickname($row['nickname'])
                 ->setEmail($row['email'])
                 ->setRoles(json_decode($row['roles'], true, 512, JSON_THROW_ON_ERROR))
