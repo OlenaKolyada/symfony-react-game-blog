@@ -1,24 +1,27 @@
 # Architecture Diagrams
 
-This document links to exported Grem architecture diagrams.
+This document contains the current exported diagrams for Grem.
 
-Editable Mermaid sources are stored in [diagrams](diagrams/).
+## Class Diagram
 
-## C4 Container Diagram
+<img src="img/class-diagram.jpg" alt="Grem class diagram" width="1200">
 
-<img src="img/c4-container.svg" alt="Grem C4 container diagram" width="1000">
+Source image: [img/class-diagram.jpg](img/class-diagram.jpg)
 
-PNG export: [img/c4-container.png](img/c4-container.png)
+## Review Collection Sequence Diagram
 
-## Backend Component Diagram
+<img src="img/review-collection-sequence-diagram.png" alt="Review collection sequence diagram" width="1200">
 
-<img src="img/c4-component.svg" alt="Grem backend component diagram" width="1200">
+Source image: [img/review-collection-sequence-diagram.png](img/review-collection-sequence-diagram.png)
 
-PNG export: [img/c4-component.png](img/c4-component.png)
+## Comment Use Case Diagram
 
-## Entity Relationship Diagram
+<img src="img/comment-use-case-diagram.png" alt="Comment use case diagram" width="1200">
 
-<img src="img/erd.svg" alt="Grem entity relationship diagram" width="1200">
+Source image: [img/comment-use-case-diagram.png](img/comment-use-case-diagram.png)
 
-PNG export: [img/erd.png](img/erd.png)
+## Comment Posting Sequence Diagram
 
+<img src="img/comment-sequence-diagram.png" alt="Comment posting sequence diagram" width="1200">
+
+Source image: [img/comment-sequence-diagram.png](img/comment-sequence-diagram.png)
