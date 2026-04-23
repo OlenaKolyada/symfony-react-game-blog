@@ -6,9 +6,7 @@ The database is a normalized MySQL schema managed through Doctrine ORM and migra
 
 ## Entity Relationship Diagram
 
-<img src="img/erd.svg" alt="Grem entity relationship diagram" width="1200">
-
-PNG export: [img/erd.png](img/erd.png)
+<img src="img/erd-diagram.jpg" alt="Grem entity relationship diagram" width="1200">
 
 ## Tables
 
