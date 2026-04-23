@@ -76,14 +76,6 @@ JWT keys are still required locally because the token service creates a JWT stri
 - Manage games, news, reviews, comments, users, and metadata through EasyAdmin.
 - Use Swagger UI at `/api/doc`.
 
-## Deployment Flow
-
-The diagram below summarizes the project build and deployment flow.
-
-<img src="docs/img/deploy-flow.png" alt="Deployment flow diagram" width="1200">
-
-Source image: [docs/img/deploy-flow.png](docs/img/deploy-flow.png)
-
 ## Documentation
 
 1. Product and Analysis
