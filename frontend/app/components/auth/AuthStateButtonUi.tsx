@@ -30,8 +30,8 @@ export function AuthStateButtonUi({ isAuthenticated, user, handleLogout }: AuthS
 
     return (
         <Link href="/login" className="block">
-            <Button className={`px-3 py-1 w-48 justify-center ${BG_MEDIUM_BLUE} ${BG_LIGHT_BLUE_HOVER}`}>
-                Sign In | Register
+            <Button className={`px-3 py-1 w-32 justify-center ${BG_MEDIUM_BLUE} ${BG_LIGHT_BLUE_HOVER}`}>
+                Sign in
             </Button>
         </Link>
     );

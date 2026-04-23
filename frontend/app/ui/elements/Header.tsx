@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { usePathname } from 'next/navigation';
 import { GremLogo } from '@/app/ui/elements';
 import { TopMenuContainer, navLinks, adminLinks, profileLinks } from '@/app/components/menu';
 import { useAuth } from '@/app/components/auth';
@@ -10,12 +11,14 @@ import { Button } from '@/app/ui/elements/Button';
 
 export function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const pathname = usePathname();
     const { isAuthenticated, user, logout } = useAuth();
     const isAdmin = isAuthenticated && user?.roles?.includes('ROLE_ADMIN');
+    const visibleProfileLinks = pathname === '/profile' ? [] : profileLinks;
 
     const mobileLinks = [
         ...navLinks,
-        ...(isAuthenticated ? profileLinks : []),
+        ...(isAuthenticated ? visibleProfileLinks : []),
         ...(isAdmin ? adminLinks : []),
     ];
 
@@ -73,7 +76,7 @@ export function Header() {
                             className="inline-block"
                         >
                             <Button className={`px-3 py-1 w-48 justify-center ${BG_MEDIUM_BLUE} ${BG_LIGHT_BLUE_HOVER}`}>
-                                Sign In | Register
+                                Sign in
                             </Button>
                         </Link>
                     )}
