@@ -71,10 +71,8 @@ JWT keys are still required locally because the token service creates a JWT stri
 - Browse news articles.
 - Browse reviews.
 - Browse metadata pages for genres, tags, platforms, developers, and publishers.
-- Resolve public pages by slug.
 - Sign in and view the authenticated profile.
 - Manage games, news, reviews, comments, users, and metadata through EasyAdmin.
-- Use Swagger UI at `/api/doc`.
 
 ## Documentation
 
