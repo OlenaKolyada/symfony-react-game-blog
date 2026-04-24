@@ -14,7 +14,6 @@ export async function fetchEntityBySlug<T>(
     console.log(`Fetching ${entityType} with slug: ${slug}`);
 
     try {
-        // Пробуем использовать baseFetch
         try {
             console.log(`Using baseFetch for ${entityType}/resolve/${slug}`);
             const data = await baseFetch<T>(`${entityType}/resolve/${slug}`);
@@ -23,9 +22,13 @@ export async function fetchEntityBySlug<T>(
         } catch (baseFetchError) {
             console.warn(`baseFetch failed:`, baseFetchError);
 
-            // Если baseFetch не сработал, пробуем прямой fetch как было раньше
-            console.log(`Falling back to direct fetch at ${API_URL}/api/${entityType}/resolve/${slug}`);
-            const response = await fetch(`${API_URL}/api/${entityType}/resolve/${slug}`);
+            const directUrl = API_URL
+                ? `${API_URL}/api/${entityType}/resolve/${slug}`
+                : `/api/${entityType}/resolve/${slug}`;
+
+            // Fall back to a direct request if the shared fetch wrapper fails.
+            console.log(`Falling back to direct fetch at ${directUrl}`);
+            const response = await fetch(directUrl);
 
             if (response.status === 404) {
                 console.log(`Entity not found: ${entityType}/${slug} (404)`);

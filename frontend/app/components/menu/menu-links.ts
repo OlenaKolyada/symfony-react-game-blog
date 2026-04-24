@@ -23,8 +23,8 @@ export const navLinks: Link[] = [
 ];
 
 export const adminLinks: Link[] = [
-    { name: 'Admin', href: `${API_URL}/admin` },
-    { name: 'API Doc', href: `${API_URL}/api/doc` }
+    { name: 'Admin', href: API_URL ? `${API_URL}/admin` : '/admin' },
+    { name: 'API Doc', href: API_URL ? `${API_URL}/api/doc` : '/api/doc' }
 ];
 
 export const profileLinks: Link[] = [

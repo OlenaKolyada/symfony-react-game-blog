@@ -13,11 +13,9 @@ type UpdateCommentPayload = {
 
 async function request<T>(endpoint: string, options: RequestInit): Promise<T> {
     const base = getApiBase();
-    if (!base) {
-        throw new Error("API_URL is not defined");
-    }
+    const url = base ? `${base}/api/${endpoint}` : `/api/${endpoint}`;
 
-    const response = await fetch(`${base}/api/${endpoint}`, {
+    const response = await fetch(url, {
         credentials: 'include',
         headers: API_CONFIG.headers,
         ...options,

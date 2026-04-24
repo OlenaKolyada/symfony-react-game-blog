@@ -8,7 +8,8 @@ interface LoginCredentials {
 }
 
 export async function login(credentials: LoginCredentials): Promise<{ message: string }> {
-    const response = await fetch(`${API_URL}/api/login`, {
+    const apiUrl = API_URL ? `${API_URL}/api/login` : '/api/login';
+    const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

@@ -4,7 +4,8 @@ import {User} from "@/app/lib/types";
 import { API_URL } from "@/app/lib/config"
 
 export async function profile(): Promise<User | null> {
-    const response = await fetch(`${API_URL}/api/profile`, {
+    const apiUrl = API_URL ? `${API_URL}/api/profile` : '/api/profile';
+    const response = await fetch(apiUrl, {
         credentials: 'include',
     });
 

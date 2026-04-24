@@ -4,6 +4,10 @@
 
 The project is built as a full-stack web application with a Symfony backend, a React / Next.js frontend, MySQL persistence, Docker Compose infrastructure, and an EasyAdmin back office.
 
+**Live demo:** https://grem.funkycorgi.com
+
+The project is deployed on AWS EC2 (eu-west-3) behind CloudFront.
+
 ## Project Overview
 
 Grem demonstrates a classic full-stack content portal architecture created as an academic internship project:

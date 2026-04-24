@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { API_URL } from "@/app/lib/config";
 
 interface TwitchAccountProps {
     twitchUrl?: string | null;
@@ -18,7 +17,7 @@ export function TwitchAccount({ twitchUrl, className = "mt-3" }: TwitchAccountPr
                 className="inline-block"
             >
                 <Image
-                    src={`${API_URL}/uploads/images/assets/twitch-logo.png`}
+                    src="/uploads/images/assets/twitch-logo.png"
                     alt="User Twitch Account"
                     width={50}
                     height={69}

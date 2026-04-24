@@ -3,7 +3,8 @@
 import { API_URL } from "@/app/lib/config";
 
 export async function logout(): Promise<{ message: string }> {
-    const response = await fetch(`${API_URL}/api/logout`, {
+    const apiUrl = API_URL ? `${API_URL}/api/logout` : '/api/logout';
+    const response = await fetch(apiUrl, {
         method: 'POST',
         credentials: 'include',
     });

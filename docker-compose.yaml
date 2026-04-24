@@ -67,11 +67,12 @@ services:
       API_URL_INTERNAL: "http://backend"
       NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8001}
     ports:
-      - "80:3001"
+      - "3001:3001"
     networks:
       - grem
     depends_on:
       - backend
+    restart: always
 
 networks:
   grem:
