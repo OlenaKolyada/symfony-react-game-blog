@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { API_URL } from "@/app/lib/config/config";
 
 interface EntityImageProps {
     id: number | undefined;
@@ -21,11 +22,15 @@ export function EntityImage({
                                 className = "",
                                 imageType = 'cover'
                             }: EntityImageProps) {
-    const normalizePath = (path: string) => path.startsWith('/') ? path : `/${path}`;
+    const toAbsolute = (path: string) => {
+        if (path.startsWith('http')) return path;
+        const normalized = path.startsWith('/') ? path : `/${path}`;
+        return `${API_URL}${normalized}`;
+    };
 
     const imageUrl = coverUrl
-        ? (coverUrl.startsWith('http') ? coverUrl : normalizePath(coverUrl))
-        : `/uploads/images/${categoryName}/${id}/${imageType}.jpg`;
+        ? toAbsolute(coverUrl)
+        : `${API_URL}/uploads/images/${categoryName}/${id}/${imageType}.jpg`;
 
     return (
         <div className={`relative ${width} ${height} shrink-0 overflow-hidden ${className}`}>
