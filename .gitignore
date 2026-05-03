@@ -22,6 +22,7 @@ frontend/.env.*
 *.key
 *.p12
 *.pfx
+!backend/tests/Fixtures/jwt/*.pem
 cookies.txt
 
 # Backups / dumps

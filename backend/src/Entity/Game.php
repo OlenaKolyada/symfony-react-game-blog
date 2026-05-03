@@ -135,18 +135,18 @@ class Game
     #[ORM\Column(type: Types::JSON, nullable: true)]
     #[Groups([self::GROUP_GET_GAME])]
     #[Assert\All([new Assert\Type(type: Types::STRING, message: 'Each screenshot must be a string.'),
-        new Assert\Url(message: 'Each screenshot must be a valid URL.')])]
+        new Assert\Url(message: 'Each screenshot must be a valid URL.', requireTld: false)])]
     #[Assert\Count(max: 20, maxMessage: 'You can only upload a maximum of 20 screenshots.')]
     private ?array $screenshot = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Groups([self::GROUP_GET_GAME])]
-    #[Assert\Url(message: 'Trailer must be a valid URL.')]
+    #[Assert\Url(message: 'Trailer must be a valid URL.', requireTld: false)]
     private ?string $trailer = null;
 
     #[ORM\Column(type: Types::STRING, length: 255, nullable: true)]
     #[Groups([self::GROUP_GET_GAME])]
-    #[Assert\Url(message: 'Website must be a valid URL.')]
+    #[Assert\Url(message: 'Website must be a valid URL.', requireTld: false)]
     private ?string $website = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]

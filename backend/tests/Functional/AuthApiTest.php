@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Tests\Functional;
+
+final class AuthApiTest extends ApiTestCase
+{
+    public function testLoginSuccessAndAuthorizedProfile(): void
+    {
+        $this->jsonRequest('POST', '/api/login', [
+            'email' => 'admin@example.com',
+            'password' => 'admin-password',
+        ]);
+
+        self::assertResponseStatusCodeSame(200);
+        $this->assertJsonFieldEquals('message', 'Login successful');
+
+        $this->client->request('GET', '/api/profile');
+
+        self::assertResponseStatusCodeSame(200);
+        $this->assertJsonFieldEquals('email', 'admin@example.com');
+    }
+
+    public function testLoginInvalidCredentials(): void
+    {
+        $this->jsonRequest('POST', '/api/login', [
+            'email' => 'admin@example.com',
+            'password' => 'wrong-password',
+        ]);
+
+        self::assertResponseStatusCodeSame(401);
+        $this->assertJsonFieldEquals('error', 'Invalid credentials');
+    }
+
+    public function testProfileUnauthorized(): void
+    {
+        $this->client->request('GET', '/api/profile');
+
+        self::assertResponseStatusCodeSame(401);
+    }
+
+    public function testLogoutRevokesCurrentSession(): void
+    {
+        $this->loginAsAdmin();
+
+        $this->client->request('POST', '/api/logout');
+        self::assertResponseStatusCodeSame(200);
+        $this->assertJsonFieldEquals('message', 'Logout successful');
+
+        $this->client->request('GET', '/api/profile');
+        self::assertResponseStatusCodeSame(401);
+    }
+}
