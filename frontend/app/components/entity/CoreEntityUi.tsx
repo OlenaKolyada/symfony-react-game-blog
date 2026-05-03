@@ -10,6 +10,7 @@ import {
 } from "@/app/components/list";
 import { CommentsSection } from "@/app/components/comments";
 import { EntityImage, EntityFields } from "@/app/ui/elements";
+import { sanitizeHtml } from "@/app/lib/utils/sanitize-html";
 
 // Функция для получения мета-сущностей
 function getMetaEntities(entity: Entity, categoryName: string): Entity[] {
@@ -70,7 +71,7 @@ export function CoreEntityUi({
                             {entityItem.content && (
                                 <div
                                     className="text-gray-700 mb-4 prose max-w-none"
-                                    dangerouslySetInnerHTML={{ __html: entityItem.content }}
+                                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(entityItem.content) }}
                                 />
                             )}
 

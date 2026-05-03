@@ -4,6 +4,7 @@ import React from 'react';
 import Link from "next/link";
 import { User, StatusEnum } from '@/app/lib/types';
 import { capitalizeFirstLetter } from '@/app/lib/utils';
+import { sanitizeHtml } from '@/app/lib/utils/sanitize-html';
 
 interface EntityMetadataProps {
     className?: string;
@@ -84,6 +85,6 @@ export function EntitySummary({
     if (!summary) return null;
 
     return (
-        <p className={className} dangerouslySetInnerHTML={{ __html: summary }} />
+        <p className={className} dangerouslySetInnerHTML={{ __html: sanitizeHtml(summary) }} />
     );
 }
