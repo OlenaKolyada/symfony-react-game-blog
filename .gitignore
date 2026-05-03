@@ -1,10 +1,51 @@
-/.idea
-.env
-.env.local
-.env.aws
-CLAUDE.md
+# IDE / OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Local agents / assistants
 .claude/
-backup/*.sql
-backup/*.zip
+CLAUDE.md
+
+# Environment / secrets
+.env
+.env.*
+*.env
+*.env.*
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+*.pem
+*.key
+*.p12
+*.pfx
 cookies.txt
-docs/incidents/
+
+# Backups / dumps
+backup/
+backups/
+*.sql
+*.dump
+*.zip
+
+# Logs
+*.log
+logs/
+
+# Symfony / PHP
+backend/var/
+backend/vendor/
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/dist/
+frontend/.turbo/
+
+# Docker local overrides
+docker-compose.override.yaml
+
+AGENTS.md
