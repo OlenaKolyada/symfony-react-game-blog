@@ -1,0 +1,36 @@
+# Секреты
+secrets/
+
+# Env файлы
+.env*
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Node
+**/node_modules/
+**/.next/
+**/out/
+**/dist/
+**/build/
+
+# Symfony
+backend/var/
+backend/vendor/
+
+# Логи
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# Документация
+*.md
+docs/
