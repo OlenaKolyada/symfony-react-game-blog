@@ -1,36 +1,62 @@
-# Секреты
-secrets/
+# Secrets
+  secrets/
 
-# Env файлы
-.env*
+  # Env files
+  .env*
 
-# Git
-.git/
-.gitignore
+  # Git
+  .git/
+  .gitignore
 
-# Docker
-Dockerfile*
-docker-compose*.yml
-.dockerignore
+  # Docker
+  Dockerfile*
+  docker-compose*.yml
+  .dockerignore
 
-# Node
-**/node_modules/
-**/.next/
-**/out/
-**/dist/
-**/build/
+  # Node
+  **/node_modules/
+  **/.next/
+  **/out/
+  **/dist/
+  **/build/
 
-# Symfony
-backend/var/
-backend/vendor/
+  # Symfony
+  backend/var/
+  backend/vendor/
 
-# Логи
-*.log
+  # Logs
+  *.log
 
-# IDE
-.vscode/
-.idea/
+  # IDE
+  .vscode/
+  .idea/
 
-# Документация
-*.md
-docs/
+  # Documentation
+  *.md
+  docs/
+
+  # Local agents / assistants
+  .claude/
+  AGENTS.md
+  CLAUDE.md
+
+  # Credentials / keys
+  *.pem
+  *.key
+  *.p12
+  *.pfx
+  cookies.txt
+
+  # Backups / dumps
+  backup/
+  backups/
+  *.sql
+  *.dump
+  *.zip
+
+  # OS
+  .DS_Store
+  Thumbs.db
+
+  # Frontend cache
+  frontend/.turbo/

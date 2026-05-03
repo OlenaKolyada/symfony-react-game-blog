@@ -1,15 +1,24 @@
 #!/bin/bash
 set -e
 
-# Установка зависимостей, если vendor не существует
-if [ ! -d ./vendor ]; then
-    composer install --no-interaction
-    chown -R www-data:www-data ./var
-fi
+composer install --no-interaction
 
-php bin/console assets:install --env=prod
-mkdir -p /var/www/var/cache/prod
-chown -R www-data:www-data ./var
+mkdir -p /var/www/var
+chown -R www-data:www-data /var/www/var
 
-# Запуск сервера Apache
+max_attempts=30
+attempt=1
+
+until php bin/console doctrine:query:sql "SELECT 1" >/dev/null 2>&1; do
+  if [ "$attempt" -ge "$max_attempts" ]; then
+    echo "Database is not available after $max_attempts attempts."
+    echo "Check DATABASE_URL, MySQL credentials, secrets, and db container logs."
+    exit 1
+  fi
+
+  echo "Waiting for database... attempt $attempt/$max_attempts"
+  attempt=$((attempt + 1))
+  sleep 2
+done
+
 apache2-foreground

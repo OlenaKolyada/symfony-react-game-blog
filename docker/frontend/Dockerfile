@@ -1,18 +1,8 @@
-FROM node:18
+FROM node:20
 
 WORKDIR /app
 
-ARG NEXT_PUBLIC_API_URL=http://localhost:8001
-ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+EXPOSE 3000
+ENV PORT=3000
 
-COPY frontend/package*.json . 
-RUN npm install
-
-COPY frontend/ .
-
-RUN npm run build
-
-EXPOSE 3001
-ENV PORT=3001
-
-CMD ["npm", "start"]
+CMD ["sh", "/app/entrypoint.sh"]

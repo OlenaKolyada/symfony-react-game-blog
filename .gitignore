@@ -9,6 +9,7 @@ Thumbs.db
 CLAUDE.md
 
 # Environment / secrets
+secrets/
 .env
 .env.*
 *.env
