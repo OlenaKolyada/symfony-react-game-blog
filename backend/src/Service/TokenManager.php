@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\TokenCreationResult;
 use App\Entity\User;
 use App\Entity\UserToken;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,7 +17,7 @@ readonly class TokenManager
         private JWTTokenManagerInterface $jwtManager
     ) {}
 
-    public function createToken(User $user): UserToken
+    public function createToken(User $user): TokenCreationResult
     {
         $jwtToken = $this->jwtManager->create($user);
 
@@ -25,27 +26,27 @@ readonly class TokenManager
         $userToken = new UserToken();
         $userToken->setUser($user);
         $userToken->setToken($jwtToken);
-        $userToken->setSessionId($sessionId);
+        $userToken->setSessionId($this->hashSessionId($sessionId));
         $userToken->setExpiresAt(new \DateTime('+1 day'));
         $userToken->setRevoked(false);
 
         $this->entityManager->persist($userToken);
         $this->entityManager->flush();
 
-        return $userToken;
+        return new TokenCreationResult($userToken, $sessionId);
     }
 
     public function validateToken(string $sessionId): ?UserToken
     {
         /** @var UserTokenRepository $repository */
         $repository = $this->entityManager->getRepository(UserToken::class);
-        return $repository->findActiveToken($sessionId);
+        return $repository->findActiveToken($this->hashSessionId($sessionId));
     }
 
     public function revokeToken(string $sessionId): bool
     {
         $userToken = $this->entityManager->getRepository(UserToken::class)
-            ->findOneBy(['sessionId' => $sessionId]);
+            ->findOneBy(['sessionId' => $this->hashSessionId($sessionId)]);
 
         if (!$userToken) {
             return false;
@@ -71,5 +72,10 @@ readonly class TokenManager
         $this->entityManager->flush();
 
         return $count;
+    }
+
+    private function hashSessionId(string $sessionId): string
+    {
+        return hash('sha256', $sessionId);
     }
 }

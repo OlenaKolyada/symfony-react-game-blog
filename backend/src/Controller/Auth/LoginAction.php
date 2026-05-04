@@ -84,7 +84,8 @@ class LoginAction extends AbstractController
         }
 
         // Создание токена
-        $userToken = $this->tokenManager->createToken($user);
+        $tokenCreationResult = $this->tokenManager->createToken($user);
+        $userToken = $tokenCreationResult->getUserToken();
 
         // Создание ответа с сессионным id в HttpOnly cookie
         $response = new JsonResponse([
@@ -93,7 +94,7 @@ class LoginAction extends AbstractController
 
         $response->headers->setCookie(new Cookie(
             'session_id',          // Имя куки
-            $userToken->getSessionId(), // Значение (sessionId, не сам JWT)
+            $tokenCreationResult->getRawSessionId(), // Значение (sessionId, не сам JWT)
             $userToken->getExpiresAt()->getTimestamp(), // Время истечения
             '/',                   // Путь
             null,                  // Домен

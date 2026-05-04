@@ -2,6 +2,8 @@
 
 namespace App\Tests\Functional;
 
+use App\Entity\UserToken;
+
 final class AuthApiTest extends ApiTestCase
 {
     public function testLoginSuccessAndAuthorizedProfile(): void
@@ -19,6 +21,26 @@ final class AuthApiTest extends ApiTestCase
 
         self::assertResponseStatusCodeSame(200);
         $this->assertJsonFieldEquals('email', 'admin@example.com');
+    }
+
+    public function testLoginStoresOnlyHashedSessionId(): void
+    {
+        $this->jsonRequest('POST', '/api/login', [
+            'email' => 'admin@example.com',
+            'password' => 'admin-password',
+        ]);
+
+        self::assertResponseStatusCodeSame(200);
+
+        $cookie = $this->client->getCookieJar()->get('session_id');
+        self::assertNotNull($cookie);
+
+        $token = $this->entityManager->getRepository(UserToken::class)
+            ->findOneBy(['user' => $this->adminUser]);
+
+        self::assertInstanceOf(UserToken::class, $token);
+        self::assertNotSame($cookie->getValue(), $token->getSessionId());
+        self::assertSame(hash('sha256', $cookie->getValue()), $token->getSessionId());
     }
 
     public function testLoginInvalidCredentials(): void
