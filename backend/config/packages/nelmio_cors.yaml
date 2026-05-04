@@ -9,7 +9,7 @@ nelmio_cors:
         allow_credentials: true
     paths:
         '^/api/':
-            allow_headers: ['*']
+            allow_headers: ['Content-Type', 'Authorization']
             allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
             allow_credentials: true
         '^/': null
