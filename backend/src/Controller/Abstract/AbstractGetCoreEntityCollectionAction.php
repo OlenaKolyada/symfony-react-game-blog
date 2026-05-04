@@ -2,8 +2,10 @@
 
 namespace App\Controller\Abstract;
 
+use App\Enum\StatusEnum;
 use App\Service\CacheService;
 use App\Trait\PaginationTrait;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,8 @@ abstract class AbstractGetCoreEntityCollectionAction
 
     public function __construct(
         protected readonly mixed $repository,
-        protected readonly CacheService $cacheService
+        protected readonly CacheService $cacheService,
+        protected readonly Security $security
     ) {
     }
     protected function getEntityData(
@@ -26,6 +29,10 @@ abstract class AbstractGetCoreEntityCollectionAction
     ): JsonResponse {
         $pagination = $this->preparePaginationCriteria($request);
         $status = $pagination['criteria']['status'] ?? 'Published';
+
+        if ($status !== StatusEnum::Published->value && !$this->security->isGranted('ROLE_ADMIN')) {
+            return new JsonResponse(['error' => 'Access denied'], Response::HTTP_FORBIDDEN);
+        }
 
         $sortParam = $request->query->get('sort', 'createdAt:desc');
         [$sortField, $sortDirection] = explode(':', $sortParam);

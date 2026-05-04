@@ -6,6 +6,7 @@ use App\Controller\Abstract\AbstractGetCoreEntityCollectionAction;
 use App\Entity\Game;
 use App\Repository\GameRepository;
 use App\Service\CacheService;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +17,10 @@ class GetGameCollectionActionGet extends AbstractGetCoreEntityCollectionAction
 {
     public function __construct(
         GameRepository $repository,
-        CacheService $cacheService
+        CacheService $cacheService,
+        Security $security
     ) {
-        parent::__construct($repository, $cacheService);
+        parent::__construct($repository, $cacheService, $security);
     }
     #[Route('/api/game', name: 'api_get_game_collection', methods: ['GET'])]
     #[OA\Response(response: 200,

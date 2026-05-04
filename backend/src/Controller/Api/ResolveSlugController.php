@@ -10,7 +10,9 @@ use App\Entity\Platform;
 use App\Entity\Publisher;
 use App\Entity\Review;
 use App\Entity\Tag;
+use App\Enum\StatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -21,7 +23,8 @@ readonly class ResolveSlugController
 {
     public function __construct(
         private EntityManagerInterface $entityManager,
-        private SerializerInterface $serializer
+        private SerializerInterface $serializer,
+        private Security $security
     ) {
     }
 
@@ -33,6 +36,10 @@ readonly class ResolveSlugController
         $entity = $this->entityManager->getRepository($entityClass)->findOneBy(['slug' => $slug]);
 
         if (!$entity) {
+            return new JsonResponse(['error' => 'Entity not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        if (!$this->canReadEntity($entity)) {
             return new JsonResponse(['error' => 'Entity not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -97,5 +104,18 @@ readonly class ResolveSlugController
     {
         $mapping = $this->getEntityMapping();
         return $mapping[$entityType]['groups'] ?? [];
+    }
+
+    private function canReadEntity(object $entity): bool
+    {
+        if (!method_exists($entity, 'getStatus')) {
+            return true;
+        }
+
+        if ($entity->getStatus() === StatusEnum::Published) {
+            return true;
+        }
+
+        return $this->security->isGranted('ROLE_ADMIN');
     }
 }

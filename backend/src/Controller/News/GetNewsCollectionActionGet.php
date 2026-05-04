@@ -6,6 +6,7 @@ use App\Controller\Abstract\AbstractGetCoreEntityCollectionAction;
 use App\Entity\News;
 use App\Repository\NewsRepository;
 use App\Service\CacheService;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +17,10 @@ class GetNewsCollectionActionGet extends AbstractGetCoreEntityCollectionAction
 {
     public function __construct(
         NewsRepository $repository,
-        CacheService $cacheService
+        CacheService $cacheService,
+        Security $security
     ) {
-        parent::__construct($repository, $cacheService);
+        parent::__construct($repository, $cacheService, $security);
     }
 
     #[Route('/api/news', name: 'api_get_news_collection', methods: ['GET'])]

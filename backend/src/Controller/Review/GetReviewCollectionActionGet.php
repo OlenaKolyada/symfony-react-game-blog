@@ -6,6 +6,7 @@ use App\Controller\Abstract\AbstractGetCoreEntityCollectionAction;
 use App\Entity\Review;
 use App\Repository\ReviewRepository;
 use App\Service\CacheService;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -16,9 +17,10 @@ class GetReviewCollectionActionGet extends AbstractGetCoreEntityCollectionAction
 {
     public function __construct(
         ReviewRepository $repository,
-        CacheService $cacheService
+        CacheService $cacheService,
+        Security $security
     ) {
-        parent::__construct($repository, $cacheService);
+        parent::__construct($repository, $cacheService, $security);
     }
 
     #[Route('/api/review', name: 'api_get_review_collection', methods: ['GET'])]

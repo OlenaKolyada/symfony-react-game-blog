@@ -5,6 +5,7 @@ namespace App\Controller\Review;
 use App\Controller\Abstract\AbstractGetEntityAction;
 use App\Entity\Review;
 use App\Service\CacheService;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 use Nelmio\ApiDocBundle\Attribute\Model;
@@ -13,9 +14,10 @@ use OpenApi\Attributes as OA;
 class GetReviewAction extends AbstractGetEntityAction
 {
     public function __construct(
-        CacheService $cacheService
+        CacheService $cacheService,
+        Security $security
     ) {
-        parent::__construct($cacheService);
+        parent::__construct($cacheService, $security);
     }
     #[Route('/api/review/{id}', name: 'app_get_review_item', methods: ['GET'])]
     #[OA\Response(response: 200,
