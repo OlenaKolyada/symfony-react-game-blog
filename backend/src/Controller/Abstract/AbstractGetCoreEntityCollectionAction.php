@@ -35,14 +35,13 @@ abstract class AbstractGetCoreEntityCollectionAction
         }
 
         $sortParam = $request->query->get('sort', 'createdAt:desc');
-        [$sortField, $sortDirection] = explode(':', $sortParam);
+        [$sortField, $sortDirection] = array_pad(explode(':', $sortParam, 2), 2, 'desc');
 
-        $sortField = $sortField ?? 'updatedAt';
-        $sortDirection = strtolower($sortDirection ?? 'desc') === 'asc' ? 'ASC' : 'DESC';
+        $sortDirection = strtolower($sortDirection) === 'asc' ? 'ASC' : 'DESC';
 
         $allowedSortFields = ['updatedAt', 'createdAt'];
         if (!in_array($sortField, $allowedSortFields, true)) {
-            throw new \InvalidArgumentException('Invalid sort field');
+            return new JsonResponse(['error' => 'Invalid sort field'], Response::HTTP_BAD_REQUEST);
         }
 
         $idCache = "get{$entityType}CollectionAction-" .

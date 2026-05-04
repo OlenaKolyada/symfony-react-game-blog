@@ -15,4 +15,12 @@ final class PaginationSecurityTest extends ApiTestCase
         self::assertSame(1, $pagination['page']);
         self::assertSame(50, $pagination['limit']);
     }
+
+    public function testCoreListInvalidSortFieldReturnsControlledError(): void
+    {
+        $this->client->request('GET', '/api/game?sort=password:asc');
+
+        self::assertResponseStatusCodeSame(400);
+        $this->assertJsonFieldEquals('error', 'Invalid sort field');
+    }
 }
