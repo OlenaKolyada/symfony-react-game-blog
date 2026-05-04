@@ -4,16 +4,20 @@ namespace App\Controller\Comment;
 
 use App\Controller\Abstract\AbstractGetEntityAction;
 use App\Entity\Comment;
+use App\Enum\CommentStatusEnum;
 use App\Service\CacheService;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class GetCommentAction extends AbstractGetEntityAction
 {
     public function __construct(
-        CacheService $cacheService
+        CacheService $cacheService,
+        private readonly Security $security
     ) {
         parent::__construct($cacheService);
     }
@@ -35,6 +39,13 @@ class GetCommentAction extends AbstractGetEntityAction
     #[OA\Tag(name: "Comment")]
     public function __invoke(Comment $comment): JsonResponse
     {
+        if (
+            $comment->getStatus() === CommentStatusEnum::Deleted
+            && !$this->security->isGranted('ROLE_ADMIN')
+        ) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->getEntityData(
             $comment,
             'Comment',
