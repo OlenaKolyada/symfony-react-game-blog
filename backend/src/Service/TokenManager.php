@@ -6,26 +6,22 @@ use App\DTO\TokenCreationResult;
 use App\Entity\User;
 use App\Entity\UserToken;
 use Doctrine\ORM\EntityManagerInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Component\Uid\Uuid;
 use App\Repository\UserTokenRepository;
 
 readonly class TokenManager
 {
     public function __construct(
-        private EntityManagerInterface   $entityManager,
-        private JWTTokenManagerInterface $jwtManager
+        private EntityManagerInterface $entityManager
     ) {}
 
     public function createToken(User $user): TokenCreationResult
     {
-        $jwtToken = $this->jwtManager->create($user);
-
         $sessionId = Uuid::v4()->toRfc4122();
 
         $userToken = new UserToken();
         $userToken->setUser($user);
-        $userToken->setToken($jwtToken);
+        $userToken->setToken('cookie-session');
         $userToken->setSessionId($this->hashSessionId($sessionId));
         $userToken->setExpiresAt(new \DateTime('+1 day'));
         $userToken->setRevoked(false);

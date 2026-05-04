@@ -43,6 +43,23 @@ final class AuthApiTest extends ApiTestCase
         self::assertSame(hash('sha256', $cookie->getValue()), $token->getSessionId());
     }
 
+    public function testLoginDoesNotStoreJwtToken(): void
+    {
+        $this->jsonRequest('POST', '/api/login', [
+            'email' => 'admin@example.com',
+            'password' => 'admin-password',
+        ]);
+
+        self::assertResponseStatusCodeSame(200);
+
+        $token = $this->entityManager->getRepository(UserToken::class)
+            ->findOneBy(['user' => $this->adminUser]);
+
+        self::assertInstanceOf(UserToken::class, $token);
+        self::assertSame('cookie-session', $token->getToken());
+        self::assertStringNotContainsString('.', $token->getToken());
+    }
+
     public function testLoginInvalidCredentials(): void
     {
         $this->jsonRequest('POST', '/api/login', [
