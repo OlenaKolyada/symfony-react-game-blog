@@ -39,7 +39,7 @@ final class TagCrudTest extends ApiTestCase
         self::assertResponseStatusCodeSame(200);
         $this->assertJsonFieldEquals('title', 'Updated Tag');
 
-        $this->client->request('DELETE', sprintf('/api/tag/%d', $createdId));
+        $this->jsonRequest('DELETE', sprintf('/api/tag/%d', $createdId));
         self::assertResponseStatusCodeSame(204);
 
         $this->assertGetNotFound(sprintf('/api/tag/%d', $createdId));

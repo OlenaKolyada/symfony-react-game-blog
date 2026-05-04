@@ -91,7 +91,7 @@ final class AuthApiTest extends ApiTestCase
     {
         $this->loginAsAdmin();
 
-        $this->client->request('POST', '/api/logout');
+        $this->jsonRequest('POST', '/api/logout');
         self::assertResponseStatusCodeSame(200);
         $this->assertJsonFieldEquals('message', 'Logout successful');
 
@@ -103,7 +103,7 @@ final class AuthApiTest extends ApiTestCase
     {
         $this->loginAsAdmin();
 
-        $this->client->request('POST', '/api/logout');
+        $this->jsonRequest('POST', '/api/logout');
 
         self::assertResponseStatusCodeSame(200);
 

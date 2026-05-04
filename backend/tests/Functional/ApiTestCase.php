@@ -76,12 +76,23 @@ abstract class ApiTestCase extends WebTestCase
 
     protected function jsonRequest(string $method, string $uri, array $payload = []): void
     {
+        $server = ['CONTENT_TYPE' => 'application/json', 'HTTP_ACCEPT' => 'application/json'];
+        $csrfToken = $this->client->getCookieJar()->get('csrf_token')?->getValue();
+
+        if (
+            $csrfToken
+            && $uri !== '/api/login'
+            && in_array($method, ['POST', 'PATCH', 'DELETE'], true)
+        ) {
+            $server['HTTP_X_CSRF_TOKEN'] = $csrfToken;
+        }
+
         $this->client->request(
             $method,
             $uri,
             [],
             [],
-            ['CONTENT_TYPE' => 'application/json', 'HTTP_ACCEPT' => 'application/json'],
+            $server,
             json_encode($payload, JSON_THROW_ON_ERROR)
         );
     }

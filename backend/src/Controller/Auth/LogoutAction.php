@@ -2,6 +2,7 @@
 
 namespace App\Controller\Auth;
 
+use App\Security\CsrfTokenManager;
 use App\Service\TokenManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -14,7 +15,8 @@ use OpenApi\Attributes as OA;
 class LogoutAction extends AbstractController
 {
     public function __construct(
-        private readonly TokenManager                $tokenManager
+        private readonly TokenManager $tokenManager,
+        private readonly CsrfTokenManager $csrfTokenManager
     ) {}
 
     #[OA\Tag(name: "Auth")]
@@ -42,6 +44,7 @@ class LogoutAction extends AbstractController
             false,              // Raw
             Cookie::SAMESITE_LAX // Same as login cookie
         ));
+        $response->headers->setCookie($this->csrfTokenManager->clearCookie());
 
         return $response;
     }

@@ -57,7 +57,7 @@ final class CoreEntityCrudTest extends ApiTestCase
         self::assertResponseStatusCodeSame(200);
         $this->assertJsonFieldEquals('title', $updatePayload['title']);
 
-        $this->client->request('DELETE', sprintf('/api/%s/%d', $entityName, $createdId));
+        $this->jsonRequest('DELETE', sprintf('/api/%s/%d', $entityName, $createdId));
         self::assertResponseStatusCodeSame(204);
 
         $this->assertGetNotFound(sprintf('/api/%s/%d', $entityName, $createdId));

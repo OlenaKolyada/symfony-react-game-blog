@@ -1,4 +1,5 @@
 import { API_CONFIG } from "@/app/lib/config";
+import { getCsrfHeaders } from "@/app/lib/csrf";
 import { getApiBase } from "@/app/lib/fetch/baseFetch";
 import { Comment } from "@/app/lib/types";
 
@@ -17,8 +18,12 @@ async function request<T>(endpoint: string, options: RequestInit): Promise<T> {
 
     const response = await fetch(url, {
         credentials: 'include',
-        headers: API_CONFIG.headers,
         ...options,
+        headers: {
+            ...API_CONFIG.headers,
+            ...getCsrfHeaders(),
+            ...(options.headers ?? {}),
+        },
     });
 
     if (!response.ok) {

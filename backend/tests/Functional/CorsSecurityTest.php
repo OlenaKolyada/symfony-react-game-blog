@@ -32,7 +32,7 @@ final class CorsSecurityTest extends ApiTestCase
             [
                 'HTTP_ORIGIN' => 'http://localhost:3000',
                 'HTTP_ACCESS_CONTROL_REQUEST_METHOD' => 'GET',
-                'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' => 'Content-Type, Authorization',
+                'HTTP_ACCESS_CONTROL_REQUEST_HEADERS' => 'Content-Type, Authorization, X-CSRF-Token',
             ]
         );
 
@@ -43,5 +43,6 @@ final class CorsSecurityTest extends ApiTestCase
         self::assertNotNull($allowedHeaders);
         self::assertStringContainsString('content-type', $allowedHeaders);
         self::assertStringContainsString('authorization', $allowedHeaders);
+        self::assertStringContainsString('x-csrf-token', $allowedHeaders);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Controller\Auth;
 
 use App\Entity\User;
+use App\Security\CsrfTokenManager;
 use App\Service\TokenManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,7 +20,8 @@ class LoginAction extends AbstractController
     public function __construct(
         private readonly TokenManager $tokenManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly CsrfTokenManager $csrfTokenManager
     ) {}
 
     #[OA\Post(
@@ -103,6 +105,12 @@ class LoginAction extends AbstractController
             false,                 // Raw
             Cookie::SAMESITE_LAX   // LAX для работы между портами
         ));
+        $response->headers->setCookie(
+            $this->csrfTokenManager->createCookie(
+                $this->csrfTokenManager->createToken(),
+                $userToken->getExpiresAt()->getTimestamp()
+            )
+        );
 
         return $response;
     }
