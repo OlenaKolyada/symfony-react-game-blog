@@ -63,6 +63,7 @@ class UserCrudController extends AbstractCrudController
             ImageField::new('avatar', 'Avatar')
                 ->setUploadDir('public/uploads/images/user')
                 ->setBasePath('uploads/images/user')
+                ->setUploadedFileNamePattern('[randomhash].[extension]')
                 ->setRequired(false)
                 ->onlyOnForms(),
         ];
