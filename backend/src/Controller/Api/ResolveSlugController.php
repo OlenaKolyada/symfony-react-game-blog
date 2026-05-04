@@ -33,6 +33,10 @@ readonly class ResolveSlugController
     public function __invoke(string $entityType, string $slug): JsonResponse
     {
         $entityClass = $this->getEntityClassByType($entityType);
+        if ($entityClass === null) {
+            return new JsonResponse(['error' => 'Entity not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $entity = $this->entityManager->getRepository($entityClass)->findOneBy(['slug' => $slug]);
 
         if (!$entity) {
@@ -89,12 +93,12 @@ readonly class ResolveSlugController
         ];
     }
 
-    private function getEntityClassByType(string $type): string
+    private function getEntityClassByType(string $type): ?string
     {
         $mapping = $this->getEntityMapping();
 
         if (!isset($mapping[$type])) {
-            throw new \InvalidArgumentException("Unknown entity type: $type");
+            return null;
         }
 
         return $mapping[$type]['class'];
