@@ -17,6 +17,8 @@ use App\Enum\StatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -62,6 +64,16 @@ abstract class ApiTestCase extends WebTestCase
         self::assertResponseStatusCodeSame(200);
     }
 
+    protected function loginAsRegularUser(): void
+    {
+        $this->jsonRequest('POST', '/api/login', [
+            'email' => 'user@example.com',
+            'password' => 'user-password',
+        ]);
+
+        self::assertResponseStatusCodeSame(200);
+    }
+
     protected function jsonRequest(string $method, string $uri, array $payload = []): void
     {
         $this->client->request(
@@ -101,6 +113,20 @@ abstract class ApiTestCase extends WebTestCase
             self::assertResponseStatusCodeSame(404);
         } catch (NotFoundHttpException $exception) {
             self::assertSame(404, $exception->getStatusCode());
+        } finally {
+            $this->client->catchExceptions(true);
+        }
+    }
+
+    protected function assertGetForbidden(string $uri): void
+    {
+        $this->client->catchExceptions(false);
+
+        try {
+            $this->client->request('GET', $uri);
+            self::assertResponseStatusCodeSame(403);
+        } catch (AccessDeniedHttpException|AccessDeniedException $exception) {
+            self::assertNotEmpty($exception->getMessage());
         } finally {
             $this->client->catchExceptions(true);
         }

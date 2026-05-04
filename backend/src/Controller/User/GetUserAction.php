@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Nelmio\ApiDocBundle\Attribute\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class GetUserAction extends AbstractGetEntityAction
 {
@@ -25,6 +26,7 @@ class GetUserAction extends AbstractGetEntityAction
     }
 
     #[Route('/api/user/{id}', name: 'app_get_user_item', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN', message: 'You do not have sufficient permissions')]
     #[OA\Response(response: 200,
         description: "Get a User item",
         content: new OA\JsonContent(
