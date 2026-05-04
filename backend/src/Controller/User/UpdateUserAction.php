@@ -11,6 +11,7 @@ use App\Service\EntityField\Processor\ResponseProcessor;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Nelmio\ApiDocBundle\Attribute\Security;
@@ -25,7 +26,8 @@ class UpdateUserAction extends AbstractUpdateEntityAction
         FieldProcessor $fieldProcessor,
         ErrorProcessor $errorProcessor,
         ResponseProcessor $responseProcessor,
-        EntityConfigurationFactoryInterface $configFactory
+        EntityConfigurationFactoryInterface $configFactory,
+        private readonly UserPasswordHasherInterface $passwordHasher
     ) {
         parent::__construct($manager, $fieldProcessor, $errorProcessor, $responseProcessor);
 
@@ -64,6 +66,9 @@ class UpdateUserAction extends AbstractUpdateEntityAction
     public function __invoke(Request $request, User $user): JsonResponse
     {
         $content = $request->toArray();
+        if (isset($content['password'])) {
+            $content['password'] = $this->passwordHasher->hashPassword($user, $content['password']);
+        }
 
         return $this->updateEntityData($user, $content, $this->fieldConfig, 'getUser');
     }
