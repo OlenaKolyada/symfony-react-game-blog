@@ -14,7 +14,6 @@ export function ProfileUi({ user }: ProfileProps) {
         { label: "ID", value: "id" },
         { label: "Nickname", value: "nickname" },
         { label: "Email", value: "email" },
-        { label: "Password", value: "password" },
         { label: "Roles", value: "roles" },
         { label: "Created at", value: "createdAt" },
         { label: "Updated at", value: "updatedAt" }

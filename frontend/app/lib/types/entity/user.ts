@@ -5,7 +5,6 @@ import { News, Review, Comment } from '@/app/lib/types';
 export type User = {
     id: number;
     email: string;
-    password: string;
     roles: string[];
     nickname: string;
     twitchAccount: string | null;
