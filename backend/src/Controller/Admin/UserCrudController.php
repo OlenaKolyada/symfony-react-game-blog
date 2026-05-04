@@ -44,7 +44,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('password')
                 ->setFormType(PasswordType::class)
                 ->setRequired(true)
-                ->onlyOnForms(),
+                ->onlyWhenCreating(),
 
             ChoiceField::new('roles')
                 ->setChoices([
@@ -71,6 +71,7 @@ class UserCrudController extends AbstractCrudController
             $fields[] = TextField::new('password')
                 ->setFormType(PasswordType::class)
                 ->setRequired(false)
+                ->onlyWhenUpdating()
                 ->setHelp('Leave empty to keep current password');
         }
 
