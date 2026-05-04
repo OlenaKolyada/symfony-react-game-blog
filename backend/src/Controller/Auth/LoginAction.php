@@ -21,7 +21,8 @@ class LoginAction extends AbstractController
         private readonly TokenManager $tokenManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly EntityManagerInterface $entityManager,
-        private readonly CsrfTokenManager $csrfTokenManager
+        private readonly CsrfTokenManager $csrfTokenManager,
+        private readonly bool $sessionCookieSecure
     ) {}
 
     #[OA\Post(
@@ -100,7 +101,7 @@ class LoginAction extends AbstractController
             $userToken->getExpiresAt()->getTimestamp(), // Время истечения
             '/',                   // Путь
             null,                  // Домен
-            false,                 // Только HTTPS (false для HTTP localhost)
+            $this->sessionCookieSecure, // HTTPS only when enabled by environment
             true,                  // HttpOnly
             false,                 // Raw
             Cookie::SAMESITE_LAX   // LAX для работы между портами

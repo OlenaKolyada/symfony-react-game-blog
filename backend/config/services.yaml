@@ -6,6 +6,7 @@
 parameters:
     app.local_backend_url: 'http://localhost:8000'
     app.local_frontend_url: 'http://localhost:3000'
+    env(SESSION_COOKIE_SECURE): 'false'
 
 services:
     # default configuration for services in *this* file
@@ -30,6 +31,18 @@ services:
 
     App\Validator\UniqueEmailValidator:
         tags: ['validator.constraint_validator']
+
+    App\Controller\Auth\LoginAction:
+        arguments:
+            $sessionCookieSecure: '%env(bool:SESSION_COOKIE_SECURE)%'
+
+    App\Controller\Auth\LogoutAction:
+        arguments:
+            $sessionCookieSecure: '%env(bool:SESSION_COOKIE_SECURE)%'
+
+    App\Security\CsrfTokenManager:
+        arguments:
+            $sessionCookieSecure: '%env(bool:SESSION_COOKIE_SECURE)%'
 
     App\Controller\Admin\DashboardController:
         arguments:

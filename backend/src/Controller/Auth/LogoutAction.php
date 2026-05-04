@@ -16,7 +16,8 @@ class LogoutAction extends AbstractController
 {
     public function __construct(
         private readonly TokenManager $tokenManager,
-        private readonly CsrfTokenManager $csrfTokenManager
+        private readonly CsrfTokenManager $csrfTokenManager,
+        private readonly bool $sessionCookieSecure
     ) {}
 
     #[OA\Tag(name: "Auth")]
@@ -39,7 +40,7 @@ class LogoutAction extends AbstractController
             time() - 3600,      // Время в прошлом
             '/',                // Тот же путь
             null,               // Тот же домен
-            false,              // Same as login cookie for local HTTP
+            $this->sessionCookieSecure, // Same as login cookie
             true,               // HttpOnly
             false,              // Raw
             Cookie::SAMESITE_LAX // Same as login cookie

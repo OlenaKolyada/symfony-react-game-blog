@@ -2,6 +2,8 @@
 
 namespace App\Tests\Functional;
 
+use App\Security\CsrfTokenManager;
+
 final class CsrfSecurityTest extends ApiTestCase
 {
     public function testLoginSetsCsrfTokenCookie(): void
@@ -15,6 +17,14 @@ final class CsrfSecurityTest extends ApiTestCase
         self::assertFalse($cookie->isSecure());
         self::assertFalse($cookie->isHttpOnly());
         self::assertSame('lax', strtolower($cookie->getSameSite()));
+    }
+
+    public function testCsrfCookieUsesSecureFlagWhenEnabled(): void
+    {
+        $manager = new CsrfTokenManager(true);
+
+        self::assertTrue($manager->createCookie('csrf-token', time() + 3600)->isSecure());
+        self::assertTrue($manager->clearCookie()->isSecure());
     }
 
     public function testMutatingRequestWithoutCsrfHeaderIsRejected(): void

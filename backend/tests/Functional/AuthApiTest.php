@@ -116,4 +116,14 @@ final class AuthApiTest extends ApiTestCase
         self::assertSame('lax', strtolower($cookie->getSameSite()));
         self::assertLessThan(time(), $cookie->getExpiresTime());
     }
+
+    public function testSessionCookieUsesLocalSecureFlagByDefault(): void
+    {
+        $this->loginAsAdmin();
+
+        $cookie = $this->client->getCookieJar()->get('session_id');
+
+        self::assertNotNull($cookie);
+        self::assertFalse($cookie->isSecure());
+    }
 }

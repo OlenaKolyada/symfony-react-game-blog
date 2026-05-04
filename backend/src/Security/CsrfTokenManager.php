@@ -10,6 +10,11 @@ final class CsrfTokenManager
     public const string COOKIE_NAME = 'csrf_token';
     public const string HEADER_NAME = 'X-CSRF-Token';
 
+    public function __construct(
+        private readonly bool $sessionCookieSecure
+    ) {
+    }
+
     public function createToken(): string
     {
         return bin2hex(random_bytes(32));
@@ -35,7 +40,7 @@ final class CsrfTokenManager
             $expiresAt,
             '/',
             null,
-            false,
+            $this->sessionCookieSecure,
             false,
             false,
             Cookie::SAMESITE_LAX
@@ -50,7 +55,7 @@ final class CsrfTokenManager
             time() - 3600,
             '/',
             null,
-            false,
+            $this->sessionCookieSecure,
             false,
             false,
             Cookie::SAMESITE_LAX
