@@ -86,10 +86,9 @@ class LoginAction extends AbstractController
         // Создание токена
         $userToken = $this->tokenManager->createToken($user);
 
-        // Создание ответа с сессионным id в куки и в теле для тестирования
+        // Создание ответа с сессионным id в HttpOnly cookie
         $response = new JsonResponse([
             'message' => 'Login successful',
-            'session_id' => $userToken->getSessionId() // добавляем для упрощения тестирования
         ]);
 
         $response->headers->setCookie(new Cookie(

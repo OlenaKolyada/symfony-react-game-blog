@@ -13,6 +13,7 @@ final class AuthApiTest extends ApiTestCase
 
         self::assertResponseStatusCodeSame(200);
         $this->assertJsonFieldEquals('message', 'Login successful');
+        self::assertArrayNotHasKey('session_id', $this->responseData());
 
         $this->client->request('GET', '/api/profile');
 
