@@ -58,4 +58,22 @@ final class AuthApiTest extends ApiTestCase
         $this->client->request('GET', '/api/profile');
         self::assertResponseStatusCodeSame(401);
     }
+
+    public function testLogoutClearsSessionCookieWithMatchingAttributes(): void
+    {
+        $this->loginAsAdmin();
+
+        $this->client->request('POST', '/api/logout');
+
+        self::assertResponseStatusCodeSame(200);
+
+        $cookie = $this->client->getResponse()->headers->getCookies()[0] ?? null;
+
+        self::assertNotNull($cookie);
+        self::assertSame('session_id', $cookie->getName());
+        self::assertFalse($cookie->isSecure());
+        self::assertTrue($cookie->isHttpOnly());
+        self::assertSame('lax', strtolower($cookie->getSameSite()));
+        self::assertLessThan(time(), $cookie->getExpiresTime());
+    }
 }

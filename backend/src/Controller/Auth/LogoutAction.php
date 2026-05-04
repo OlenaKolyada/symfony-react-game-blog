@@ -37,10 +37,10 @@ class LogoutAction extends AbstractController
             time() - 3600,      // Время в прошлом
             '/',                // Тот же путь
             null,               // Тот же домен
-            true,               // Только HTTPS
+            false,              // Same as login cookie for local HTTP
             true,               // HttpOnly
             false,              // Raw
-            Cookie::SAMESITE_STRICT // То же значение SameSite
+            Cookie::SAMESITE_LAX // Same as login cookie
         ));
 
         return $response;
