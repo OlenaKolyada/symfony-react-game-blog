@@ -38,6 +38,15 @@ final class AuthApiTest extends ApiTestCase
         self::assertResponseStatusCodeSame(401);
     }
 
+    public function testProfileWithInvalidSessionReturnsGenericAuthenticationError(): void
+    {
+        $this->client->getCookieJar()->set(new \Symfony\Component\BrowserKit\Cookie('session_id', 'not-a-valid-session-id'));
+        $this->client->request('GET', '/api/profile');
+
+        self::assertResponseStatusCodeSame(401);
+        $this->assertJsonFieldEquals('error', 'Authentication failed');
+    }
+
     public function testLogoutRevokesCurrentSession(): void
     {
         $this->loginAsAdmin();
