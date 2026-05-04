@@ -9,8 +9,8 @@ trait PaginationTrait
     protected function preparePaginationCriteria(Request $request): array
     {
         $statusParam = $request->query->get('status', 'Published');
-        $page = (int)$request->query->get('page', 1);
-        $limit = (int)$request->query->get('limit', 9);
+        $page = max(1, (int)$request->query->get('page', 1));
+        $limit = min(50, max(1, (int)$request->query->get('limit', 9)));
 
         $criteria = [];
         if ($statusParam) {
