@@ -15,6 +15,7 @@ use App\Enum\AgeRatingEnum;
 use App\Enum\PlatformRequirementsLevelEnum;
 use App\Enum\StatusEnum;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Cache\CacheItemPoolInterface;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -42,6 +43,7 @@ abstract class ApiTestCase extends WebTestCase
         $this->entityManager = static::getContainer()->get(EntityManagerInterface::class);
 
         $this->assertUsingTestDatabase();
+        $this->clearRateLimiterState();
         $this->seedBaseData();
     }
 
@@ -151,6 +153,18 @@ abstract class ApiTestCase extends WebTestCase
 
         if ($databaseName !== 'grem_test') {
             self::fail(sprintf('Refusing to use non-test database "%s".', (string) $databaseName));
+        }
+    }
+
+    private function clearRateLimiterState(): void
+    {
+        if (!static::getContainer()->has('cache.rate_limiter')) {
+            return;
+        }
+
+        $cache = static::getContainer()->get('cache.rate_limiter');
+        if ($cache instanceof CacheItemPoolInterface) {
+            $cache->clear();
         }
     }
 

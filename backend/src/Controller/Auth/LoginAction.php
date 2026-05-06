@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\RateLimiter\RateLimiterFactory;
 use Symfony\Component\Routing\Annotation\Route;
 use OpenApi\Attributes as OA;
 
@@ -22,7 +23,8 @@ class LoginAction extends AbstractController
         private readonly UserPasswordHasherInterface $passwordHasher,
         private readonly EntityManagerInterface $entityManager,
         private readonly CsrfTokenManager $csrfTokenManager,
-        private readonly bool $sessionCookieSecure
+        private readonly bool $sessionCookieSecure,
+        private readonly RateLimiterFactory $loginLimiter
     ) {}
 
     #[OA\Post(
@@ -78,6 +80,13 @@ class LoginAction extends AbstractController
             return new JsonResponse(['error' => 'Missing credentials'], Response::HTTP_BAD_REQUEST);
         }
 
+        $limiter = $this->loginLimiter->create($this->createRateLimitKey($data['email'], $request));
+        $limit = $limiter->consume();
+
+        if (!$limit->isAccepted()) {
+            return new JsonResponse(['error' => 'Too many login attempts'], Response::HTTP_TOO_MANY_REQUESTS);
+        }
+
         $user = $this->entityManager->getRepository(User::class)
             ->findOneBy(['email' => $data['email']]);
 
@@ -85,6 +94,8 @@ class LoginAction extends AbstractController
         if (!$user || !$this->passwordHasher->isPasswordValid($user, $data['password'])) {
             return new JsonResponse(['error' => 'Invalid credentials'], Response::HTTP_UNAUTHORIZED);
         }
+
+        $limiter->reset();
 
         // Создание токена
         $tokenCreationResult = $this->tokenManager->createToken($user);
@@ -114,5 +125,13 @@ class LoginAction extends AbstractController
         );
 
         return $response;
+    }
+
+    private function createRateLimitKey(string $email, Request $request): string
+    {
+        $normalizedEmail = strtolower(trim($email));
+        $clientIp = $request->getClientIp() ?? 'unknown';
+
+        return hash('sha256', $normalizedEmail . '|' . $clientIp);
     }
 }
