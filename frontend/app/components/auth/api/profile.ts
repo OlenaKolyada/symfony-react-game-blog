@@ -1,10 +1,11 @@
 // app/components/auth/api/profile.ts
 
 import {User} from "@/app/lib/types";
-import { API_URL } from "@/app/lib/config"
+import { getBrowserApiUrl } from "@/app/lib/config"
 
 export async function profile(): Promise<User | null> {
-    const apiUrl = API_URL ? `${API_URL}/api/profile` : '/api/profile';
+    const apiBase = getBrowserApiUrl();
+    const apiUrl = apiBase ? `${apiBase}/api/profile` : '/api/profile';
     const response = await fetch(apiUrl, {
         credentials: 'include',
     });

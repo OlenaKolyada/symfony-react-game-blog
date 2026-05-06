@@ -1,10 +1,10 @@
 // app/lib/fetch/baseFetch.ts
-import { API_URL, API_CONFIG } from "@/app/lib/config";
+import { API_URL, API_CONFIG, getBrowserApiUrl } from "@/app/lib/config";
 
 export const getApiBase = () =>
     typeof window === 'undefined'
         ? (process.env.API_URL_INTERNAL || API_URL || '')
-        : (API_URL || '');
+        : getBrowserApiUrl();
 
 export async function baseFetch<T>(
     endpoint: string,

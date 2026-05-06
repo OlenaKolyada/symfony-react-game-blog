@@ -1,6 +1,6 @@
 // app/components/auth/api/login.ts
 
-import { API_URL } from "@/app/lib/config";
+import { getBrowserApiUrl } from "@/app/lib/config";
 
 interface LoginCredentials {
     email: string;
@@ -8,7 +8,8 @@ interface LoginCredentials {
 }
 
 export async function login(credentials: LoginCredentials): Promise<{ message: string }> {
-    const apiUrl = API_URL ? `${API_URL}/api/login` : '/api/login';
+    const apiBase = getBrowserApiUrl();
+    const apiUrl = apiBase ? `${apiBase}/api/login` : '/api/login';
     const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {

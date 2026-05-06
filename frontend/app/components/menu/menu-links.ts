@@ -9,17 +9,8 @@ type Link = {
 
 export const navLinks: Link[] = [
     { name: 'News', href: '/news' },
-    { name: 'News Draft', href: '/news?status=Draft' },
-    { name: 'News Archived', href: '/news?status=Archived' },
-    { name: 'News Deleted', href: '/news?status=Deleted' },
     { name: 'Reviews', href: '/review' },
-    { name: 'Reviews Draft', href: '/review?status=Draft' },
-    { name: 'Reviews Archived', href: '/review?status=Archived' },
-    { name: 'Reviews Deleted', href: '/review?status=Deleted' },
-    { name: 'Games', href: '/game' },
-    { name: 'Games Draft', href: '/game?status=Draft' },
-    { name: 'Games Archived', href: '/game?status=Archived' },
-    { name: 'Games Deleted', href: '/game?status=Deleted' }
+    { name: 'Games', href: '/game' }
 ];
 
 export const adminLinks: Link[] = [

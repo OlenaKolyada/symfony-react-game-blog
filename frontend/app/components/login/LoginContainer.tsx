@@ -20,8 +20,10 @@ export function LoginContainer() {
         try {
             await login(email, password);
             router.push('/profile');
-        } catch {
-            setError('Invalid email or password');
+        } catch (error) {
+            const message = error instanceof Error ? error.message : 'Login failed';
+
+            setError(message === 'Invalid credentials' ? 'Invalid email or password' : message);
         }
     }
 

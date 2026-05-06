@@ -1,10 +1,11 @@
 // app/components/auth/api/logout.ts
 
-import { API_URL } from "@/app/lib/config";
+import { getBrowserApiUrl } from "@/app/lib/config";
 import { getCsrfHeaders } from "@/app/lib/csrf";
 
 export async function logout(): Promise<{ message: string }> {
-    const apiUrl = API_URL ? `${API_URL}/api/logout` : '/api/logout';
+    const apiBase = getBrowserApiUrl();
+    const apiUrl = apiBase ? `${apiBase}/api/logout` : '/api/logout';
     const response = await fetch(apiUrl, {
         method: 'POST',
         credentials: 'include',

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { getBrowserApiUrl } from "@/app/lib/config";
 
 interface TwitchAccountProps {
     twitchUrl?: string | null;
@@ -7,6 +8,8 @@ interface TwitchAccountProps {
 
 export function TwitchAccount({ twitchUrl, className = "mt-3" }: TwitchAccountProps) {
     if (!twitchUrl) return null;
+
+    const apiBase = getBrowserApiUrl();
 
     return (
         <p className={className}>
@@ -17,7 +20,7 @@ export function TwitchAccount({ twitchUrl, className = "mt-3" }: TwitchAccountPr
                 className="inline-block"
             >
                 <Image
-                    src="/uploads/images/assets/twitch-logo.png"
+                    src={`${apiBase}/uploads/images/assets/twitch-logo.png`}
                     alt="User Twitch Account"
                     width={50}
                     height={69}
